@@ -3,19 +3,19 @@ package univ.max.kursova.controller.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import univ.max.kursova.model.Workshop;
-import univ.max.kursova.service.workshop.impls.WorkshopServiceImpl;
+import univ.max.kursova.model.Brigade;
+import univ.max.kursova.service.brigade.impls.BrigadeServiceImpl;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/web/Workshop")
-public class WorkshopController {
+@RequestMapping("/web/Brigade")
+public class BrigadeWebRestController {
     @Autowired
-    WorkshopServiceImpl workshopService;
+    BrigadeServiceImpl brigadeService;
 
     @RequestMapping("/list")
-    List<Workshop> getAll() {
-        return workshopService.getAll();
+    List<Brigade> getAll() {
+        return brigadeService.getAll();
     }
 }

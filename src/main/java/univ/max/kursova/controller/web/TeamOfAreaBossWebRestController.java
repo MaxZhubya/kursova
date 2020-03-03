@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/web/TeamOfAreaBoss")
-public class TeamOfAreaBossController {
+public class TeamOfAreaBossWebRestController {
     @Autowired
     TeamOfAreaBossServiceImpl teamOfAreaBossService;
 

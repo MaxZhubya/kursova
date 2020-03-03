@@ -7,7 +7,7 @@ import univ.max.kursova.service.product.impls.ProductServiceImpl;
 
 import java.util.List;
 
-public class ProductController {
+public class ProductWebRestController {
     @Autowired
     ProductServiceImpl productService;
 

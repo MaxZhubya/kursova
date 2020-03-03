@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/web/TechnicalPersonal")
-public class TechPersonalController {
+public class TechPersonalWebRestController {
 
     @Autowired
     TechPersonalServiceImpl techPersonalService;

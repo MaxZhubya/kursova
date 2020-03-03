@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/web/EquipmentForLaboratory")
-public class EquipForLabController {
+public class EquipForLabWebRestController {
     @Autowired
     EquipForLabServiceImpl equipForLabService;
 
