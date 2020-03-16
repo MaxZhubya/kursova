@@ -1,12 +1,18 @@
 package univ.max.kursova.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import univ.max.kursova.model.enums.PersonalType;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
+@Document
 public class TechnicalPersonal {
+    @Id
     private long id_tech_personal;
+
     private String personalName;
     private PersonalType personalType;
 

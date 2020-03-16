@@ -1,4 +1,4 @@
-package univ.max.kursova.controller.web;
+package univ.max.kursova.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,8 +9,8 @@ import univ.max.kursova.service.area.impls.AreaServiceImpl;
 import java.util.List;
 
 @RestController
-@RequestMapping("/web/Area")
-public class AreaWebRestController {
+@RequestMapping("/api/Area")
+public class AreaApiRestController {
     @Autowired
     AreaServiceImpl areaService;
 

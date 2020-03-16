@@ -15,7 +15,11 @@ public class DataSet {
             new TechnicalPersonal(1, "Vasya Pupkin", PersonalType.ENGINEER,
                     LocalDateTime.now(), LocalDateTime.now(), "First tech. person"),
             new TechnicalPersonal(2, "Alexander Mell", PersonalType.SBORSCHIK,
-                    LocalDateTime.now(), LocalDateTime.now(), "Second tech. person")
+                    LocalDateTime.now(), LocalDateTime.now(), "Second tech. person"),
+            new TechnicalPersonal(3, "Valera Demitrow", PersonalType.SLUSAR,
+                                  LocalDateTime.now(), LocalDateTime.now(), "Third tech. person"),
+            new TechnicalPersonal(4, "Sergey Lans", PersonalType.SVARSCHIK,
+                                  LocalDateTime.now(), LocalDateTime.now(), "Fourth tech. person")
     ));
 
     public List<TechnicalPersonal> getTechnicalPersonalList() {

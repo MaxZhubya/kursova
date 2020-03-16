@@ -1,4 +1,4 @@
-package univ.max.kursova.controller.web;
+package univ.max.kursova.controller.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,8 +9,8 @@ import univ.max.kursova.service.laboratory.impls.LaboratoryServiceImpl;
 import java.util.List;
 
 @RestController
-@RequestMapping("/web/Laboratory")
-public class LaboratoryWebRestController {
+@RequestMapping("/api/Laboratory")
+public class LaboratoryApiRestController {
     @Autowired
     LaboratoryServiceImpl laboratoryService;
 
