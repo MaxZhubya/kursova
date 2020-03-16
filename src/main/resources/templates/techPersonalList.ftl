@@ -27,7 +27,7 @@
                 <td>${TechnicalPersonal.personalName}</td>
                 <td>${TechnicalPersonal.personalType}</td>
                 <td>${TechnicalPersonal.description}</td>
-                <td><button>Delete</button></td>
+                <td><a href="delete/${TechnicalPersonal.id_tech_personal}"><button>Delete</button></a></td>
                 <td><button>Edit</button></td>
             </tr>
         </#list>
