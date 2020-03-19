@@ -1,11 +1,17 @@
 package univ.max.kursova.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+@Document
 public class Workshop {
+    @Id
     private Long idWorkshop;
+
     private String definition;
     private List<Area> areaList;
     private List<Laboratory> laboratoryList;
@@ -14,6 +20,16 @@ public class Workshop {
     private LocalDateTime dateModified;
 
     public Workshop() {
+    }
+
+    public Workshop(Long idWorkshop, String definition, List<Area> areaList, List<Laboratory> laboratoryList,
+                    LocalDateTime dateCreated, LocalDateTime dateModified) {
+        this.idWorkshop = idWorkshop;
+        this.definition = definition;
+        this.areaList = areaList;
+        this.laboratoryList = laboratoryList;
+        this.dateCreated = dateCreated;
+        this.dateModified = dateModified;
     }
 
     public Long getIdWorkshop() {

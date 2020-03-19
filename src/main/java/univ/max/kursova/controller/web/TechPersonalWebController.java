@@ -21,7 +21,7 @@ public class TechPersonalWebController {
     }
 
     @RequestMapping("/delete/{id}")
-    String delete(Model model, @PathVariable("id") long id) {
+    String delete(Model model, @PathVariable("id") Long id) {
         techPersonalService.delete(id);
         model.addAttribute("technicalPersonalList", techPersonalService.getAll());
         return "techPersonalList";

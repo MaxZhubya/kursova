@@ -1,16 +1,30 @@
 package univ.max.kursova.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Document
 public class EquipmentForLaboratory {
+    @Id
     private Long idEquipmentForLab;
+
     private String definition;
 
     private LocalDateTime dateCreated;
     private LocalDateTime dateModified;
 
     public EquipmentForLaboratory() {
+    }
+
+    public EquipmentForLaboratory(Long idEquipmentForLab, String definition,
+                                  LocalDateTime dateCreated, LocalDateTime dateModified) {
+        this.idEquipmentForLab = idEquipmentForLab;
+        this.definition = definition;
+        this.dateCreated = dateCreated;
+        this.dateModified = dateModified;
     }
 
     public Long getIdEquipmentForLab() {

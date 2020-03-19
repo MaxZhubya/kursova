@@ -1,12 +1,17 @@
 package univ.max.kursova.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import univ.max.kursova.model.enums.PersonalType;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Document
 public class Worker {
+    @Id
     private Long idWorker;
+
     private String workerName;
     private PersonalType workerType;
 
@@ -14,6 +19,15 @@ public class Worker {
     private LocalDateTime dateModified;
 
     public Worker() {
+    }
+
+    public Worker(Long idWorker, String workerName, PersonalType workerType,
+                  LocalDateTime dateCreated, LocalDateTime dateModified) {
+        this.idWorker = idWorker;
+        this.workerName = workerName;
+        this.workerType = workerType;
+        this.dateCreated = dateCreated;
+        this.dateModified = dateModified;
     }
 
     public Long getIdWorker() {

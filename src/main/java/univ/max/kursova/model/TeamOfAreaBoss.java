@@ -1,11 +1,17 @@
 package univ.max.kursova.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
+@Document
 public class TeamOfAreaBoss {
+    @Id
     private Long idTeam;
+
     private TechnicalPersonal boss;
     private List<TechnicalPersonal> technicalPersonalList;
 
@@ -13,6 +19,15 @@ public class TeamOfAreaBoss {
     private LocalDateTime dateModified;
 
     public TeamOfAreaBoss() {
+    }
+
+    public TeamOfAreaBoss(Long idTeam, TechnicalPersonal boss, List<TechnicalPersonal> technicalPersonalList,
+                          LocalDateTime dateCreated, LocalDateTime dateModified) {
+        this.idTeam = idTeam;
+        this.boss = boss;
+        this.technicalPersonalList = technicalPersonalList;
+        this.dateCreated = dateCreated;
+        this.dateModified = dateModified;
     }
 
     public Long getIdTeam() {

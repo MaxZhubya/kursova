@@ -1,13 +1,18 @@
 package univ.max.kursova.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 import univ.max.kursova.model.enums.ProductCategory;
 import univ.max.kursova.model.enums.ProductType;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Document
 public class Product {
+    @Id
     private Long idProduct;
+
     private ProductCategory category;
     private ProductType type;
     private Area currentArea;
@@ -17,6 +22,17 @@ public class Product {
     private LocalDateTime dateModified;
 
     public Product() {
+    }
+
+    public Product(Long idProduct, ProductCategory category, ProductType type, Area currentArea,
+                   Laboratory currentLaboratory, LocalDateTime dateCreated, LocalDateTime dateModified) {
+        this.idProduct = idProduct;
+        this.category = category;
+        this.type = type;
+        this.currentArea = currentArea;
+        this.currentLaboratory = currentLaboratory;
+        this.dateCreated = dateCreated;
+        this.dateModified = dateModified;
     }
 
     public Long getIdProduct() {
