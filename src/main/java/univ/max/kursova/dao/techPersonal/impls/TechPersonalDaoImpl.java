@@ -20,7 +20,8 @@ public class TechPersonalDaoImpl implements ITechPersonalDao {
 
     @Override
     public TechnicalPersonal save(TechnicalPersonal technicalPersonal) {
-        return null;
+        dataSet.getTechnicalPersonalList().add(technicalPersonal);
+        return technicalPersonal;
     }
 
     @Override

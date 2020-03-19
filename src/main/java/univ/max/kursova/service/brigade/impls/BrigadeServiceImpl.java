@@ -19,7 +19,7 @@ public class BrigadeServiceImpl implements IBrigadeService {
     }
 
     @Override
-    public Brigade get(long id) {
+    public Brigade get(Long id) {
         return null;
     }
 
@@ -29,7 +29,7 @@ public class BrigadeServiceImpl implements IBrigadeService {
     }
 
     @Override
-    public Brigade delete(long id) {
+    public Brigade delete(Long id) {
         return null;
     }
 

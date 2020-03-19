@@ -19,7 +19,7 @@ public class LaboratoryServiceImpl implements ILaboratoryService {
     }
 
     @Override
-    public Laboratory get(long id) {
+    public Laboratory get(Long id) {
         return null;
     }
 
@@ -29,7 +29,7 @@ public class LaboratoryServiceImpl implements ILaboratoryService {
     }
 
     @Override
-    public Laboratory delete(long id) {
+    public Laboratory delete(Long id) {
         return null;
     }
 

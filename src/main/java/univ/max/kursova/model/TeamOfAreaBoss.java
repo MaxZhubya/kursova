@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class TeamOfAreaBoss {
-    private long id_team;
+    private Long idTeam;
     private TechnicalPersonal boss;
     private List<TechnicalPersonal> technicalPersonalList;
 
@@ -15,12 +15,12 @@ public class TeamOfAreaBoss {
     public TeamOfAreaBoss() {
     }
 
-    public long getId_team() {
-        return id_team;
+    public Long getIdTeam() {
+        return idTeam;
     }
 
-    public void setId_team(long id_team) {
-        this.id_team = id_team;
+    public void setIdTeam(Long idTeam) {
+        this.idTeam = idTeam;
     }
 
     public TechnicalPersonal getBoss() {
@@ -60,11 +60,11 @@ public class TeamOfAreaBoss {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TeamOfAreaBoss that = (TeamOfAreaBoss) o;
-        return getId_team() == that.getId_team();
+        return getIdTeam() == that.getIdTeam();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_team());
+        return Objects.hash(getIdTeam());
     }
 }

@@ -19,7 +19,7 @@ public class WorkshopServiceImpl implements IWorkshopService {
     }
 
     @Override
-    public Workshop get(long id) {
+    public Workshop get(Long id) {
         return null;
     }
 
@@ -29,7 +29,7 @@ public class WorkshopServiceImpl implements IWorkshopService {
     }
 
     @Override
-    public Workshop delete(long id) {
+    public Workshop delete(Long id) {
         return null;
     }
 

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Laboratory {
-    private long id_laboratory;
+    private Long idLaboratory;
     private String definition;
     private List<EquipmentForLaboratory> equipmentForLaboratoryList;
 
@@ -15,12 +15,12 @@ public class Laboratory {
     public Laboratory() {
     }
 
-    public long getId_laboratory() {
-        return id_laboratory;
+    public Long getIdLaboratory() {
+        return idLaboratory;
     }
 
-    public void setId_laboratory(long id_laboratory) {
-        this.id_laboratory = id_laboratory;
+    public void setIdLaboratory(Long idLaboratory) {
+        this.idLaboratory = idLaboratory;
     }
 
     public String getDefinition() {
@@ -60,11 +60,11 @@ public class Laboratory {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Laboratory that = (Laboratory) o;
-        return getId_laboratory() == that.getId_laboratory();
+        return getIdLaboratory() == that.getIdLaboratory();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_laboratory());
+        return Objects.hash(getIdLaboratory());
     }
 }

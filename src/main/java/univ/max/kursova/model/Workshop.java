@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Workshop {
-    private long id_workshop;
+    private Long idWorkshop;
     private String definition;
     private List<Area> areaList;
     private List<Laboratory> laboratoryList;
@@ -16,12 +16,12 @@ public class Workshop {
     public Workshop() {
     }
 
-    public long getId_workshop() {
-        return id_workshop;
+    public Long getIdWorkshop() {
+        return idWorkshop;
     }
 
-    public void setId_workshop(long id_workshop) {
-        this.id_workshop = id_workshop;
+    public void setIdWorkshop(Long idWorkshop) {
+        this.idWorkshop = idWorkshop;
     }
 
     public String getDefinition() {
@@ -69,11 +69,11 @@ public class Workshop {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Workshop workshop = (Workshop) o;
-        return getId_workshop() == workshop.getId_workshop();
+        return getIdWorkshop() == workshop.getIdWorkshop();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_workshop());
+        return Objects.hash(getIdWorkshop());
     }
 }

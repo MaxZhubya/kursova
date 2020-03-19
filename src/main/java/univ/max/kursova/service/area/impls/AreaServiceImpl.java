@@ -19,7 +19,7 @@ public class AreaServiceImpl implements IAreaService {
     }
 
     @Override
-    public Area get(long id) {
+    public Area get(Long id) {
         return null;
     }
 
@@ -29,7 +29,7 @@ public class AreaServiceImpl implements IAreaService {
     }
 
     @Override
-    public Area delete(long id) {
+    public Area delete(Long id) {
         return null;
     }
 

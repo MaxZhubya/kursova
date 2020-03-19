@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class EquipmentForLaboratory {
-    private long id_equipmentForLab;
+    private Long idEquipmentForLab;
     private String definition;
 
     private LocalDateTime dateCreated;
@@ -13,12 +13,12 @@ public class EquipmentForLaboratory {
     public EquipmentForLaboratory() {
     }
 
-    public long getId_equipmentForLab() {
-        return id_equipmentForLab;
+    public Long getIdEquipmentForLab() {
+        return idEquipmentForLab;
     }
 
-    public void setId_equipmentForLab(long id_equipmentForLab) {
-        this.id_equipmentForLab = id_equipmentForLab;
+    public void setIdEquipmentForLab(Long idEquipmentForLab) {
+        this.idEquipmentForLab = idEquipmentForLab;
     }
 
     public String getDefinition() {
@@ -50,11 +50,11 @@ public class EquipmentForLaboratory {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EquipmentForLaboratory that = (EquipmentForLaboratory) o;
-        return getId_equipmentForLab() == that.getId_equipmentForLab();
+        return getIdEquipmentForLab() == that.getIdEquipmentForLab();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_equipmentForLab());
+        return Objects.hash(getIdEquipmentForLab());
     }
 }

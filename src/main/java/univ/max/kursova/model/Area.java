@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Area {
-    private long id_area;
+    private Long idArea;
     private List<TeamOfAreaBoss> teamOfAreaBossList;
     private String definition;
 
@@ -15,12 +15,12 @@ public class Area {
     public Area() {
     }
 
-    public long getId_area() {
-        return id_area;
+    public Long getIdArea() {
+        return idArea;
     }
 
-    public void setId_area(int id_area) {
-        this.id_area = id_area;
+    public void setIdArea(Long idArea) {
+        this.idArea = idArea;
     }
 
     public List<TeamOfAreaBoss> getTeamOfAreaBossList() {
@@ -60,11 +60,11 @@ public class Area {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Area area = (Area) o;
-        return getId_area() == area.getId_area();
+        return getIdArea() == area.getIdArea();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_area());
+        return Objects.hash(getIdArea());
     }
 }
