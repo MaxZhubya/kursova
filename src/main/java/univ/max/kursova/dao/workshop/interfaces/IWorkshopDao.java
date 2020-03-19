@@ -7,8 +7,8 @@ import java.util.List;
 public interface IWorkshopDao {
     //  CRUD
     Workshop save(Workshop workshop);        // Create
-    Workshop get(long id);             // Read
+    Workshop get(Long id);             // Read
     Workshop edit(Workshop workshop);        // Update
-    Workshop delete(long id);          // Delete
+    Workshop delete(Long id);          // Delete
     List<Workshop> getAll();
 }

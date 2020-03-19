@@ -14,7 +14,7 @@ public class TeamOfAreaBossDaoImpl implements ITeamOfAreaBossDao {
     }
 
     @Override
-    public TeamOfAreaBoss get(long id) {
+    public TeamOfAreaBoss get(Long id) {
         return null;
     }
 
@@ -24,7 +24,7 @@ public class TeamOfAreaBossDaoImpl implements ITeamOfAreaBossDao {
     }
 
     @Override
-    public TeamOfAreaBoss delete(long id) {
+    public TeamOfAreaBoss delete(Long id) {
         return null;
     }
 

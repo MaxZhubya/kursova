@@ -7,8 +7,8 @@ import java.util.List;
 public interface ILaboratoryDao {
     //  CRUD
     Laboratory save(Laboratory laboratory);        // Create
-    Laboratory get(long id);             // Read
+    Laboratory get(Long id);             // Read
     Laboratory edit(Laboratory laboratory);        // Update
-    Laboratory delete(long id);          // Delete
+    Laboratory delete(Long id);          // Delete
     List<Laboratory> getAll();
 }

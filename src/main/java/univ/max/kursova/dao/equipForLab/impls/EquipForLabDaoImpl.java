@@ -14,7 +14,7 @@ public class EquipForLabDaoImpl implements IEquipForLabDao {
     }
 
     @Override
-    public EquipmentForLaboratory get(long id) {
+    public EquipmentForLaboratory get(Long id) {
         return null;
     }
 
@@ -24,7 +24,7 @@ public class EquipForLabDaoImpl implements IEquipForLabDao {
     }
 
     @Override
-    public EquipmentForLaboratory delete(long id) {
+    public EquipmentForLaboratory delete(Long id) {
         return null;
     }
 

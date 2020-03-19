@@ -12,13 +12,13 @@ import java.util.List;
 @Component
 public class DataSet {
     private List<TechnicalPersonal> technicalPersonalList = new ArrayList<>(Arrays.asList(
-            new TechnicalPersonal(1, "Vasya Pupkin", PersonalType.ENGINEER,
+            new TechnicalPersonal((long) 1, "Vasya Pupkin", PersonalType.ENGINEER,
                     LocalDateTime.now(), LocalDateTime.now(), "First tech. person"),
-            new TechnicalPersonal(2, "Alexander Mell", PersonalType.SBORSCHIK,
+            new TechnicalPersonal((long) 2, "Alexander Mell", PersonalType.SBORSCHIK,
                     LocalDateTime.now(), LocalDateTime.now(), "Second tech. person"),
-            new TechnicalPersonal(3, "Valera Demitrow", PersonalType.SLUSAR,
+            new TechnicalPersonal((long) 3, "Valera Demitrow", PersonalType.SLUSAR,
                                   LocalDateTime.now(), LocalDateTime.now(), "Third tech. person"),
-            new TechnicalPersonal(4, "Sergey Lans", PersonalType.SVARSCHIK,
+            new TechnicalPersonal((long) 4, "Sergey Lans", PersonalType.SVARSCHIK,
                                   LocalDateTime.now(), LocalDateTime.now(), "Fourth tech. person")
     ));
 

@@ -19,7 +19,7 @@ public class EquipForLabServiceImpl implements IEquipForLabService {
     }
 
     @Override
-    public EquipmentForLaboratory get(long id) {
+    public EquipmentForLaboratory get(Long id) {
         return null;
     }
 
@@ -29,7 +29,7 @@ public class EquipForLabServiceImpl implements IEquipForLabService {
     }
 
     @Override
-    public EquipmentForLaboratory delete(long id) {
+    public EquipmentForLaboratory delete(Long id) {
         return null;
     }
 

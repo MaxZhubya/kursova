@@ -14,7 +14,7 @@ public class WorkerDaoImpl implements IWorkerDao {
     }
 
     @Override
-    public Worker get(long id) {
+    public Worker get(Long id) {
         return null;
     }
 
@@ -24,7 +24,7 @@ public class WorkerDaoImpl implements IWorkerDao {
     }
 
     @Override
-    public Worker delete(long id) {
+    public Worker delete(Long id) {
         return null;
     }
 

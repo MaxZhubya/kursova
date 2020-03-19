@@ -23,11 +23,11 @@
         </tr>
         <#list technicalPersonalList as TechnicalPersonal>
             <tr>
-                <td>${TechnicalPersonal.id_tech_personal}</td>
+                <td>${TechnicalPersonal.idTechPersonal}</td>
                 <td>${TechnicalPersonal.personalName}</td>
                 <td>${TechnicalPersonal.personalType}</td>
                 <td>${TechnicalPersonal.description}</td>
-                <td><a href="delete/${TechnicalPersonal.id_tech_personal}"><button>Delete</button></a></td>
+                <td><a href="delete/${TechnicalPersonal.idTechPersonal}"><button>Delete</button></a></td>
                 <td><button>Edit</button></td>
             </tr>
         </#list>

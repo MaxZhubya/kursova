@@ -14,7 +14,7 @@ public class ProductDaoImpl implements IProductDao {
     }
 
     @Override
-    public Product get(long id) {
+    public Product get(Long id) {
         return null;
     }
 
@@ -24,7 +24,7 @@ public class ProductDaoImpl implements IProductDao {
     }
 
     @Override
-    public Product delete(long id) {
+    public Product delete(Long id) {
         return null;
     }
 

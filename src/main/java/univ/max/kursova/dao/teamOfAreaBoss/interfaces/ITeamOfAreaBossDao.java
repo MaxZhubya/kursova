@@ -7,8 +7,8 @@ import java.util.List;
 public interface ITeamOfAreaBossDao {
     //  CRUD
     TeamOfAreaBoss save(TeamOfAreaBoss teamOfAreaBoss);        // Create
-    TeamOfAreaBoss get(long id);             // Read
+    TeamOfAreaBoss get(Long id);             // Read
     TeamOfAreaBoss edit(TeamOfAreaBoss teamOfAreaBoss);        // Update
-    TeamOfAreaBoss delete(long id);          // Delete
+    TeamOfAreaBoss delete(Long id);          // Delete
     List<TeamOfAreaBoss> getAll();
 }

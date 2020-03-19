@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Worker {
-    private long id_worker;
+    private Long idWorker;
     private String workerName;
     private PersonalType workerType;
 
@@ -16,12 +16,12 @@ public class Worker {
     public Worker() {
     }
 
-    public long getId_worker() {
-        return id_worker;
+    public Long getIdWorker() {
+        return idWorker;
     }
 
-    public void setId_worker(long id_worker) {
-        this.id_worker = id_worker;
+    public void setIdWorker(Long idWorker) {
+        this.idWorker = idWorker;
     }
 
     public String getWorkerName() {
@@ -61,11 +61,11 @@ public class Worker {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Worker worker = (Worker) o;
-        return getId_worker() == worker.getId_worker();
+        return getIdWorker() == worker.getIdWorker();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_worker());
+        return Objects.hash(getIdWorker());
     }
 }

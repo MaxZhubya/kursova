@@ -5,13 +5,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import univ.max.kursova.model.enums.PersonalType;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 
 @Document
 public class TechnicalPersonal {
     @Id
-    private long id_tech_personal;
+    private Long idTechPersonal;
 
     private String personalName;
     private PersonalType personalType;
@@ -23,9 +22,9 @@ public class TechnicalPersonal {
     public TechnicalPersonal() {
     }
 
-    public TechnicalPersonal(long id_tech_personal, String personalName, PersonalType personalType,
+    public TechnicalPersonal(Long id_tech_personal, String personalName, PersonalType personalType,
                              LocalDateTime dateCreated, LocalDateTime dateModified, String description) {
-        this.id_tech_personal = id_tech_personal;
+        this.idTechPersonal = id_tech_personal;
         this.personalName = personalName;
         this.personalType = personalType;
         this.dateCreated = dateCreated;
@@ -33,12 +32,12 @@ public class TechnicalPersonal {
         this.description = description;
     }
 
-    public long getId_tech_personal() {
-        return id_tech_personal;
+    public Long getIdTechPersonal() {
+        return idTechPersonal;
     }
 
-    public void setId_tech_personal(long id_tech_personal) {
-        this.id_tech_personal = id_tech_personal;
+    public void setIdTechPersonal(Long idTechPersonal) {
+        this.idTechPersonal = idTechPersonal;
     }
 
     public String getPersonalName() {
@@ -86,11 +85,11 @@ public class TechnicalPersonal {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TechnicalPersonal that = (TechnicalPersonal) o;
-        return getId_tech_personal() == that.getId_tech_personal();
+        return getIdTechPersonal() == that.getIdTechPersonal();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_tech_personal());
+        return Objects.hash(getIdTechPersonal());
     }
 }

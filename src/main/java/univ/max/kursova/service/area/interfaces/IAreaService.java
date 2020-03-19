@@ -7,8 +7,8 @@ import java.util.List;
 public interface IAreaService {
     //  CRUD
     Area save(Area area);        // Create
-    Area get(long id);             // Read
+    Area get(Long id);             // Read
     Area edit(Area area);        // Update
-    Area delete(long id);          // Delete
+    Area delete(Long id);          // Delete
     List<Area> getAll();
 }

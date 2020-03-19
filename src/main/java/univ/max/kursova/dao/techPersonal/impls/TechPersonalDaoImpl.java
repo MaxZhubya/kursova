@@ -20,11 +20,12 @@ public class TechPersonalDaoImpl implements ITechPersonalDao {
 
     @Override
     public TechnicalPersonal save(TechnicalPersonal technicalPersonal) {
-        return null;
+        dataSet.getTechnicalPersonalList().add(technicalPersonal);
+        return technicalPersonal;
     }
 
     @Override
-    public TechnicalPersonal get(long id) {
+    public TechnicalPersonal get(Long id) {
         return null;
     }
 
@@ -34,7 +35,7 @@ public class TechPersonalDaoImpl implements ITechPersonalDao {
     }
 
     @Override
-    public TechnicalPersonal delete(long id) {
+    public TechnicalPersonal delete(Long id) {
         return null;
     }
 

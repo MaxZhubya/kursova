@@ -7,8 +7,8 @@ import java.util.List;
 public interface ITechPersonalDao {
     //  CRUD
     TechnicalPersonal save(TechnicalPersonal technicalPersonal);        // Create
-    TechnicalPersonal get(long id);                                   // Read
+    TechnicalPersonal get(Long id);                                   // Read
     TechnicalPersonal edit(TechnicalPersonal technicalPersonal);        // Update
-    TechnicalPersonal delete(long id);                                // Delete
+    TechnicalPersonal delete(Long id);                                // Delete
     List<TechnicalPersonal> getAll();
 }

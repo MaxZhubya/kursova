@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Product {
-    private long id_product;
+    private Long idProduct;
     private ProductCategory category;
     private ProductType type;
     private Area currentArea;
@@ -19,12 +19,12 @@ public class Product {
     public Product() {
     }
 
-    public long getId_product() {
-        return id_product;
+    public Long getIdProduct() {
+        return idProduct;
     }
 
-    public void setId_product(long id_product) {
-        this.id_product = id_product;
+    public void setIdProduct(Long idProduct) {
+        this.idProduct = idProduct;
     }
 
     public ProductCategory getCategory() {
@@ -80,11 +80,11 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return getId_product() == product.getId_product();
+        return getIdProduct() == product.getIdProduct();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_product());
+        return Objects.hash(getIdProduct());
     }
 }

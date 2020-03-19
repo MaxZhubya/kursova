@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Brigade {
-    private long id_brigade;
+    private Long idBrigade;
     private Worker brigadier;
     private List<Worker> workerList;
 
@@ -15,12 +15,12 @@ public class Brigade {
     public Brigade() {
     }
 
-    public long getId_brigade() {
-        return id_brigade;
+    public Long getIdBrigade() {
+        return idBrigade;
     }
 
-    public void setId_brigade(long id_brigade) {
-        this.id_brigade = id_brigade;
+    public void setIdBrigade(Long idBrigade) {
+        this.idBrigade = idBrigade;
     }
 
     public Worker getBrigadier() {
@@ -60,11 +60,11 @@ public class Brigade {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Brigade brigade = (Brigade) o;
-        return getId_brigade() == brigade.getId_brigade();
+        return getIdBrigade() == brigade.getIdBrigade();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_brigade());
+        return Objects.hash(getIdBrigade());
     }
 }
