@@ -1,16 +1,23 @@
 package univ.max.kursova.dao.brigade.impls;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import univ.max.kursova.dao.brigade.interfaces.IBrigadeDao;
+import univ.max.kursova.dataSet.DataSet;
 import univ.max.kursova.model.Brigade;
 
 import java.util.List;
 
 @Component
 public class BrigadeDaoImpl implements IBrigadeDao {
+
+    @Autowired
+    DataSet dataSet;
+
     @Override
-    public Brigade save(Brigade worker) {
-        return null;
+    public Brigade save(Brigade brigade) {
+        dataSet.getBrigadeList().add(brigade);
+        return brigade;
     }
 
     @Override
@@ -30,6 +37,6 @@ public class BrigadeDaoImpl implements IBrigadeDao {
 
     @Override
     public List<Brigade> getAll() {
-        return null;
+        return dataSet.getBrigadeList();
     }
 }
