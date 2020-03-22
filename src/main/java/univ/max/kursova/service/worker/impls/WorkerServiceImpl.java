@@ -16,9 +16,6 @@ public class WorkerServiceImpl implements IWorkerService {
     @Autowired
     WorkerRepository repository;
 
-    @Autowired
-    WorkerDaoImpl workerDao;
-
     @PostConstruct
     void init() {
         List<Worker> list = workerDao.getAll();
