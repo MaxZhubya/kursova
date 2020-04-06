@@ -1,19 +1,28 @@
 package univ.max.kursova.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-@Document
+@Document(collection = "teamsOfAreaBosses")
 public class TeamOfAreaBoss {
+
+    @Transient
+    public static final String SEQUENCE_NAME = "team_of_area_boss_sequence";
+
     @Id
     private Long idTeam;
 
-    private TechnicalPersonal boss;
+    @DBRef
     private List<TechnicalPersonal> technicalPersonalList;
+
+    @DBRef
+    private Area area;
 
     private LocalDateTime dateCreated;
     private LocalDateTime dateModified;
@@ -21,10 +30,9 @@ public class TeamOfAreaBoss {
     public TeamOfAreaBoss() {
     }
 
-    public TeamOfAreaBoss(Long idTeam, TechnicalPersonal boss, List<TechnicalPersonal> technicalPersonalList,
+    public TeamOfAreaBoss(Long idTeam, List<TechnicalPersonal> technicalPersonalList,
                           LocalDateTime dateCreated, LocalDateTime dateModified) {
         this.idTeam = idTeam;
-        this.boss = boss;
         this.technicalPersonalList = technicalPersonalList;
         this.dateCreated = dateCreated;
         this.dateModified = dateModified;
@@ -34,40 +42,45 @@ public class TeamOfAreaBoss {
         return idTeam;
     }
 
-    public void setIdTeam(Long idTeam) {
+    public TeamOfAreaBoss setIdTeam(Long idTeam) {
         this.idTeam = idTeam;
-    }
-
-    public TechnicalPersonal getBoss() {
-        return boss;
-    }
-
-    public void setBoss(TechnicalPersonal boss) {
-        this.boss = boss;
+        return this;
     }
 
     public List<TechnicalPersonal> getTechnicalPersonalList() {
         return technicalPersonalList;
     }
 
-    public void setTechnicalPersonalList(List<TechnicalPersonal> technicalPersonalList) {
+    public TeamOfAreaBoss setTechnicalPersonalList(List<TechnicalPersonal> technicalPersonalList) {
         this.technicalPersonalList = technicalPersonalList;
+        return this;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public TeamOfAreaBoss setArea(Area area) {
+        this.area = area;
+        return this;
     }
 
     public LocalDateTime getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(LocalDateTime dateCreated) {
+    public TeamOfAreaBoss setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
+        return this;
     }
 
     public LocalDateTime getDateModified() {
         return dateModified;
     }
 
-    public void setDateModified(LocalDateTime dateModified) {
+    public TeamOfAreaBoss setDateModified(LocalDateTime dateModified) {
         this.dateModified = dateModified;
+        return this;
     }
 
     @Override

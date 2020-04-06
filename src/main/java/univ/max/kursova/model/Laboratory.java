@@ -1,19 +1,34 @@
 package univ.max.kursova.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Document
+@Document(collection = "laboratories")
 public class Laboratory {
+
+    @Transient
+    public static final String SEQUENCE_NAME = "laboratories_sequence";
+
     @Id
     private Long idLaboratory;
 
-    private String definition;
+    @DBRef
     private List<EquipmentForLaboratory> equipmentForLaboratoryList;
+
+    @DBRef
+    private List<Product> productList;
+
+    @DBRef(lazy = true)
+    private List<Workshop> workshopList = new ArrayList<>();
+
+    private String definition;
 
     private LocalDateTime dateCreated;
     private LocalDateTime dateModified;
@@ -25,7 +40,7 @@ public class Laboratory {
                       LocalDateTime dateCreated, LocalDateTime dateModified) {
         this.idLaboratory = idLaboratory;
         this.definition = definition;
-        this.equipmentForLaboratoryList = equipmentForLaboratoryList;
+        //this.equipmentForLaboratoryList = equipmentForLaboratoryList;
         this.dateCreated = dateCreated;
         this.dateModified = dateModified;
     }
@@ -34,40 +49,63 @@ public class Laboratory {
         return idLaboratory;
     }
 
-    public void setIdLaboratory(Long idLaboratory) {
+    public Laboratory setIdLaboratory(Long idLaboratory) {
         this.idLaboratory = idLaboratory;
+        return this;
+    }
+
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public Laboratory setProductList(List<Product> productList) {
+        this.productList = productList;
+        return this;
+    }
+
+    public List<Workshop> getWorkshopList() {
+        return workshopList;
+    }
+
+    public Laboratory setWorkshopList(List<Workshop> workshopList) {
+        this.workshopList = workshopList;
+        return this;
     }
 
     public String getDefinition() {
         return definition;
     }
 
-    public void setDefinition(String definition) {
+    public Laboratory setDefinition(String definition) {
         this.definition = definition;
+        return this;
     }
 
     public List<EquipmentForLaboratory> getEquipmentForLaboratoryList() {
         return equipmentForLaboratoryList;
     }
 
-    public void setEquipmentForLaboratoryList(List<EquipmentForLaboratory> equipmentForLaboratoryList) {
+    public Laboratory setEquipmentForLaboratoryList(List<EquipmentForLaboratory> equipmentForLaboratoryList) {
         this.equipmentForLaboratoryList = equipmentForLaboratoryList;
+        return this;
     }
 
     public LocalDateTime getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(LocalDateTime dateCreated) {
+    public Laboratory setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
+        return this;
     }
 
     public LocalDateTime getDateModified() {
         return dateModified;
     }
 
-    public void setDateModified(LocalDateTime dateModified) {
+    public Laboratory setDateModified(LocalDateTime dateModified) {
         this.dateModified = dateModified;
+        return this;
     }
 
     @Override

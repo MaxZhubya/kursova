@@ -2,39 +2,43 @@ package univ.max.kursova.service.teamOfAreaBoss.impls;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import univ.max.kursova.dao.teamOfAreaBoss.impls.TeamOfAreaBossDaoImpl;
 import univ.max.kursova.model.TeamOfAreaBoss;
+import univ.max.kursova.repository.TeamOfAreaBossRepository;
+import univ.max.kursova.service.DataServiceImpl;
 import univ.max.kursova.service.teamOfAreaBoss.interfaces.ITeamOfAreaBossService;
 
 import java.util.List;
 
 @Service
 public class TeamOfAreaBossServiceImpl implements ITeamOfAreaBossService {
+
     @Autowired
-    TeamOfAreaBossDaoImpl teamOfAreaBossDao;
+    private TeamOfAreaBossRepository repository;
 
     @Override
     public TeamOfAreaBoss save(TeamOfAreaBoss teamOfAreaBoss) {
-        return null;
+        return repository.save(teamOfAreaBoss);
     }
 
     @Override
-    public TeamOfAreaBoss get(Long id) {
-        return null;
+    public TeamOfAreaBoss get(Long id) throws Exception {
+        return repository.findById(id).orElseThrow(() -> new Exception("Worker with is: "
+                + id.toString() + "is not existed"));
     }
 
     @Override
     public TeamOfAreaBoss edit(TeamOfAreaBoss teamOfAreaBoss) {
-        return null;
+        return repository.save(teamOfAreaBoss);
     }
 
     @Override
     public TeamOfAreaBoss delete(Long id) {
-        return null;
+        repository.deleteById(id);
+        return repository.findById(id).orElse(null);
     }
 
     @Override
     public List<TeamOfAreaBoss> getAll() {
-        return teamOfAreaBossDao.getAll();
+        return repository.findAll();
     }
 }

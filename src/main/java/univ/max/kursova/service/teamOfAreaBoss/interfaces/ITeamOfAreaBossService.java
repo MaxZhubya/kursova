@@ -7,7 +7,7 @@ import java.util.List;
 public interface ITeamOfAreaBossService {
     //  CRUD
     TeamOfAreaBoss save(TeamOfAreaBoss teamOfAreaBoss);        // Create
-    TeamOfAreaBoss get(Long id);             // Read
+    TeamOfAreaBoss get(Long id) throws Exception;             // Read
     TeamOfAreaBoss edit(TeamOfAreaBoss teamOfAreaBoss);        // Update
     TeamOfAreaBoss delete(Long id);          // Delete
     List<TeamOfAreaBoss> getAll();

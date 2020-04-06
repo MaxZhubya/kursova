@@ -7,7 +7,7 @@ import java.util.List;
 public interface IWorkshopService {
     //  CRUD
     Workshop save(Workshop workshop);        // Create
-    Workshop get(Long id);             // Read
+    Workshop get(Long id) throws Exception;             // Read
     Workshop edit(Workshop workshop);        // Update
     Workshop delete(Long id);          // Delete
     List<Workshop> getAll();

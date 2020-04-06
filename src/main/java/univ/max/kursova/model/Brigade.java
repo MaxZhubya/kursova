@@ -1,19 +1,28 @@
 package univ.max.kursova.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 
-@Document
+@Document(collection = "brigades")
 public class Brigade {
+
+    @Transient
+    public static final String SEQUENCE_NAME = "brigades_sequence";
+
     @Id
     private Long idBrigade;
 
-    private Worker brigadier;
+    @DBRef
     private List<Worker> workerList;
+
+    @DBRef
+    private Area area;
 
     private LocalDateTime dateCreated;
     private LocalDateTime dateModified;
@@ -21,10 +30,9 @@ public class Brigade {
     public Brigade() {
     }
 
-    public Brigade(Long idBrigade, Worker brigadier, List<Worker> workerList,
+    public Brigade(Long idBrigade, List<Worker> workerList,
                    LocalDateTime dateCreated, LocalDateTime dateModified) {
         this.idBrigade = idBrigade;
-        this.brigadier = brigadier;
         this.workerList = workerList;
         this.dateCreated = dateCreated;
         this.dateModified = dateModified;
@@ -34,40 +42,45 @@ public class Brigade {
         return idBrigade;
     }
 
-    public void setIdBrigade(Long idBrigade) {
+    public Brigade setIdBrigade(Long idBrigade) {
         this.idBrigade = idBrigade;
-    }
-
-    public Worker getBrigadier() {
-        return brigadier;
-    }
-
-    public void setBrigadier(Worker brigadier) {
-        this.brigadier = brigadier;
+        return this;
     }
 
     public List<Worker> getWorkerList() {
         return workerList;
     }
 
-    public void setWorkerList(List<Worker> workerList) {
+    public Brigade setWorkerList(List<Worker> workerList) {
         this.workerList = workerList;
+        return this;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public Brigade setArea(Area area) {
+        this.area = area;
+        return this;
     }
 
     public LocalDateTime getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(LocalDateTime dateCreated) {
+    public Brigade setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
+        return this;
     }
 
     public LocalDateTime getDateModified() {
         return dateModified;
     }
 
-    public void setDateModified(LocalDateTime dateModified) {
+    public Brigade setDateModified(LocalDateTime dateModified) {
         this.dateModified = dateModified;
+        return this;
     }
 
     @Override

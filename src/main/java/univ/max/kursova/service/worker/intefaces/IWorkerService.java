@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface IWorkerService {
     //  CRUD
-    Worker save(Worker worker);        // Create
-    Worker get(Long id);             // Read
-    Worker edit(Worker worker);        // Update
-    Worker delete(Long id);          // Delete
+    Worker save(Worker worker);             // Create
+    Worker get(Long id) throws Exception;   // Read
+    Worker edit(Worker worker);             // Update
+    Worker delete(Long id);                 // Delete
     List<Worker> getAll();
 }

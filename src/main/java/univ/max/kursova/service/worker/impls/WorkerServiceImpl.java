@@ -2,9 +2,10 @@ package univ.max.kursova.service.worker.impls;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import univ.max.kursova.dao.worker.impls.WorkerDaoImpl;
 import univ.max.kursova.model.Worker;
+import univ.max.kursova.model.sequence.DatabaseSequence;
 import univ.max.kursova.repository.WorkerRepository;
+import univ.max.kursova.service.DataServiceImpl;
 import univ.max.kursova.service.worker.intefaces.IWorkerService;
 
 import javax.annotation.PostConstruct;
@@ -14,29 +15,22 @@ import java.util.List;
 public class WorkerServiceImpl implements IWorkerService {
 
     @Autowired
-    WorkerRepository repository;
-
-    @PostConstruct
-    void init() {
-        List<Worker> list = workerDao.getAll();
-        repository.saveAll(list);
-    }
+    private WorkerRepository repository;
 
     @Override
     public Worker save(Worker worker) {
-//        return repository.save(worker);
-        return null;
+        return repository.save(worker);
     }
 
     @Override
-    public Worker get(Long id) {
-        return workerDao.getAll().stream().filter(item -> item.getIdWorker().equals(id)).findFirst()
-                .orElse(null);
+    public Worker get(Long id) throws Exception {
+        return repository.findById(id).orElseThrow(() -> new Exception("Worker with is: "
+                + id.toString() + "is not existed"));
     }
 
     @Override
     public Worker edit(Worker worker) {
-        return null;
+        return repository.save(worker);
     }
 
     @Override

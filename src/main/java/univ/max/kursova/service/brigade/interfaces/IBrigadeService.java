@@ -7,7 +7,7 @@ import java.util.List;
 public interface IBrigadeService {
     //  CRUD
     Brigade save(Brigade worker);        // Create
-    Brigade get(Long id);             // Read
+    Brigade get(Long id) throws Exception;             // Read
     Brigade edit(Brigade brigade);        // Update
     Brigade delete(Long id);          // Delete
     List<Brigade> getAll();

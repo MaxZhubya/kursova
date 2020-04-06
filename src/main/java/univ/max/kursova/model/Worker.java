@@ -1,19 +1,28 @@
 package univ.max.kursova.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
-import univ.max.kursova.model.enums.PersonalType;
+import univ.max.kursova.model.enums.WorkerType;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Document
+@Document(collection = "workers")
 public class Worker {
+
+    @Transient
+    public static final String SEQUENCE_NAME = "workers_sequence";
+
     @Id
     private Long idWorker;
 
+    @DBRef
+    private Brigade brigade;
+
     private String workerName;
-    private PersonalType workerType;
+    private WorkerType workerType;
 
     private LocalDateTime dateCreated;
     private LocalDateTime dateModified;
@@ -21,9 +30,10 @@ public class Worker {
     public Worker() {
     }
 
-    public Worker(Long idWorker, String workerName, PersonalType workerType,
+    public Worker(Long idWorker, Brigade brigade, String workerName, WorkerType workerType,
                   LocalDateTime dateCreated, LocalDateTime dateModified) {
         this.idWorker = idWorker;
+        this.brigade = brigade;
         this.workerName = workerName;
         this.workerType = workerType;
         this.dateCreated = dateCreated;
@@ -34,40 +44,53 @@ public class Worker {
         return idWorker;
     }
 
-    public void setIdWorker(Long idWorker) {
+    public Worker setIdWorker(Long idWorker) {
         this.idWorker = idWorker;
+        return this;
+    }
+
+    public Brigade getBrigade() {
+        return brigade;
+    }
+
+    public void setBrigade(Brigade brigade) {
+        this.brigade = brigade;
     }
 
     public String getWorkerName() {
         return workerName;
     }
 
-    public void setWorkerName(String workerName) {
+    public Worker setWorkerName(String workerName) {
         this.workerName = workerName;
+        return this;
     }
 
-    public PersonalType getWorkerType() {
+    public WorkerType getWorkerType() {
         return workerType;
     }
 
-    public void setWorkerType(PersonalType workerType) {
+    public Worker setWorkerType(WorkerType workerType) {
         this.workerType = workerType;
+        return this;
     }
 
     public LocalDateTime getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(LocalDateTime dateCreated) {
+    public Worker setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
+        return this;
     }
 
     public LocalDateTime getDateModified() {
         return dateModified;
     }
 
-    public void setDateModified(LocalDateTime dateModified) {
+    public Worker setDateModified(LocalDateTime dateModified) {
         this.dateModified = dateModified;
+        return this;
     }
 
     @Override

@@ -10,26 +10,38 @@
 </head>
 
 <body>
-<h3>Brigade list</h3>
-<div>
-    <table class="table table-sm table-dark" border="3", bgcolor="f0f8ff">
-        <tr>
-            <th>ID</th>
-            <th>Brigadier</th>
-            <th>Workers</th>
-            <th>Deleting</th>
-            <th>Editing</th>
-        </tr>
-        <#list brigadeList as Brigade>
+    <h3>Brigade list</h3>
+    <div>
+        <table class="table table-sm table-dark" border="3", bgcolor="f0f8ff">
             <tr>
-                <td>${Brigade.idBrigade}</td>
-                <td>${Brigade.brigadier}</td>
-                <td>${Brigade.workerList}</td>
-                <td><a href="delete/${Brigade.idBrigade}"><button>Delete</button></a></td>
-                <td><button>Edit</button></td>
+                <th>ID</th>
+                <th>Workers</th>
+                <th>Area</th>
+                <th>Deleting</th>
+                <th>Editing</th>
             </tr>
-        </#list>
-    </table>
-</div>
+                <#list brigadeList as Brigade>
+                    <tr>
+                        <td>${Brigade.idBrigade}</td>
+                        <td>
+                            <#if Brigade.workerList??>
+                                <tr>
+                                    <#list Brigade.workerList as Worker>
+                                        <td>${Worker.workerName}</td>
+                                    </#list>
+                                </tr>
+                            </#if>
+                        </td>
+                        <td>
+                            <#if Brigade.area??>
+                                ${Brigade.area.idArea}
+                            </#if>
+                        </td>
+                        <td><a href="delete/${Brigade.idBrigade}"><button>Delete</button></a></td>
+                        <td><button>Edit</button></td>
+                    </tr>
+                </#list>
+        </table>
+    </div>
 </body>
 </html>
