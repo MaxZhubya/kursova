@@ -2,13 +2,14 @@ package univ.max.kursova.service.area.impls;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import univ.max.kursova.model.Area;
+import univ.max.kursova.model.*;
 import univ.max.kursova.repository.AreaRepository;
 import univ.max.kursova.service.DataServiceImpl;
 import univ.max.kursova.service.area.interfaces.IAreaService;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AreaServiceImpl implements IAreaService {
@@ -28,8 +29,21 @@ public class AreaServiceImpl implements IAreaService {
     }
 
     @Override
-    public Area edit(Area area) {
-        return repository.save(area);
+    public Area edit(Long id, TeamOfAreaBoss teamOfAreaBoss, List<Brigade> brigadeList, List<Product> productList,
+                     Workshop workshop, String definition) throws Exception {
+        Optional<Area> optionalArea = repository.findById(id);
+
+        if (optionalArea.isPresent()) {
+            Area area = optionalArea.get();
+            area.setTeamOfAreaBoss(teamOfAreaBoss);
+            area.setBrigadeList(brigadeList);
+            area.setProductList(productList);
+            area.setWorkshop(workshop);
+            area.setDefinition(definition);
+            return repository.save(area);
+        } else {
+            throw new Exception("Current Area doesn't exist");
+        }
     }
 
     @Override

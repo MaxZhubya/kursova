@@ -3,10 +3,13 @@ package univ.max.kursova.service.equipForLabService.impls;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import univ.max.kursova.model.EquipmentForLaboratory;
+import univ.max.kursova.model.Laboratory;
+import univ.max.kursova.model.enums.EquipmentType;
 import univ.max.kursova.repository.EquipmentForLabRepository;
 import univ.max.kursova.service.equipForLabService.interfaces.IEquipForLabService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EquipForLabServiceImpl implements IEquipForLabService {
@@ -26,8 +29,18 @@ public class EquipForLabServiceImpl implements IEquipForLabService {
     }
 
     @Override
-    public EquipmentForLaboratory edit(EquipmentForLaboratory equipmentForLaboratory) {
-        return repository.save(equipmentForLaboratory);
+    public EquipmentForLaboratory edit(Long id, Laboratory laboratory, EquipmentType equipmentType, String definition) throws Exception {
+        Optional<EquipmentForLaboratory> optionalEquipment = repository.findById(id);
+
+        if (optionalEquipment.isPresent()) {
+            EquipmentForLaboratory equipmentForLaboratory = optionalEquipment.get();
+            equipmentForLaboratory.setLaboratory(laboratory);
+            equipmentForLaboratory.setEquipmentType(equipmentType);
+            equipmentForLaboratory.setDefinition(definition);
+            return repository.save(equipmentForLaboratory);
+        } else {
+            throw new Exception("Current EquipmentForLaboratory doesn't exist");
+        }
     }
 
     @Override

@@ -2,11 +2,15 @@ package univ.max.kursova.service.laboratory.impls;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import univ.max.kursova.model.EquipmentForLaboratory;
 import univ.max.kursova.model.Laboratory;
+import univ.max.kursova.model.Product;
+import univ.max.kursova.model.Workshop;
 import univ.max.kursova.repository.LaboratoryRepository;
 import univ.max.kursova.service.laboratory.interfaces.ILaboratoryService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LaboratoryServiceImpl implements ILaboratoryService {
@@ -26,8 +30,20 @@ public class LaboratoryServiceImpl implements ILaboratoryService {
     }
 
     @Override
-    public Laboratory edit(Laboratory laboratory) {
-        return repository.save(laboratory);
+    public Laboratory edit(Long id, List<EquipmentForLaboratory> equipmentForLabList,
+                           List<Product> productList, List<Workshop> workshopList, String definition) throws Exception {
+        Optional<Laboratory> optionalLaboratory = repository.findById(id);
+
+        if (optionalLaboratory.isPresent()) {
+            Laboratory laboratory = optionalLaboratory.get();
+            laboratory.setEquipmentForLaboratoryList(equipmentForLabList);
+            laboratory.setProductList(productList);
+            laboratory.setWorkshopList(workshopList);
+            laboratory.setDefinition(definition);
+            return repository.save(laboratory);
+        } else {
+            throw new Exception("Current Laboratory doesn't exist");
+        }
     }
 
     @Override
