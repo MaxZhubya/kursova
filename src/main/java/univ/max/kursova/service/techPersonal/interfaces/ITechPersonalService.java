@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface ITechPersonalService {
     //  CRUD
-    TechnicalPersonal save(TechnicalPersonal technicalPersonal);        // Create
+    TechnicalPersonal save(Long id, TeamOfAreaBoss teamOfAreaBoss, String personalName,
+                           TechPersonalType techPersonalType, String description);        // Create
     TechnicalPersonal get(Long id) throws Exception;                                   // Read
     TechnicalPersonal edit(Long id, TeamOfAreaBoss teamOfAreaBoss, String personalName,
                            TechPersonalType techPersonalType, String description) throws Exception;        // Update

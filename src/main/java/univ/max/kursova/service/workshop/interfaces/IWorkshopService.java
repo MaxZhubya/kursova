@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IWorkshopService {
     //  CRUD
-    Workshop save(Workshop workshop);        // Create
+    Workshop save(Long id, List<Area> areaList, List<Laboratory> laboratoryList, String definition);        // Create
     Workshop get(Long id) throws Exception;             // Read
     Workshop edit(Long id, List<Area> areaList, List<Laboratory> laboratoryList, String definition) throws Exception;   // Update
     Workshop delete(Long id);          // Delete

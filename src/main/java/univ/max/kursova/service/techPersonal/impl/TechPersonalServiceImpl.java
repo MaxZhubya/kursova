@@ -7,6 +7,7 @@ import univ.max.kursova.model.TechnicalPersonal;
 import univ.max.kursova.model.enums.TechPersonalType;
 import univ.max.kursova.repository.TechnicalPersonalRepository;
 import univ.max.kursova.service.DataServiceImpl;
+import univ.max.kursova.service.sequence.SequenceServiceImpl;
 import univ.max.kursova.service.techPersonal.interfaces.ITechPersonalService;
 
 import javax.annotation.PostConstruct;
@@ -17,11 +18,22 @@ import java.util.Optional;
 public class TechPersonalServiceImpl implements ITechPersonalService {
 
     @Autowired
+    private SequenceServiceImpl sequenceService;
+
+    private Long getId(String sequenceName) {
+        return sequenceService.generateSequence(sequenceName);
+    }
+/*------------------------------------------------------------------*/
+
+    @Autowired
     private TechnicalPersonalRepository repository;
 
     @Override
-    public TechnicalPersonal save(TechnicalPersonal technicalPersonal) {
-        return repository.save(technicalPersonal);
+    public TechnicalPersonal save(Long id, TeamOfAreaBoss teamOfAreaBoss, String personalName,
+                                  TechPersonalType techPersonalType, String description) {
+        return repository.save(new TechnicalPersonal().setIdTechPersonal(getId(TechnicalPersonal.SEQUENCE_NAME))
+                .setTeamOfAreaBoss(teamOfAreaBoss).setPersonalName(personalName)
+                .setPersonalType(techPersonalType).setDescription(description));
     }
 
     @Override

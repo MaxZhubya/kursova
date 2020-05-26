@@ -7,6 +7,7 @@ import univ.max.kursova.model.Laboratory;
 import univ.max.kursova.model.enums.EquipmentType;
 import univ.max.kursova.repository.EquipmentForLabRepository;
 import univ.max.kursova.service.equipForLabService.interfaces.IEquipForLabService;
+import univ.max.kursova.service.sequence.SequenceServiceImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,11 +16,20 @@ import java.util.Optional;
 public class EquipForLabServiceImpl implements IEquipForLabService {
 
     @Autowired
+    private SequenceServiceImpl sequenceService;
+
+    private Long getId(String sequenceName) {
+        return sequenceService.generateSequence(sequenceName);
+    }
+/*----------------------------------------------------*/
+
+    @Autowired
     private EquipmentForLabRepository repository;
 
     @Override
-    public EquipmentForLaboratory save(EquipmentForLaboratory equipmentForLaboratory) {
-        return repository.save(equipmentForLaboratory);
+    public EquipmentForLaboratory save(Long id, Laboratory laboratory, EquipmentType equipmentType, String definition) {
+        return repository.save(new EquipmentForLaboratory().setIdEquipmentForLab(getId(EquipmentForLaboratory.SEQUENCE_NAME))
+            .setLaboratory(laboratory).setEquipmentType(equipmentType).setDefinition(definition));
     }
 
     @Override

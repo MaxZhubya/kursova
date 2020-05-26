@@ -8,6 +8,7 @@ import univ.max.kursova.model.Worker;
 import univ.max.kursova.repository.BrigadeRepository;
 import univ.max.kursova.service.DataServiceImpl;
 import univ.max.kursova.service.brigade.interfaces.IBrigadeService;
+import univ.max.kursova.service.sequence.SequenceServiceImpl;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -17,11 +18,19 @@ import java.util.Optional;
 public class BrigadeServiceImpl implements IBrigadeService {
 
     @Autowired
+    private SequenceServiceImpl sequenceService;
+
+    private Long getId(String sequenceName) {
+        return sequenceService.generateSequence(sequenceName);
+    }
+/*---------------------------------------------------*/
+
+    @Autowired
     BrigadeRepository repository;
 
     @Override
-    public Brigade save(Brigade brigade) {
-        return repository.save(brigade);
+    public Brigade save(Long id, List<Worker> workerList, Area area) {
+        return repository.save(new Brigade().setIdBrigade(getId(Brigade.SEQUENCE_NAME)).setWorkerList(workerList).setArea(area));
     }
 
     @Override

@@ -9,6 +9,7 @@ import univ.max.kursova.model.enums.ProductCategory;
 import univ.max.kursova.model.enums.ProductType;
 import univ.max.kursova.repository.ProductRepository;
 import univ.max.kursova.service.product.interfaces.IProductService;
+import univ.max.kursova.service.sequence.SequenceServiceImpl;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,11 +18,21 @@ import java.util.Optional;
 public class ProductServiceImpl implements IProductService {
 
     @Autowired
+    private SequenceServiceImpl sequenceService;
+
+    private Long getId(String sequenceName) {
+        return sequenceService.generateSequence(sequenceName);
+    }
+/*----------------------------------------------------------------*/
+
+    @Autowired
     private ProductRepository repository;
 
     @Override
-    public Product save(Product product) {
-        return repository.save(product);
+    public Product save(Long id, Area currentArea, Laboratory currentLaboratory,
+                        ProductCategory category, ProductType type) {
+        return repository.save(new Product().setIdProduct(getId(Product.SEQUENCE_NAME)).setCurrentArea(currentArea)
+                .setCurrentLaboratory(currentLaboratory).setCategory(category).setType(type));
     }
 
     @Override

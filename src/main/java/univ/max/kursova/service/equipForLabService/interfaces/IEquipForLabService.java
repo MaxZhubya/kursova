@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IEquipForLabService {
     //  CRUD
-    EquipmentForLaboratory save(EquipmentForLaboratory equipmentForLaboratory);        // Create
+    EquipmentForLaboratory save(Long id, Laboratory laboratory, EquipmentType equipmentType, String definition);        // Create
     EquipmentForLaboratory get(Long id) throws Exception;             // Read
     EquipmentForLaboratory edit(Long id, Laboratory laboratory, EquipmentType equipmentType, String definition) throws Exception;        // Update
     EquipmentForLaboratory delete(Long id);          // Delete

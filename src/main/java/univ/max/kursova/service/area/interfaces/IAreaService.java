@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface IAreaService {
     //  CRUD
-    Area save(Area area);        // Create
+    Area save(Long id, TeamOfAreaBoss teamOfAreaBoss, List<Brigade> brigadeList, List<Product> productList,
+              Workshop workshop, String definition);        // Create
     Area get(Long id) throws Exception;             // Read
     Area edit(Long id, TeamOfAreaBoss teamOfAreaBoss, List<Brigade> brigadeList, List<Product> productList,
               Workshop workshop, String definition) throws Exception;        // Update

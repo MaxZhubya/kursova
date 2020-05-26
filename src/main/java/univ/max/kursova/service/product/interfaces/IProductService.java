@@ -10,10 +10,11 @@ import java.util.List;
 
 public interface IProductService {
     //  CRUD
-    Product save(Product product);        // Create
+    Product save(Long id, Area currentArea, Laboratory currentLaboratory,
+                 ProductCategory category, ProductType type);        // Create
     Product get(Long id) throws Exception;             // Read
     Product edit(Long id, Area currentArea, Laboratory currentLaboratory,
-                 ProductCategory category, ProductType type);        // Update
+                 ProductCategory category, ProductType type) throws Exception;        // Update
     Product delete(Long id);          // Delete
     List<Product> getAll();
 }

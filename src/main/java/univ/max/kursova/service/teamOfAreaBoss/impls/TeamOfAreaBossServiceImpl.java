@@ -7,6 +7,7 @@ import univ.max.kursova.model.TeamOfAreaBoss;
 import univ.max.kursova.model.TechnicalPersonal;
 import univ.max.kursova.repository.TeamOfAreaBossRepository;
 import univ.max.kursova.service.DataServiceImpl;
+import univ.max.kursova.service.sequence.SequenceServiceImpl;
 import univ.max.kursova.service.teamOfAreaBoss.interfaces.ITeamOfAreaBossService;
 
 import java.util.List;
@@ -16,11 +17,20 @@ import java.util.Optional;
 public class TeamOfAreaBossServiceImpl implements ITeamOfAreaBossService {
 
     @Autowired
+    private SequenceServiceImpl sequenceService;
+
+    private Long getId(String sequenceName) {
+        return sequenceService.generateSequence(sequenceName);
+    }
+/*--------------------------------------------------------------*/
+
+    @Autowired
     private TeamOfAreaBossRepository repository;
 
     @Override
-    public TeamOfAreaBoss save(TeamOfAreaBoss teamOfAreaBoss) {
-        return repository.save(teamOfAreaBoss);
+    public TeamOfAreaBoss save(Long id, List<TechnicalPersonal> technicalPersonalList, Area area) {
+        return repository.save(new TeamOfAreaBoss().setIdTeam(getId(TeamOfAreaBoss.SEQUENCE_NAME))
+                .setTechnicalPersonalList(technicalPersonalList).setArea(area));
     }
 
     @Override

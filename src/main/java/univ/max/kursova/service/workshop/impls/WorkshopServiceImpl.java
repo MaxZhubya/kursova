@@ -7,6 +7,7 @@ import univ.max.kursova.model.Laboratory;
 import univ.max.kursova.model.Workshop;
 import univ.max.kursova.repository.WorkshopRepository;
 import univ.max.kursova.service.DataServiceImpl;
+import univ.max.kursova.service.sequence.SequenceServiceImpl;
 import univ.max.kursova.service.workshop.interfaces.IWorkshopService;
 
 import java.util.List;
@@ -16,11 +17,20 @@ import java.util.Optional;
 public class WorkshopServiceImpl implements IWorkshopService {
 
     @Autowired
+    private SequenceServiceImpl sequenceService;
+
+    private Long getId(String sequenceName) {
+        return sequenceService.generateSequence(sequenceName);
+    }
+/*---------------------------------------------------*/
+
+    @Autowired
     private WorkshopRepository repository;
 
     @Override
-    public Workshop save(Workshop workshop) {
-        return repository.save(workshop);
+    public Workshop save(Long id, List<Area> areaList, List<Laboratory> laboratoryList, String definition) {
+        return repository.save(new Workshop().setIdWorkshop(getId(Workshop.SEQUENCE_NAME)).setAreaList(areaList)
+                .setLaboratoryList(laboratoryList).setDefinition(definition));
     }
 
     @Override

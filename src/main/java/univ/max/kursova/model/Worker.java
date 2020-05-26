@@ -53,8 +53,9 @@ public class Worker {
         return brigade;
     }
 
-    public void setBrigade(Brigade brigade) {
+    public Worker setBrigade(Brigade brigade) {
         this.brigade = brigade;
+        return this;
     }
 
     public String getWorkerName() {

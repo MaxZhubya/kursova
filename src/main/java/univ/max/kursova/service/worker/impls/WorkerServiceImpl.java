@@ -8,6 +8,7 @@ import univ.max.kursova.model.enums.WorkerType;
 import univ.max.kursova.model.sequence.DatabaseSequence;
 import univ.max.kursova.repository.WorkerRepository;
 import univ.max.kursova.service.DataServiceImpl;
+import univ.max.kursova.service.sequence.SequenceServiceImpl;
 import univ.max.kursova.service.worker.intefaces.IWorkerService;
 
 import javax.annotation.PostConstruct;
@@ -19,11 +20,20 @@ import java.util.Optional;
 public class WorkerServiceImpl implements IWorkerService {
 
     @Autowired
+    private SequenceServiceImpl sequenceService;
+
+    private Long getId(String sequenceName) {
+        return sequenceService.generateSequence(sequenceName);
+    }
+/*-----------------------------------------------------------------*/
+
+    @Autowired
     private WorkerRepository repository;
 
     @Override
-    public Worker save(Worker worker) {
-        return repository.save(worker);
+    public Worker save(Long id, Brigade brigade, String workerName, WorkerType workerType) {
+        return repository.save(new Worker().setIdWorker(getId(Worker.SEQUENCE_NAME)).setBrigade(brigade)
+                .setWorkerName(workerName).setWorkerType(workerType));
     }
 
     @Override

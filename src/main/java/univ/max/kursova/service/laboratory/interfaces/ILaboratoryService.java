@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface ILaboratoryService {
     //  CRUD
-    Laboratory save(Laboratory laboratory);        // Create
+    Laboratory save(Long id, List<EquipmentForLaboratory> equipmentForLabList,
+                    List<Product> productList, List<Workshop> workshopList, String definition);        // Create
     Laboratory get(Long id) throws Exception;             // Read
     Laboratory edit(Long id, List<EquipmentForLaboratory> equipmentForLabList,
                     List<Product> productList, List<Workshop> workshopList, String definition) throws Exception;        // Update

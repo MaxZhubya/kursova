@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IWorkerService {
     //  CRUD
-    Worker save(Worker worker);             // Create
+    Worker save(Long id, Brigade brigade, String workerName, WorkerType workerType);             // Create
     Worker get(Long id) throws Exception;   // Read
     Worker edit(Long id, Brigade brigade, String workerName, WorkerType workerType) throws Exception;             // Update
     Worker delete(Long id);                 // Delete

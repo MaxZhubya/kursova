@@ -54,8 +54,9 @@ public class TechnicalPersonal {
         return teamOfAreaBoss;
     }
 
-    public void setTeamOfAreaBoss(TeamOfAreaBoss teamOfAreaBoss) {
+    public TechnicalPersonal setTeamOfAreaBoss(TeamOfAreaBoss teamOfAreaBoss) {
         this.teamOfAreaBoss = teamOfAreaBoss;
+        return this;
     }
 
     public String getPersonalName() {
