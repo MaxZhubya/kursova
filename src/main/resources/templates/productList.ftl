@@ -33,7 +33,7 @@
                     <td>${Product.category}</td>
                     <td>${Product.type}</td>
                     <td><a href="delete/${Product.idProduct}"><button>Delete</button></a></td>
-                    <td><button>Edit</button></td>
+                    <td><a href="edit/${Product.idProduct}"><button>Edit</button></a></td>
                 </tr>
             </#list>
         </table>

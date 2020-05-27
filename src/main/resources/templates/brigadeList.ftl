@@ -38,7 +38,7 @@
                             </#if>
                         </td>
                         <td><a href="delete/${Brigade.idBrigade}"><button>Delete</button></a></td>
-                        <td><button>Edit</button></td>
+                        <td><a href="edit/${Brigade.idBrigade}"><button>Edit</button></a></td>
                     </tr>
                 </#list>
         </table>

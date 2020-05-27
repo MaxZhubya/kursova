@@ -30,7 +30,7 @@
                     <td>${Worker.workerName}</td>
                     <td>${Worker.workerType}</td>
                     <td><a href="delete/${Worker.idWorker}"><button>Delete</button></a></td>
-                    <td><button>Edit</button></td>
+                    <td><a href="edit/${Worker.idWorker}"><button>Edit</button></a></td>
                 </tr>
             </#list>
         </table>

@@ -44,7 +44,7 @@
                     </td>
                     <td>${Laboratory.definition}</td>
                     <td><a href="delete/${Laboratory.idLaboratory}"><button>Delete</button></a></td>
-                    <td><button>Edit</button></td>
+                    <td><a href="edit/${Laboratory.idLaboratory}"><button>Edit</button></a></td>
                 </tr>
             </#list>
         </table>

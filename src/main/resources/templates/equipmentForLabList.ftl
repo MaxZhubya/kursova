@@ -29,7 +29,7 @@
                     <td>${EquipmentForLaboratory.equipmentType}</td>
                     <td>${EquipmentForLaboratory.definition}</td>
                     <td><a href="delete/${EquipmentForLaboratory.idEquipmentForLab}"><button>Delete</button></a></td>
-                    <td><button>Edit</button></td>
+                    <td><a href="edit/${EquipmentForLaboratory.idEquipmentForLab}"><button>Edit</button></a></td>
                 </tr>
             </#list>
         </table>

@@ -38,7 +38,7 @@
                         </#if>
                     </td>
                     <td><a href="delete/${TeamOfAreaBoss.idTeam}"><button>Delete</button></a></td>
-                    <td><button>Edit</button></td>
+                    <td><a href="edit/${TeamOfAreaBoss.idTeam}"><button>Edit</button></a></td>
                 </tr>
             </#list>
         </table>

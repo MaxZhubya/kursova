@@ -6,7 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import univ.max.kursova.model.Brigade;
 import univ.max.kursova.model.Worker;
+import univ.max.kursova.model.enums.WorkerType;
 import univ.max.kursova.service.worker.impls.WorkerServiceImpl;
 
 import java.util.List;
@@ -27,6 +29,20 @@ public class WorkerWebController {
     @RequestMapping("/delete/{id}")
     String delete(Model model, @PathVariable("id") Long id) {
         workerService.delete(id);
+        model.addAttribute("workerList", workerService.getAll());
+        return "workerList";
+    }
+
+    @RequestMapping("/edit/{id}")
+    String edit(Model model, @PathVariable("id") Long id, Brigade brigade, String workerName, WorkerType workerType) throws Exception {
+        workerService.edit(id, brigade, workerName, workerType);
+        model.addAttribute("workerList", workerService.getAll());
+        return "workerList";
+    }
+
+    @RequestMapping("/save/{id}")
+    String save(Model model, @PathVariable("id") Long id, Brigade brigade, String workerName, WorkerType workerType) throws Exception {
+        workerService.save(id, brigade, workerName, workerType);
         model.addAttribute("workerList", workerService.getAll());
         return "workerList";
     }

@@ -6,7 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import univ.max.kursova.model.Area;
+import univ.max.kursova.model.*;
 import univ.max.kursova.service.area.impls.AreaServiceImpl;
 
 import java.util.List;
@@ -27,6 +27,22 @@ public class AreaWebController {
     @RequestMapping("/delete/{id}")
     String delete(Model model, @PathVariable("id") Long id) {
         areaService.delete(id);
+        model.addAttribute("areaList", areaService.getAll());
+        return "areaList";
+    }
+
+    @RequestMapping("/edit/{id}")
+    String edit(Model model, @PathVariable("id") Long id, TeamOfAreaBoss teamOfAreaBoss, List<Brigade> brigadeList, List<Product> productList,
+                Workshop workshop, String definition) throws Exception {
+        areaService.edit(id, teamOfAreaBoss, brigadeList, productList, workshop, definition);
+        model.addAttribute("areaList", areaService.getAll());
+        return "areaList";
+    }
+
+    @RequestMapping("/create/{id}")
+    String save(Model model, @PathVariable("id") Long id, TeamOfAreaBoss teamOfAreaBoss, List<Brigade> brigadeList, List<Product> productList,
+                Workshop workshop, String definition) {
+        areaService.save(id, teamOfAreaBoss, brigadeList, productList, workshop, definition);
         model.addAttribute("areaList", areaService.getAll());
         return "areaList";
     }

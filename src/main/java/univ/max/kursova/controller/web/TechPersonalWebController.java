@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import univ.max.kursova.model.TeamOfAreaBoss;
+import univ.max.kursova.model.enums.TechPersonalType;
 import univ.max.kursova.service.techPersonal.impl.TechPersonalServiceImpl;
 
 @Controller
@@ -23,6 +25,24 @@ public class TechPersonalWebController {
     @RequestMapping("/delete/{id}")
     String delete(Model model, @PathVariable("id") Long id) {
         techPersonalService.delete(id);
+        model.addAttribute("technicalPersonalList", techPersonalService.getAll());
+        return "techPersonalList";
+    }
+
+    @RequestMapping("/edit/{id}")
+    String edit(Model model, @PathVariable("id") Long id, TeamOfAreaBoss teamOfAreaBoss, String personalName,
+                TechPersonalType techPersonalType, String description) throws Exception {
+        techPersonalService.edit(id, teamOfAreaBoss, personalName,
+                techPersonalType, description);
+        model.addAttribute("technicalPersonalList", techPersonalService.getAll());
+        return "techPersonalList";
+    }
+
+    @RequestMapping("/save/{id}")
+    String save(Model model, @PathVariable("id") Long id, TeamOfAreaBoss teamOfAreaBoss, String personalName,
+                TechPersonalType techPersonalType, String description) {
+        techPersonalService.save(id, teamOfAreaBoss, personalName,
+                techPersonalType, description);
         model.addAttribute("technicalPersonalList", techPersonalService.getAll());
         return "techPersonalList";
     }

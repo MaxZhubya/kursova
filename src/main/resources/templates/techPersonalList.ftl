@@ -32,7 +32,7 @@
                     <td>${TechnicalPersonal.personalType}</td>
                     <td>${TechnicalPersonal.description}</td>
                     <td><a href="delete/${TechnicalPersonal.idTechPersonal}"><button>Delete</button></a></td>
-                    <td><button>Edit</button></td>
+                    <td><a href="edit/${TechnicalPersonal.idTechPersonal}"><button>Edit</button></a></td>
                 </tr>
             </#list>
         </table>

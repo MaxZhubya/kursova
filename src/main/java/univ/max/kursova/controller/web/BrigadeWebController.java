@@ -6,7 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import univ.max.kursova.model.Area;
 import univ.max.kursova.model.Brigade;
+import univ.max.kursova.model.Worker;
 import univ.max.kursova.service.brigade.impls.BrigadeServiceImpl;
 
 import java.util.List;
@@ -27,6 +29,20 @@ public class BrigadeWebController {
     @RequestMapping("/delete/{id}")
     String delete(Model model, @PathVariable("id") Long id) {
         brigadeService.delete(id);
+        model.addAttribute("brigadeList", brigadeService.getAll());
+        return "brigadeList";
+    }
+
+    @RequestMapping("/edit/{id}")
+    String edit(Model model, @PathVariable("id") Long id, List<Worker> workerList, Area area) throws Exception {
+        brigadeService.edit( id, workerList, area);
+        model.addAttribute("brigadeList", brigadeService.getAll());
+        return "brigadeList";
+    }
+
+    @RequestMapping("/save/{id}")
+    String save(Model model, @PathVariable("id") Long id, List<Worker> workerList, Area area) {
+        brigadeService.save( id, workerList, area);
         model.addAttribute("brigadeList", brigadeService.getAll());
         return "brigadeList";
     }
