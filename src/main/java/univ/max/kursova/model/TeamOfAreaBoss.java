@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import univ.max.kursova.dto.TeamOfAreaBossDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -94,5 +95,11 @@ public class TeamOfAreaBoss {
     @Override
     public int hashCode() {
         return Objects.hash(getIdTeam());
+    }
+
+    public static TeamOfAreaBoss makeEntity(TeamOfAreaBossDTO teamOfAreaBossDTO) {
+        return new TeamOfAreaBoss()
+                .setDateCreated(teamOfAreaBossDTO.getDateCreated())
+                .setDateModified(teamOfAreaBossDTO.getDateModified());
     }
 }

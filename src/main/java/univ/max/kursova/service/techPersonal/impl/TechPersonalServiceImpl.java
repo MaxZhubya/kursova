@@ -11,6 +11,7 @@ import univ.max.kursova.service.sequence.SequenceServiceImpl;
 import univ.max.kursova.service.techPersonal.interfaces.ITechPersonalService;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,7 @@ public class TechPersonalServiceImpl implements ITechPersonalService {
 
     @Override
     public TechnicalPersonal save(Long id, TeamOfAreaBoss teamOfAreaBoss, String personalName,
-                                  TechPersonalType techPersonalType, String description) {
+                                  TechPersonalType techPersonalType, String description, LocalDateTime dateCreated, LocalDateTime dateModified) {
         return repository.save(new TechnicalPersonal().setIdTechPersonal(getId(TechnicalPersonal.SEQUENCE_NAME))
                 .setTeamOfAreaBoss(teamOfAreaBoss).setPersonalName(personalName)
                 .setPersonalType(techPersonalType).setDescription(description));
@@ -61,13 +62,19 @@ public class TechPersonalServiceImpl implements ITechPersonalService {
     }
 
     @Override
-    public TechnicalPersonal delete(Long id) {
+    public void delete(Long id) throws Exception {
+        repository.findById(id).orElseThrow(() -> new Exception("Worker with is: "
+                + id.toString() + "is not existed"));
         repository.deleteById(id);
-        return repository.findById(id).orElse(null);
     }
 
     @Override
     public List<TechnicalPersonal> getAll() {
         return repository.findAll();
+    }
+
+    public void create(TechnicalPersonal technicalPersonal) {
+        save(technicalPersonal.getIdTechPersonal(), technicalPersonal.getTeamOfAreaBoss(), technicalPersonal.getPersonalName(), technicalPersonal.getPersonalType(),
+                technicalPersonal.getDescription(), technicalPersonal.getDateCreated(), technicalPersonal.getDateModified());
     }
 }

@@ -10,6 +10,7 @@ import univ.max.kursova.service.DataServiceImpl;
 import univ.max.kursova.service.sequence.SequenceServiceImpl;
 import univ.max.kursova.service.teamOfAreaBoss.interfaces.ITeamOfAreaBossService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,9 +29,9 @@ public class TeamOfAreaBossServiceImpl implements ITeamOfAreaBossService {
     private TeamOfAreaBossRepository repository;
 
     @Override
-    public TeamOfAreaBoss save(Long id, List<TechnicalPersonal> technicalPersonalList, Area area) {
+    public TeamOfAreaBoss save(Long id, List<TechnicalPersonal> technicalPersonalList, Area area, LocalDateTime dateCreated, LocalDateTime dateModified) {
         return repository.save(new TeamOfAreaBoss().setIdTeam(getId(TeamOfAreaBoss.SEQUENCE_NAME))
-                .setTechnicalPersonalList(technicalPersonalList).setArea(area));
+                .setTechnicalPersonalList(technicalPersonalList).setArea(area).setDateCreated(dateCreated).setDateModified(dateModified));
     }
 
     @Override
@@ -54,13 +55,19 @@ public class TeamOfAreaBossServiceImpl implements ITeamOfAreaBossService {
     }
 
     @Override
-    public TeamOfAreaBoss delete(Long id) {
+    public void delete(Long id) throws Exception {
+        repository.findById(id).orElseThrow(() -> new Exception("Worker with is: "
+                + id.toString() + "is not existed"));
         repository.deleteById(id);
-        return repository.findById(id).orElse(null);
     }
 
     @Override
     public List<TeamOfAreaBoss> getAll() {
         return repository.findAll();
+    }
+
+    public void create(TeamOfAreaBoss teamOfAreaBoss) {
+        save(teamOfAreaBoss.getIdTeam(), teamOfAreaBoss.getTechnicalPersonalList(), teamOfAreaBoss.getArea(),
+                teamOfAreaBoss.getDateCreated(), teamOfAreaBoss.getDateModified());
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import univ.max.kursova.dto.AreaDTO;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -132,5 +133,12 @@ public class Area {
     @Override
     public int hashCode() {
         return Objects.hash(getIdArea());
+    }
+
+    public static Area makeEntity(AreaDTO areaDTO) {
+        return new Area()
+                .setDefinition(areaDTO.getDefinition())
+                .setDateCreated(areaDTO.getDateCreated())
+                .setDateModified(areaDTO.getDateModified());
     }
 }

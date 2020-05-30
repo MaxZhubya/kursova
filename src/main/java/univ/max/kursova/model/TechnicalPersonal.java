@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import univ.max.kursova.dto.TechnicalPersonalDTO;
 import univ.max.kursova.model.enums.TechPersonalType;
 
 import java.time.LocalDateTime;
@@ -115,5 +116,14 @@ public class TechnicalPersonal {
     @Override
     public int hashCode() {
         return Objects.hash(getIdTechPersonal());
+    }
+
+    public static TechnicalPersonal makeEntity(TechnicalPersonalDTO technicalPersonalDTO) {
+        return new TechnicalPersonal()
+                .setPersonalName(technicalPersonalDTO.getPersonalName())
+                .setPersonalType(technicalPersonalDTO.getPersonalType())
+                .setDescription(technicalPersonalDTO.getDescription())
+                .setDateCreated(technicalPersonalDTO.getDateCreated())
+                .setDateModified(technicalPersonalDTO.getDateModified());
     }
 }

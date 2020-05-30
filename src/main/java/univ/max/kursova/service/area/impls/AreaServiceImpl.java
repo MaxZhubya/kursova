@@ -10,6 +10,7 @@ import univ.max.kursova.service.sequence.SequenceServiceImpl;
 
 import javax.annotation.PostConstruct;
 import javax.sound.midi.Sequence;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,10 +30,11 @@ public class AreaServiceImpl implements IAreaService {
 
     @Override
     public Area save(Long id, TeamOfAreaBoss teamOfAreaBoss, List<Brigade> brigadeList, List<Product> productList,
-                     Workshop workshop, String definition) {
+                     Workshop workshop, String definition, LocalDateTime dateCreated, LocalDateTime dateModified) {
 
         return repository.save(new Area().setIdArea(getId(Area.SEQUENCE_NAME)).setTeamOfAreaBoss(teamOfAreaBoss)
-                .setBrigadeList(brigadeList).setProductList(productList).setWorkshop(workshop).setDefinition(definition));
+                .setBrigadeList(brigadeList).setProductList(productList).setWorkshop(workshop).setDefinition(definition)
+                .setDateCreated(dateCreated).setDateModified(dateModified));
     }
 
     @Override
@@ -60,13 +62,19 @@ public class AreaServiceImpl implements IAreaService {
     }
 
     @Override
-    public Area delete(Long id) {
+    public void delete(Long id) throws Exception {
+        repository.findById(id).orElseThrow(() -> new Exception("Worker with is: "
+                + id.toString() + "is not existed"));
         repository.deleteById(id);
-        return repository.findById(id).orElse(null);
     }
 
     @Override
     public List<Area> getAll() {
         return repository.findAll();
+    }
+
+    public void create(Area area) {
+        save(area.getIdArea(), area.getTeamOfAreaBoss(), area.getBrigadeList(), area.getProductList(),
+                area.getWorkshop(), area.getDefinition(), area.getDateCreated(), area.getDateModified());
     }
 }

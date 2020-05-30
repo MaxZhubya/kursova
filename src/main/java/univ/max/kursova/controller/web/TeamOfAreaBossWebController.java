@@ -11,6 +11,7 @@ import univ.max.kursova.model.TeamOfAreaBoss;
 import univ.max.kursova.model.TechnicalPersonal;
 import univ.max.kursova.service.teamOfAreaBoss.impls.TeamOfAreaBossServiceImpl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -26,7 +27,7 @@ public class TeamOfAreaBossWebController {
     }
 
     @RequestMapping("/delete/{id}")
-    String delete(Model model, @PathVariable("id") Long id) {
+    String delete(Model model, @PathVariable("id") Long id) throws Exception {
         teamOfAreaBossService.delete(id);
         model.addAttribute("teamOfAreaBossList", teamOfAreaBossService.getAll());
         return "teamOfAreaBossList";
@@ -40,8 +41,9 @@ public class TeamOfAreaBossWebController {
     }
 
     @RequestMapping("/save/{id}")
-    String save(Model model, @PathVariable("id") Long id, List<TechnicalPersonal> technicalPersonalList, Area area) {
-        teamOfAreaBossService.save(id, technicalPersonalList, area);
+    String save(Model model, @PathVariable("id") Long id, List<TechnicalPersonal> technicalPersonalList, Area area,
+                LocalDateTime dateCreated, LocalDateTime dateModified) {
+        teamOfAreaBossService.save(id, technicalPersonalList, area, dateCreated, dateModified);
         model.addAttribute("teamOfAreaBossList", teamOfAreaBossService.getAll());
         return "teamOfAreaBossList";
     }

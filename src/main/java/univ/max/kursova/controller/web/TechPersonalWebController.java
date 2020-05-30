@@ -9,6 +9,8 @@ import univ.max.kursova.model.TeamOfAreaBoss;
 import univ.max.kursova.model.enums.TechPersonalType;
 import univ.max.kursova.service.techPersonal.impl.TechPersonalServiceImpl;
 
+import java.time.LocalDateTime;
+
 @Controller
 @RequestMapping("/web/TechnicalPersonal")
 public class TechPersonalWebController {
@@ -23,7 +25,7 @@ public class TechPersonalWebController {
     }
 
     @RequestMapping("/delete/{id}")
-    String delete(Model model, @PathVariable("id") Long id) {
+    String delete(Model model, @PathVariable("id") Long id) throws Exception {
         techPersonalService.delete(id);
         model.addAttribute("technicalPersonalList", techPersonalService.getAll());
         return "techPersonalList";
@@ -40,9 +42,8 @@ public class TechPersonalWebController {
 
     @RequestMapping("/save/{id}")
     String save(Model model, @PathVariable("id") Long id, TeamOfAreaBoss teamOfAreaBoss, String personalName,
-                TechPersonalType techPersonalType, String description) {
-        techPersonalService.save(id, teamOfAreaBoss, personalName,
-                techPersonalType, description);
+                TechPersonalType techPersonalType, String description, LocalDateTime dateCreated, LocalDateTime dateModified) {
+        techPersonalService.save(id, teamOfAreaBoss, personalName, techPersonalType, description, dateCreated, dateModified);
         model.addAttribute("technicalPersonalList", techPersonalService.getAll());
         return "techPersonalList";
     }

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import univ.max.kursova.model.*;
 import univ.max.kursova.service.area.impls.AreaServiceImpl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -25,7 +26,7 @@ public class AreaWebController {
     }
 
     @RequestMapping("/delete/{id}")
-    String delete(Model model, @PathVariable("id") Long id) {
+    String delete(Model model, @PathVariable("id") Long id) throws Exception {
         areaService.delete(id);
         model.addAttribute("areaList", areaService.getAll());
         return "areaList";
@@ -41,8 +42,8 @@ public class AreaWebController {
 
     @RequestMapping("/create/{id}")
     String save(Model model, @PathVariable("id") Long id, TeamOfAreaBoss teamOfAreaBoss, List<Brigade> brigadeList, List<Product> productList,
-                Workshop workshop, String definition) {
-        areaService.save(id, teamOfAreaBoss, brigadeList, productList, workshop, definition);
+                Workshop workshop, String definition, LocalDateTime dateCreated, LocalDateTime dateModified) {
+        areaService.save(id, teamOfAreaBoss, brigadeList, productList, workshop, definition, dateCreated, dateModified);
         model.addAttribute("areaList", areaService.getAll());
         return "areaList";
     }
