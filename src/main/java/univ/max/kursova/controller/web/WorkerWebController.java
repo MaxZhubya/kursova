@@ -11,6 +11,7 @@ import univ.max.kursova.model.Worker;
 import univ.max.kursova.model.enums.WorkerType;
 import univ.max.kursova.service.worker.impls.WorkerServiceImpl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -27,7 +28,7 @@ public class WorkerWebController {
     }
 
     @RequestMapping("/delete/{id}")
-    String delete(Model model, @PathVariable("id") Long id) {
+    String delete(Model model, @PathVariable("id") Long id) throws Exception {
         workerService.delete(id);
         model.addAttribute("workerList", workerService.getAll());
         return "workerList";
@@ -41,8 +42,9 @@ public class WorkerWebController {
     }
 
     @RequestMapping("/save/{id}")
-    String save(Model model, @PathVariable("id") Long id, Brigade brigade, String workerName, WorkerType workerType) throws Exception {
-        workerService.save(id, brigade, workerName, workerType);
+    String save(Model model, @PathVariable("id") Long id, Brigade brigade, String workerName, WorkerType workerType,
+                LocalDateTime dateCreated, LocalDateTime dateModified) throws Exception {
+        workerService.save(id, brigade, workerName, workerType, dateCreated, dateModified);
         model.addAttribute("workerList", workerService.getAll());
         return "workerList";
     }

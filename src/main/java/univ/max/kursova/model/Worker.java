@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import univ.max.kursova.dto.WorkerDTO;
 import univ.max.kursova.model.enums.WorkerType;
 
 import java.time.LocalDateTime;
@@ -105,5 +106,13 @@ public class Worker {
     @Override
     public int hashCode() {
         return Objects.hash(getIdWorker());
+    }
+
+    public static Worker makeEntity(WorkerDTO workerDTO) {
+        return new Worker()
+                .setWorkerName(workerDTO.getWorkerName())
+                .setWorkerType(workerDTO.getWorkerType())
+                .setDateCreated(workerDTO.getDateCreated())
+                .setDateModified(workerDTO.getDateModified());
     }
 }

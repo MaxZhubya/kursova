@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import univ.max.kursova.dto.EquipmentForLaboratoryDTO;
 import univ.max.kursova.model.enums.EquipmentType;
 
 import java.time.LocalDateTime;
@@ -103,5 +104,13 @@ public class EquipmentForLaboratory {
     @Override
     public int hashCode() {
         return Objects.hash(getIdEquipmentForLab());
+    }
+
+    public static EquipmentForLaboratory makeEntity(EquipmentForLaboratoryDTO equipmentForLaboratoryDTO) {
+        return new EquipmentForLaboratory()
+                .setEquipmentType(equipmentForLaboratoryDTO.getEquipmentType())
+                .setDefinition(equipmentForLaboratoryDTO.getDefinition())
+                .setDateCreated(equipmentForLaboratoryDTO.getDateCreated())
+                .setDateModified(equipmentForLaboratoryDTO.getDateModified());
     }
 }

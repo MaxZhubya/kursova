@@ -11,6 +11,7 @@ import univ.max.kursova.service.brigade.interfaces.IBrigadeService;
 import univ.max.kursova.service.sequence.SequenceServiceImpl;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,13 +30,14 @@ public class BrigadeServiceImpl implements IBrigadeService {
     BrigadeRepository repository;
 
     @Override
-    public Brigade save(Long id, List<Worker> workerList, Area area) {
-        return repository.save(new Brigade().setIdBrigade(getId(Brigade.SEQUENCE_NAME)).setWorkerList(workerList).setArea(area));
+    public Brigade save(Long id, List<Worker> workerList, Area area, LocalDateTime dateCreated, LocalDateTime dateModified) {
+        return repository.save(new Brigade().setIdBrigade(getId(Brigade.SEQUENCE_NAME)).setWorkerList(workerList).setArea(area)
+            .setDateCreated(dateCreated).setDateModified(dateModified));
     }
 
     @Override
     public Brigade get(Long id) throws Exception {
-        return repository.findById(id).orElseThrow(() -> new Exception("Worker with is: "
+        return repository.findById(id).orElseThrow(() -> new Exception("Brigade with is: "
                 + id.toString() + "is not existed"));
     }
 
@@ -54,13 +56,18 @@ public class BrigadeServiceImpl implements IBrigadeService {
     }
 
     @Override
-    public Brigade delete(Long id) {
+    public void delete(Long id) throws Exception {
+        repository.findById(id).orElseThrow(() -> new Exception("Brigade with is: "
+                + id.toString() + "is not existed"));
         repository.deleteById(id);
-        return repository.findById(id).orElse(null);
     }
 
     @Override
     public List<Brigade> getAll() {
         return repository.findAll();
+    }
+
+    public void create(Brigade brigade) {
+        save(brigade.getIdBrigade(), brigade.getWorkerList(), brigade.getArea(), brigade.getDateCreated(), brigade.getDateModified());
     }
 }

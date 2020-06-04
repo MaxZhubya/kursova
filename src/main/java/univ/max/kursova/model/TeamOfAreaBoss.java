@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import univ.max.kursova.dto.TeamOfAreaBossDTO;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,7 +21,7 @@ public class TeamOfAreaBoss {
     private Long idTeam;
 
     @DBRef
-    private List<TechnicalPersonal> technicalPersonalList;
+    private List<TechnicalPersonal> technicalPersonalList = new ArrayList<>();
 
     @DBRef
     private Area area;

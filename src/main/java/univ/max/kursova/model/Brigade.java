@@ -4,8 +4,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import univ.max.kursova.dto.BrigadeDTO;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,7 +21,7 @@ public class Brigade {
     private Long idBrigade;
 
     @DBRef
-    private List<Worker> workerList;
+    private List<Worker> workerList = new ArrayList<>();
 
     @DBRef
     private Area area;
@@ -94,5 +96,11 @@ public class Brigade {
     @Override
     public int hashCode() {
         return Objects.hash(getIdBrigade());
+    }
+
+    public static Brigade makeEntity(BrigadeDTO brigadeDTO) {
+        return new Brigade()
+                .setDateCreated(brigadeDTO.getDateCreated())
+                .setDateModified(brigadeDTO.getDateModified());
     }
 }

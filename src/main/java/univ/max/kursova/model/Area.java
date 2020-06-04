@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import univ.max.kursova.dto.AreaDTO;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,10 +25,10 @@ public class Area {
     private TeamOfAreaBoss teamOfAreaBoss;
 
     @DBRef
-    private List<Brigade> brigadeList;
+    private List<Brigade> brigadeList = new ArrayList<>();
 
     @DBRef
-    private List<Product> productList;
+    private List<Product> productList = new ArrayList<>();
 
     @DBRef
     private Workshop workshop;

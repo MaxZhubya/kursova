@@ -39,7 +39,7 @@ public class AreaServiceImpl implements IAreaService {
 
     @Override
     public Area get(Long id) throws Exception {
-        return repository.findById(id).orElseThrow(() -> new Exception("Worker with is: "
+        return repository.findById(id).orElseThrow(() -> new Exception("Area with is: "
                 + id.toString() + "is not existed"));
     }
 
@@ -63,7 +63,7 @@ public class AreaServiceImpl implements IAreaService {
 
     @Override
     public void delete(Long id) throws Exception {
-        repository.findById(id).orElseThrow(() -> new Exception("Worker with is: "
+        repository.findById(id).orElseThrow(() -> new Exception("Area with is: "
                 + id.toString() + "is not existed"));
         repository.deleteById(id);
     }

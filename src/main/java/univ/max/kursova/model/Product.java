@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import univ.max.kursova.dto.ProductDTO;
 import univ.max.kursova.model.enums.ProductCategory;
 import univ.max.kursova.model.enums.ProductType;
 
@@ -119,5 +120,13 @@ public class Product {
     @Override
     public int hashCode() {
         return Objects.hash(getIdProduct());
+    }
+
+    public static Product makeEntity(ProductDTO productDTO) {
+        return new Product()
+                .setCategory(productDTO.getCategory())
+                .setType(productDTO.getType())
+                .setDateCreated(productDTO.getDateCreated())
+                .setDateModified(productDTO.getDateModified());
     }
 }

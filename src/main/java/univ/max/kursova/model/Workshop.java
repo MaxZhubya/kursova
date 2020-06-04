@@ -4,6 +4,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+import univ.max.kursova.dto.WorkshopDTO;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class Workshop {
     private Long idWorkshop;
 
     @DBRef
-    private List<Area> areaList;
+    private List<Area> areaList = new ArrayList<>();;
 
     @DBRef(lazy = true)
     private List<Laboratory> laboratoryList = new ArrayList<>();
@@ -108,5 +109,12 @@ public class Workshop {
     @Override
     public int hashCode() {
         return Objects.hash(getIdWorkshop());
+    }
+
+    public static Workshop makeEntity(WorkshopDTO workshopDTO) {
+        return new Workshop()
+                .setDefinition(workshopDTO.getDefinition())
+                .setDateCreated(workshopDTO.getDateCreated())
+                .setDateModified(workshopDTO.getDateModified());
     }
 }

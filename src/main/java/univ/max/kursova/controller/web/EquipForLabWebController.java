@@ -11,6 +11,7 @@ import univ.max.kursova.model.Laboratory;
 import univ.max.kursova.model.enums.EquipmentType;
 import univ.max.kursova.service.equipForLabService.impls.EquipForLabServiceImpl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -27,7 +28,7 @@ public class EquipForLabWebController {
     }
 
     @RequestMapping("/delete/{id}")
-    String delete(Model model, @PathVariable("id") Long id) {
+    String delete(Model model, @PathVariable("id") Long id) throws Exception {
         equipForLabService.delete(id);
         model.addAttribute("equipmentForLabList", equipForLabService.getAll());
         return "equipmentForLabList";
@@ -41,8 +42,9 @@ public class EquipForLabWebController {
     }
 
     @RequestMapping("/save/{id}")
-    String save(Model model, @PathVariable("id") Long id, Laboratory laboratory, EquipmentType equipmentType, String definition) {
-        equipForLabService.save(id, laboratory, equipmentType, definition);
+    String save(Model model, @PathVariable("id") Long id, Laboratory laboratory, EquipmentType equipmentType, String definition,
+                LocalDateTime dateCreated, LocalDateTime dateModified) {
+        equipForLabService.save(id, laboratory, equipmentType, definition, dateCreated, dateModified);
         model.addAttribute("equipmentForLabList", equipForLabService.getAll());
         return "equipmentForLabList";
     }

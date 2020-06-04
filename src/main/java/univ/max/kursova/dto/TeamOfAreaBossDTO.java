@@ -2,23 +2,40 @@ package univ.max.kursova.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
 import univ.max.kursova.model.Area;
 import univ.max.kursova.model.TeamOfAreaBoss;
+import univ.max.kursova.view.Views;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+
 public class TeamOfAreaBossDTO {
 
+
     private Long idTeam;
-    private List<TechnicalPersonalDTO> technicalPersonalList;
-    @JsonIgnore
-    private Area area;
+
+    @JsonInclude(NON_EMPTY)
+    private List<TechnicalPersonalDTO> technicalPersonalList = new ArrayList<>();
+
+    @JsonInclude(NON_EMPTY)
+    private AreaDTO area;
+
+    @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime dateCreated;
+
+    @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime dateModified;
+
+
 
     public Long getIdTeam() {
         return idTeam;
@@ -38,11 +55,11 @@ public class TeamOfAreaBossDTO {
         return this;
     }
 
-    public Area getArea() {
+    public AreaDTO getArea() {
         return area;
     }
 
-    public TeamOfAreaBossDTO setArea(Area area) {
+    public TeamOfAreaBossDTO setArea(AreaDTO area) {
         this.area = area;
         return this;
     }
@@ -69,11 +86,21 @@ public class TeamOfAreaBossDTO {
         if (teamOfAreaBoss != null)
             return new TeamOfAreaBossDTO()
                 .setIdTeam(teamOfAreaBoss.getIdTeam())
-                //.setArea(teamOfAreaBoss.getArea())
+                .setTechnicalPersonalList(teamOfAreaBoss.getTechnicalPersonalList().stream()
+                    .map(TechnicalPersonalDTO::makeSimpleDTO).collect(Collectors.toList()))
+                .setArea(AreaDTO.makeSimpleDTO(teamOfAreaBoss.getArea()))
                 .setDateCreated(teamOfAreaBoss.getDateCreated())
                 .setDateModified(teamOfAreaBoss.getDateModified());
-                /*  .setTechnicalPersonalList(teamOfAreaBoss.getTechnicalPersonalList().stream()
-                        .map(TechnicalPersonalDTO::makeDTO).collect(Collectors.toList()));  */
+        else
+            return null;
+    }
+
+    public static TeamOfAreaBossDTO makeSimpleDTO(TeamOfAreaBoss teamOfAreaBoss) {
+        if (teamOfAreaBoss != null)
+            return new TeamOfAreaBossDTO()
+                    .setIdTeam(teamOfAreaBoss.getIdTeam())
+                    .setDateCreated(teamOfAreaBoss.getDateCreated())
+                    .setDateModified(teamOfAreaBoss.getDateModified());
         else
             return null;
     }

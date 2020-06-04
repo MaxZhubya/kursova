@@ -11,6 +11,7 @@ import univ.max.kursova.model.Laboratory;
 import univ.max.kursova.model.Workshop;
 import univ.max.kursova.service.workshop.impls.WorkshopServiceImpl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -27,7 +28,7 @@ public class WorkshopWebController {
     }
 
     @RequestMapping("/delete/{id}")
-    String delete(Model model, @PathVariable("id") Long id) {
+    String delete(Model model, @PathVariable("id") Long id) throws Exception {
         workshopService.delete(id);
         model.addAttribute("workshopList", workshopService.getAll());
         return "workshopList";
@@ -41,8 +42,9 @@ public class WorkshopWebController {
     }
 
     @RequestMapping("/save/{id}")
-    String save(Model model, @PathVariable("id") Long id, List<Area> areaList, List<Laboratory> laboratoryList, String definition) {
-        workshopService.save(id, areaList, laboratoryList, definition);
+    String save(Model model, @PathVariable("id") Long id, List<Area> areaList, List<Laboratory> laboratoryList, String definition,
+                LocalDateTime dateCreated, LocalDateTime dateModified) {
+        workshopService.save(id, areaList, laboratoryList, definition, dateCreated, dateModified);
         model.addAttribute("workshopList", workshopService.getAll());
         return "workshopList";
     }

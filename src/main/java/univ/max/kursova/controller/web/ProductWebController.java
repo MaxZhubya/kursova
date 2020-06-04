@@ -13,6 +13,7 @@ import univ.max.kursova.model.enums.ProductCategory;
 import univ.max.kursova.model.enums.ProductType;
 import univ.max.kursova.service.product.impls.ProductServiceImpl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -29,7 +30,7 @@ public class ProductWebController {
     }
 
     @RequestMapping("/delete/{id}")
-    String delete(Model model, @PathVariable("id") Long id) {
+    String delete(Model model, @PathVariable("id") Long id) throws Exception {
         productService.delete(id);
         model.addAttribute("productList", productService.getAll());
         return "productList";
@@ -46,9 +47,8 @@ public class ProductWebController {
 
     @RequestMapping("/save/{id}")
     String save(Model model, @PathVariable("id") Long id, Area currentArea, Laboratory currentLaboratory,
-                ProductCategory category, ProductType type) {
-        productService.save(id, currentArea, currentLaboratory,
-                category, type);
+                ProductCategory category, ProductType type, LocalDateTime dateCreated, LocalDateTime dateModified) {
+        productService.save(id, currentArea, currentLaboratory, category, type, dateCreated, dateModified);
         model.addAttribute("productList", productService.getAll());
         return "productList";
     }

@@ -11,6 +11,7 @@ import univ.max.kursova.model.Brigade;
 import univ.max.kursova.model.Worker;
 import univ.max.kursova.service.brigade.impls.BrigadeServiceImpl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -27,7 +28,7 @@ public class BrigadeWebController {
     }
 
     @RequestMapping("/delete/{id}")
-    String delete(Model model, @PathVariable("id") Long id) {
+    String delete(Model model, @PathVariable("id") Long id) throws Exception {
         brigadeService.delete(id);
         model.addAttribute("brigadeList", brigadeService.getAll());
         return "brigadeList";
@@ -41,8 +42,8 @@ public class BrigadeWebController {
     }
 
     @RequestMapping("/save/{id}")
-    String save(Model model, @PathVariable("id") Long id, List<Worker> workerList, Area area) {
-        brigadeService.save( id, workerList, area);
+    String save(Model model, @PathVariable("id") Long id, List<Worker> workerList, Area area, LocalDateTime dateCreated, LocalDateTime dateModified) {
+        brigadeService.save( id, workerList, area, dateCreated, dateModified);
         model.addAttribute("brigadeList", brigadeService.getAll());
         return "brigadeList";
     }

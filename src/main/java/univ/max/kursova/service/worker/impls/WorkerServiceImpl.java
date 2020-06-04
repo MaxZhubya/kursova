@@ -13,6 +13,7 @@ import univ.max.kursova.service.worker.intefaces.IWorkerService;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Executable;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,9 +32,9 @@ public class WorkerServiceImpl implements IWorkerService {
     private WorkerRepository repository;
 
     @Override
-    public Worker save(Long id, Brigade brigade, String workerName, WorkerType workerType) {
+    public Worker save(Long id, Brigade brigade, String workerName, WorkerType workerType, LocalDateTime dateCreated, LocalDateTime dateModified) {
         return repository.save(new Worker().setIdWorker(getId(Worker.SEQUENCE_NAME)).setBrigade(brigade)
-                .setWorkerName(workerName).setWorkerType(workerType));
+                .setWorkerName(workerName).setWorkerType(workerType).setDateCreated(dateCreated).setDateModified(dateModified));
     }
 
     @Override
@@ -58,13 +59,19 @@ public class WorkerServiceImpl implements IWorkerService {
     }
 
     @Override
-    public Worker delete(Long id) {
+    public void delete(Long id) throws Exception {
+        repository.findById(id).orElseThrow(() -> new Exception("Worker with is: "
+                + id.toString() + "is not existed"));
         repository.deleteById(id);
-        return repository.findById(id).orElse(null);
     }
 
     @Override
     public List<Worker> getAll() {
         return repository.findAll();
+    }
+
+    public void create(Worker worker) {
+        save(worker.getIdWorker(), worker.getBrigade(), worker.getWorkerName(), worker.getWorkerType(), worker.getDateCreated(),
+                worker.getDateModified());
     }
 }

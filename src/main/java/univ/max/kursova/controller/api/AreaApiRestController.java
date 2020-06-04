@@ -1,5 +1,6 @@
 package univ.max.kursova.controller.api;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import univ.max.kursova.dto.AreaDTO;
 import univ.max.kursova.model.Area;
 import univ.max.kursova.service.area.impls.AreaServiceImpl;
+import univ.max.kursova.view.Views;
 
 import javax.xml.ws.Response;
 import java.util.List;
@@ -19,6 +21,7 @@ public class AreaApiRestController {
     @Autowired
     AreaServiceImpl areaService;
 
+    //@JsonView(Views.AreaView.class)
     @GetMapping("/list")
     public ResponseEntity<List<AreaDTO>> getAll() {
         List<AreaDTO> areaList = areaService.getAll().stream()
@@ -29,6 +32,7 @@ public class AreaApiRestController {
             return new ResponseEntity<List<AreaDTO>>(areaList, HttpStatus.OK);
     }
 
+    //@JsonView(Views.AreaView.class)
     @GetMapping("/list/{id}")
     public ResponseEntity<AreaDTO> getById(@PathVariable("id") Long id) {
         try {
@@ -39,6 +43,7 @@ public class AreaApiRestController {
         }
     }
 
+    //@JsonView(Views.AreaView.class)
     @PostMapping("/add")
     public ResponseEntity<Void> create(@RequestBody AreaDTO areaDTO) {
         try {
@@ -49,6 +54,7 @@ public class AreaApiRestController {
         }
     }
 
+    //@JsonView(Views.AreaView.class)
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         try {

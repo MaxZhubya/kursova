@@ -11,6 +11,7 @@ import univ.max.kursova.repository.ProductRepository;
 import univ.max.kursova.service.product.interfaces.IProductService;
 import univ.max.kursova.service.sequence.SequenceServiceImpl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,14 +31,14 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public Product save(Long id, Area currentArea, Laboratory currentLaboratory,
-                        ProductCategory category, ProductType type) {
+                        ProductCategory category, ProductType type, LocalDateTime dateCreated, LocalDateTime dateModified) {
         return repository.save(new Product().setIdProduct(getId(Product.SEQUENCE_NAME)).setCurrentArea(currentArea)
-                .setCurrentLaboratory(currentLaboratory).setCategory(category).setType(type));
+                .setCurrentLaboratory(currentLaboratory).setCategory(category).setType(type).setDateCreated(dateCreated).setDateModified(dateModified));
     }
 
     @Override
     public Product get(Long id) throws Exception {
-        return repository.findById(id).orElseThrow(() -> new Exception("TechPersonal with is: "
+        return repository.findById(id).orElseThrow(() -> new Exception("Product with is: "
                 + id.toString() + "is not existed"));
     }
 
@@ -59,13 +60,20 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public Product delete(Long id) {
+    public void delete(Long id) throws Exception {
+        repository.findById(id).orElseThrow(() -> new Exception("Product with is: "
+                + id.toString() + "is not existed"));
         repository.deleteById(id);
-        return repository.findById(id).orElse(null);
     }
 
     @Override
     public List<Product> getAll() {
         return repository.findAll();
     }
+
+    public void create(Product product) {
+        save(product.getIdProduct(), product.getCurrentArea(), product.getCurrentLaboratory(), product.getCategory(),
+                product.getType(), product.getDateCreated(), product.getDateModified());
+    }
+
 }

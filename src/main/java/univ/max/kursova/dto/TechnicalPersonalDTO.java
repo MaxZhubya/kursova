@@ -2,24 +2,44 @@ package univ.max.kursova.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
 import univ.max.kursova.model.TeamOfAreaBoss;
 import univ.max.kursova.model.TechnicalPersonal;
 import univ.max.kursova.model.enums.TechPersonalType;
+import univ.max.kursova.view.Views;
 
 import java.time.LocalDateTime;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+
 public class TechnicalPersonalDTO {
 
+
     private Long idTechPersonal;
-    @JsonIgnore
-    private TeamOfAreaBoss teamOfAreaBoss;
+
+    @JsonInclude(NON_EMPTY)
+    private TeamOfAreaBossDTO teamOfAreaBoss;
+
+    @JsonInclude(NON_NULL)
     private String personalName;
+
+    @JsonInclude(NON_EMPTY)
     private TechPersonalType personalType;
+
+    @JsonInclude(NON_NULL)
+    private String description;
+
+    @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime dateCreated;
+
+    @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime dateModified;
-    private String description;
+
+
 
     public Long getIdTechPersonal() {
         return idTechPersonal;
@@ -30,11 +50,11 @@ public class TechnicalPersonalDTO {
         return this;
     }
 
-    public TeamOfAreaBoss getTeamOfAreaBoss() {
+    public TeamOfAreaBossDTO getTeamOfAreaBoss() {
         return teamOfAreaBoss;
     }
 
-    public TechnicalPersonalDTO setTeamOfAreaBoss(TeamOfAreaBoss teamOfAreaBoss) {
+    public TechnicalPersonalDTO setTeamOfAreaBoss(TeamOfAreaBossDTO teamOfAreaBoss) {
         this.teamOfAreaBoss = teamOfAreaBoss;
         return this;
     }
@@ -87,11 +107,21 @@ public class TechnicalPersonalDTO {
     public static TechnicalPersonalDTO makeDTO(TechnicalPersonal technicalPersonal) {
         return new TechnicalPersonalDTO()
                 .setIdTechPersonal(technicalPersonal.getIdTechPersonal())
+                .setTeamOfAreaBoss(TeamOfAreaBossDTO.makeSimpleDTO(technicalPersonal.getTeamOfAreaBoss()))
                 .setPersonalName(technicalPersonal.getPersonalName())
                 .setPersonalType(technicalPersonal.getPersonalType())
                 .setDescription(technicalPersonal.getDescription())
                 .setDateCreated(technicalPersonal.getDateCreated())
                 .setDateModified(technicalPersonal.getDateModified());
-                //.setTeamOfAreaBoss(technicalPersonal.getTeamOfAreaBoss());
+    }
+
+    public static TechnicalPersonalDTO makeSimpleDTO(TechnicalPersonal technicalPersonal) {
+        return (technicalPersonal != null) ? new TechnicalPersonalDTO()
+                .setIdTechPersonal(technicalPersonal.getIdTechPersonal())
+                .setPersonalName(technicalPersonal.getPersonalName())
+                .setPersonalType(technicalPersonal.getPersonalType())
+                .setDescription(technicalPersonal.getDescription())
+                .setDateCreated(technicalPersonal.getDateCreated())
+                .setDateModified(technicalPersonal.getDateModified()) : null;
     }
 }

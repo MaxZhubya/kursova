@@ -1,23 +1,49 @@
 package univ.max.kursova.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonView;
+import sun.invoke.empty.Empty;
 import univ.max.kursova.model.*;
+import univ.max.kursova.view.Views;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 public class AreaDTO {
 
     private Long idArea;
+
+    @JsonInclude(NON_EMPTY)
     private TeamOfAreaBossDTO teamOfAreaBoss;
-    private List<Brigade> brigadeList;
-    private List<Product> productList;
-    private Workshop workshop;
+
+    @JsonInclude(NON_EMPTY)
+    private List<BrigadeDTO> brigadeList = new ArrayList<>();
+
+    @JsonInclude(NON_EMPTY)
+    private List<ProductDTO> productList = new ArrayList<>();
+
+    @JsonInclude(NON_EMPTY)
+    private WorkshopDTO workshop;
+
+    @JsonInclude(NON_NULL)
     private String definition;
+
+    @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime dateCreated;
+
+    @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime dateModified;
+
+
 
     public Long getIdArea() {
         return idArea;
@@ -37,29 +63,29 @@ public class AreaDTO {
         return this;
     }
 
-    public List<Brigade> getBrigadeList() {
+    public List<BrigadeDTO> getBrigadeList() {
         return brigadeList;
     }
 
-    public AreaDTO setBrigadeList(List<Brigade> brigadeList) {
+    public AreaDTO setBrigadeList(List<BrigadeDTO> brigadeList) {
         this.brigadeList = brigadeList;
         return this;
     }
 
-    public List<Product> getProductList() {
+    public List<ProductDTO> getProductList() {
         return productList;
     }
 
-    public AreaDTO setProductList(List<Product> productList) {
+    public AreaDTO setProductList(List<ProductDTO> productList) {
         this.productList = productList;
         return this;
     }
 
-    public Workshop getWorkshop() {
+    public WorkshopDTO getWorkshop() {
         return workshop;
     }
 
-    public AreaDTO setWorkshop(Workshop workshop) {
+    public AreaDTO setWorkshop(WorkshopDTO workshop) {
         this.workshop = workshop;
         return this;
     }
@@ -94,10 +120,26 @@ public class AreaDTO {
     public static AreaDTO makeDTO(Area area) {
         return new AreaDTO()
                 .setIdArea(area.getIdArea())
+                .setTeamOfAreaBoss(TeamOfAreaBossDTO.makeSimpleDTO(area.getTeamOfAreaBoss()))
+
+                .setBrigadeList(area.getBrigadeList().stream()
+                        .map(BrigadeDTO::makeSimpleDTO).collect(Collectors.toList()))
+
+                .setProductList(area.getProductList().stream()
+                        .map(ProductDTO::makeSimpleDTO).collect(Collectors.toList()))
+
+                .setWorkshop(WorkshopDTO.makeSimpleDTO(area.getWorkshop()))
                 .setDefinition(area.getDefinition())
                 .setDateCreated(area.getDateCreated())
                 .setDateModified(area.getDateModified());
-                //.setTeamOfAreaBoss(TeamOfAreaBossDTO.makeDTO(area.getTeamOfAreaBoss()));
+    }
+
+    public static AreaDTO makeSimpleDTO(Area area) {
+        return (area != null) ? new AreaDTO()
+                .setIdArea(area.getIdArea())
+                .setDefinition(area.getDefinition())
+                .setDateCreated(area.getDateCreated())
+                .setDateModified(area.getDateModified()) : null;
     }
 
 }

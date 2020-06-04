@@ -39,7 +39,7 @@ public class TechPersonalServiceImpl implements ITechPersonalService {
 
     @Override
     public TechnicalPersonal get(Long id) throws Exception {
-        return repository.findById(id).orElseThrow(() -> new Exception("TechPersonal with is: "
+        return repository.findById(id).orElseThrow(() -> new Exception("TechnicalPersonal with is: "
                 + id.toString() + "is not existed"));
     }
 
@@ -57,13 +57,13 @@ public class TechPersonalServiceImpl implements ITechPersonalService {
             technicalPersonal.setDescription(description);
             return repository.save(technicalPersonal);
         } else {
-            throw new Exception("Current Person doesn't exist in DB");
+            throw new Exception("Current TechnicalPersonal doesn't exist in DB");
         }
     }
 
     @Override
     public void delete(Long id) throws Exception {
-        repository.findById(id).orElseThrow(() -> new Exception("Worker with is: "
+        repository.findById(id).orElseThrow(() -> new Exception("TechnicalPersonal with is: "
                 + id.toString() + "is not existed"));
         repository.deleteById(id);
     }

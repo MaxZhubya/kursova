@@ -10,6 +10,7 @@ import univ.max.kursova.service.DataServiceImpl;
 import univ.max.kursova.service.sequence.SequenceServiceImpl;
 import univ.max.kursova.service.workshop.interfaces.IWorkshopService;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,14 +29,15 @@ public class WorkshopServiceImpl implements IWorkshopService {
     private WorkshopRepository repository;
 
     @Override
-    public Workshop save(Long id, List<Area> areaList, List<Laboratory> laboratoryList, String definition) {
+    public Workshop save(Long id, List<Area> areaList, List<Laboratory> laboratoryList, String definition,
+                         LocalDateTime dateCreated, LocalDateTime dateModified) {
         return repository.save(new Workshop().setIdWorkshop(getId(Workshop.SEQUENCE_NAME)).setAreaList(areaList)
-                .setLaboratoryList(laboratoryList).setDefinition(definition));
+                .setLaboratoryList(laboratoryList).setDefinition(definition).setDateCreated(dateCreated).setDateModified(dateModified));
     }
 
     @Override
     public Workshop get(Long id) throws Exception {
-        return repository.findById(id).orElseThrow(() -> new Exception("TechPersonal with is: "
+        return repository.findById(id).orElseThrow(() -> new Exception("Workshop with is: "
                 + id.toString() + "is not existed"));
     }
 
@@ -55,13 +57,19 @@ public class WorkshopServiceImpl implements IWorkshopService {
     }
 
     @Override
-    public Workshop delete(Long id) {
+    public void delete(Long id) throws Exception {
+        repository.findById(id).orElseThrow(() -> new Exception("Workshop with is: "
+                + id.toString() + "is not existed"));
         repository.deleteById(id);
-        return repository.findById(id).orElse(null);
     }
 
     @Override
     public List<Workshop> getAll() {
         return repository.findAll();
+    }
+
+    public void create(Workshop workshop) {
+        save(workshop.getIdWorkshop(), workshop.getAreaList(), workshop.getLaboratoryList(), workshop.getDefinition(),
+                workshop.getDateCreated(), workshop.getDateModified());
     }
 }
