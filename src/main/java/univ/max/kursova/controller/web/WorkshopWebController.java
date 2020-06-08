@@ -36,7 +36,7 @@ public class WorkshopWebController {
 
     @RequestMapping("/edit/{id}")
     String edit(Model model, @PathVariable("id") Long id, List<Area> areaList, List<Laboratory> laboratoryList, String definition) throws Exception {
-        workshopService.edit(id, areaList, laboratoryList, definition);
+        // workshopService.edit(id, areaList, laboratoryList, definition);
         model.addAttribute("workshopList", workshopService.getAll());
         return "workshopList";
     }
@@ -44,7 +44,7 @@ public class WorkshopWebController {
     @RequestMapping("/save/{id}")
     String save(Model model, @PathVariable("id") Long id, List<Area> areaList, List<Laboratory> laboratoryList, String definition,
                 LocalDateTime dateCreated, LocalDateTime dateModified) {
-        workshopService.save(id, areaList, laboratoryList, definition, dateCreated, dateModified);
+        // workshopService.save(id, areaList, laboratoryList, definition, dateCreated, dateModified);
         model.addAttribute("workshopList", workshopService.getAll());
         return "workshopList";
     }

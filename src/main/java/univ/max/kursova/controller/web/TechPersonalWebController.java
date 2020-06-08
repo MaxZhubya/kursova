@@ -34,8 +34,7 @@ public class TechPersonalWebController {
     @RequestMapping("/edit/{id}")
     String edit(Model model, @PathVariable("id") Long id, TeamOfAreaBoss teamOfAreaBoss, String personalName,
                 TechPersonalType techPersonalType, String description) throws Exception {
-        techPersonalService.edit(id, teamOfAreaBoss, personalName,
-                techPersonalType, description);
+        // techPersonalService.edit(id, teamOfAreaBoss, personalName, techPersonalType, description);
         model.addAttribute("technicalPersonalList", techPersonalService.getAll());
         return "techPersonalList";
     }
@@ -43,7 +42,7 @@ public class TechPersonalWebController {
     @RequestMapping("/save/{id}")
     String save(Model model, @PathVariable("id") Long id, TeamOfAreaBoss teamOfAreaBoss, String personalName,
                 TechPersonalType techPersonalType, String description, LocalDateTime dateCreated, LocalDateTime dateModified) {
-        techPersonalService.save(id, teamOfAreaBoss, personalName, techPersonalType, description, dateCreated, dateModified);
+        // techPersonalService.save(id, teamOfAreaBoss, personalName, techPersonalType, description, dateCreated, dateModified);
         model.addAttribute("technicalPersonalList", techPersonalService.getAll());
         return "techPersonalList";
     }

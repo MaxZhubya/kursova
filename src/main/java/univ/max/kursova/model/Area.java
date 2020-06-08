@@ -22,6 +22,7 @@ public class Area {
     private Long idArea;
 
     @DBRef
+
     private TeamOfAreaBoss teamOfAreaBoss;
 
     @DBRef

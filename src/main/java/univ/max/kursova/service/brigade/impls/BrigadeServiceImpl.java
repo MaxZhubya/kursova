@@ -2,6 +2,8 @@ package univ.max.kursova.service.brigade.impls;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import univ.max.kursova.dto.BrigadeEditDTO;
+import univ.max.kursova.exception.DataNotFoundException;
 import univ.max.kursova.model.Area;
 import univ.max.kursova.model.Brigade;
 import univ.max.kursova.model.Worker;
@@ -21,45 +23,18 @@ public class BrigadeServiceImpl implements IBrigadeService {
     @Autowired
     private SequenceServiceImpl sequenceService;
 
-    private Long getId(String sequenceName) {
-        return sequenceService.generateSequence(sequenceName);
-    }
-/*---------------------------------------------------*/
-
     @Autowired
     BrigadeRepository repository;
 
-    @Override
-    public Brigade save(Long id, List<Worker> workerList, Area area, LocalDateTime dateCreated, LocalDateTime dateModified) {
-        return repository.save(new Brigade().setIdBrigade(getId(Brigade.SEQUENCE_NAME)).setWorkerList(workerList).setArea(area)
-            .setDateCreated(dateCreated).setDateModified(dateModified));
+    private Long getId(String sequenceName) {
+        return sequenceService.generateSequence(sequenceName);
     }
+    /*---------------------------------------------------*/
 
     @Override
-    public Brigade get(Long id) throws Exception {
-        return repository.findById(id).orElseThrow(() -> new Exception("Brigade with is: "
+    public Brigade get(Long id) {
+        return repository.findById(id).orElseThrow(() -> new DataNotFoundException("Brigade with id: "
                 + id.toString() + "is not existed"));
-    }
-
-    @Override
-    public Brigade edit(Long id, List<Worker> workerList, Area area) throws Exception {
-        Optional<Brigade> optionalBrigade = repository.findById(id);
-
-        if (optionalBrigade.isPresent()) {
-            Brigade brigade = optionalBrigade.get();
-            brigade.setWorkerList(workerList);
-            brigade.setArea(area);
-            return repository.save(brigade);
-        } else {
-            throw new Exception("Current Brigade doesn't exist");
-        }
-    }
-
-    @Override
-    public void delete(Long id) throws Exception {
-        repository.findById(id).orElseThrow(() -> new Exception("Brigade with is: "
-                + id.toString() + "is not existed"));
-        repository.deleteById(id);
     }
 
     @Override
@@ -67,7 +42,36 @@ public class BrigadeServiceImpl implements IBrigadeService {
         return repository.findAll();
     }
 
-    public void create(Brigade brigade) {
-        save(brigade.getIdBrigade(), brigade.getWorkerList(), brigade.getArea(), brigade.getDateCreated(), brigade.getDateModified());
+    @Override
+    public List<Brigade> getByIds(List<Long> ids) {
+        return repository.getByIdBrigadeIn(ids);
     }
+
+    @Override
+    public Brigade create(BrigadeEditDTO brigade) {
+        return null;
+    }
+
+    @Override
+    public Brigade update(BrigadeEditDTO brigade) {
+        return null;
+    }
+
+    @Override
+    public void delete(Long id) {
+        repository.findById(id).orElseThrow(() -> new DataNotFoundException("Brigade with id: "
+                + id.toString() + "is not existed"));
+        repository.deleteById(id);
+    }
+
+    @Override
+    public Brigade save(Brigade brigade) {
+        return repository.save(brigade);
+    }
+
+    @Override
+    public List<Brigade> save(List<Brigade> brigadeList) {
+        return repository.saveAll(brigadeList);
+    }
+
 }

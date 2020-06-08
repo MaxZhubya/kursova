@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import univ.max.kursova.dto.ProductDTO;
+import univ.max.kursova.dto.ProductEditDTO;
 import univ.max.kursova.model.Product;
 import univ.max.kursova.service.product.impls.ProductServiceImpl;
 import univ.max.kursova.view.Views;
@@ -44,9 +45,9 @@ public class ProductApiRestController {
 
     //@JsonView(Views.ProductView.class)
     @PostMapping("/add")
-    public ResponseEntity<Void> create(@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<Void> create(@RequestBody ProductEditDTO productEditDTO) {
         try {
-            productService.create(Product.makeEntity(productDTO));
+            productService.create(productEditDTO);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity("Error of creating new Product", HttpStatus.INTERNAL_SERVER_ERROR);

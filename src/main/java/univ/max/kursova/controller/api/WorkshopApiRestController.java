@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import univ.max.kursova.dto.WorkshopDTO;
+import univ.max.kursova.dto.WorkshopEditDTO;
 import univ.max.kursova.model.Workshop;
 import univ.max.kursova.service.workshop.impls.WorkshopServiceImpl;
 import univ.max.kursova.view.Views;
@@ -20,7 +21,6 @@ public class WorkshopApiRestController {
     @Autowired
     WorkshopServiceImpl workshopService;
 
-    //@JsonView(Views.WorkshopView.class)
     @GetMapping("/list")
     public ResponseEntity<List<WorkshopDTO>> getAll() {
         List<WorkshopDTO> workshopList = workshopService.getAll().stream()
@@ -31,7 +31,6 @@ public class WorkshopApiRestController {
             return new ResponseEntity<List<WorkshopDTO>>(workshopList, HttpStatus.OK);
     }
 
-    //@JsonView(Views.WorkshopView.class)
     @GetMapping("/list/{id}")
     public ResponseEntity<WorkshopDTO> getById(@PathVariable("id") Long id) {
         try {
@@ -42,18 +41,16 @@ public class WorkshopApiRestController {
         }
     }
 
-    //@JsonView(Views.WorkshopView.class)
     @PostMapping("/add")
-    public ResponseEntity<Void> create(@RequestBody WorkshopDTO workshopDTO) {
+    public ResponseEntity<Void> create(@RequestBody WorkshopEditDTO workshopEditDTO) {
         try {
-            workshopService.create(Workshop.makeEntity(workshopDTO));
+            workshopService.create(workshopEditDTO);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity("Error of creating new Workshop", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    //@JsonView(Views.WorkshopView.class)
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         try {

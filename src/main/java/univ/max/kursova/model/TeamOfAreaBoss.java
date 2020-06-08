@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import univ.max.kursova.dto.TeamOfAreaBossDTO;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class TeamOfAreaBoss {
     private Long idTeam;
 
     @DBRef
+    @NotNull
     private List<TechnicalPersonal> technicalPersonalList = new ArrayList<>();
 
     @DBRef

@@ -35,7 +35,7 @@ public class AreaWebController {
     @RequestMapping("/edit/{id}")
     String edit(Model model, @PathVariable("id") Long id, TeamOfAreaBoss teamOfAreaBoss, List<Brigade> brigadeList, List<Product> productList,
                 Workshop workshop, String definition) throws Exception {
-        areaService.edit(id, teamOfAreaBoss, brigadeList, productList, workshop, definition);
+        // areaService.edit(id, teamOfAreaBoss, brigadeList, productList, workshop, definition);
         model.addAttribute("areaList", areaService.getAll());
         return "areaList";
     }
@@ -43,7 +43,7 @@ public class AreaWebController {
     @RequestMapping("/create/{id}")
     String save(Model model, @PathVariable("id") Long id, TeamOfAreaBoss teamOfAreaBoss, List<Brigade> brigadeList, List<Product> productList,
                 Workshop workshop, String definition, LocalDateTime dateCreated, LocalDateTime dateModified) {
-        areaService.save(id, teamOfAreaBoss, brigadeList, productList, workshop, definition, dateCreated, dateModified);
+        // areaService.save(id, teamOfAreaBoss, brigadeList, productList, workshop, definition, dateCreated, dateModified);
         model.addAttribute("areaList", areaService.getAll());
         return "areaList";
     }

@@ -39,8 +39,7 @@ public class ProductWebController {
     @RequestMapping("/edit/{id}")
     String edit(Model model, @PathVariable("id") Long id, Area currentArea, Laboratory currentLaboratory,
                 ProductCategory category, ProductType type) throws Exception {
-        productService.edit(id, currentArea, currentLaboratory,
-                category, type);
+        // productService.edit(id, currentArea, currentLaboratory, category, type);
         model.addAttribute("productList", productService.getAll());
         return "productList";
     }
@@ -48,7 +47,7 @@ public class ProductWebController {
     @RequestMapping("/save/{id}")
     String save(Model model, @PathVariable("id") Long id, Area currentArea, Laboratory currentLaboratory,
                 ProductCategory category, ProductType type, LocalDateTime dateCreated, LocalDateTime dateModified) {
-        productService.save(id, currentArea, currentLaboratory, category, type, dateCreated, dateModified);
+        // productService.save(id, currentArea, currentLaboratory, category, type, dateCreated, dateModified);
         model.addAttribute("productList", productService.getAll());
         return "productList";
     }

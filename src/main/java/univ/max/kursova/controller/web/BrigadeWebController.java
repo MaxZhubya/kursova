@@ -36,14 +36,14 @@ public class BrigadeWebController {
 
     @RequestMapping("/edit/{id}")
     String edit(Model model, @PathVariable("id") Long id, List<Worker> workerList, Area area) throws Exception {
-        brigadeService.edit( id, workerList, area);
+        // brigadeService.edit( id, workerList, area);
         model.addAttribute("brigadeList", brigadeService.getAll());
         return "brigadeList";
     }
 
     @RequestMapping("/save/{id}")
     String save(Model model, @PathVariable("id") Long id, List<Worker> workerList, Area area, LocalDateTime dateCreated, LocalDateTime dateModified) {
-        brigadeService.save( id, workerList, area, dateCreated, dateModified);
+        // brigadeService.save( id, workerList, area, dateCreated, dateModified);
         model.addAttribute("brigadeList", brigadeService.getAll());
         return "brigadeList";
     }

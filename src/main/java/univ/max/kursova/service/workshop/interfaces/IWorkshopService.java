@@ -1,7 +1,10 @@
 package univ.max.kursova.service.workshop.interfaces;
 
+import univ.max.kursova.dto.ProductEditDTO;
+import univ.max.kursova.dto.WorkshopEditDTO;
 import univ.max.kursova.model.Area;
 import univ.max.kursova.model.Laboratory;
+import univ.max.kursova.model.Product;
 import univ.max.kursova.model.Workshop;
 
 import java.time.LocalDateTime;
@@ -9,9 +12,10 @@ import java.util.List;
 
 public interface IWorkshopService {
     //  CRUD
-    Workshop save(Long id, List<Area> areaList, List<Laboratory> laboratoryList, String definition, LocalDateTime dateCreated, LocalDateTime dateModified);        // Create
-    Workshop get(Long id) throws Exception;             // Read
-    Workshop edit(Long id, List<Area> areaList, List<Laboratory> laboratoryList, String definition) throws Exception;   // Update
-    void delete(Long id) throws Exception;          // Delete
-    List<Workshop> getAll();
+    Workshop get(Long id);  // Read
+    List<Workshop> getAll();    // Read
+    Workshop create(WorkshopEditDTO workshopEditDTO);    // Create
+    Workshop update(WorkshopEditDTO workshopEditDTO);   // Update
+    void delete(Long id);   // Delete
+    Workshop save(Workshop workshop);
 }

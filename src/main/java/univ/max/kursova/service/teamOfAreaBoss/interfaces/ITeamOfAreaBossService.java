@@ -1,5 +1,6 @@
 package univ.max.kursova.service.teamOfAreaBoss.interfaces;
 
+import univ.max.kursova.dto.TeamOfAreaBossEditDTO;
 import univ.max.kursova.model.Area;
 import univ.max.kursova.model.TeamOfAreaBoss;
 import univ.max.kursova.model.TechnicalPersonal;
@@ -9,9 +10,10 @@ import java.util.List;
 
 public interface ITeamOfAreaBossService {
     //  CRUD
-    TeamOfAreaBoss save(Long id, List<TechnicalPersonal> technicalPersonalList, Area area, LocalDateTime dateCreated, LocalDateTime dateModified);        // Create
-    TeamOfAreaBoss get(Long id) throws Exception;             // Read
-    TeamOfAreaBoss edit(Long id, List<TechnicalPersonal> technicalPersonalList, Area area) throws Exception;        // Update
-    void delete(Long id) throws Exception;          // Delete
-    List<TeamOfAreaBoss> getAll();
+    TeamOfAreaBoss get(Long id);    // Read
+    List<TeamOfAreaBoss> getAll();    // Read
+    TeamOfAreaBoss create(TeamOfAreaBossEditDTO teamOfAreaBossEditDTO);    // Create
+    TeamOfAreaBoss update(TeamOfAreaBossEditDTO teamOfAreaBossEditDTO);    // Update
+    void delete(Long id);   // Delete
+    TeamOfAreaBoss save(TeamOfAreaBoss teamOfAreaBoss);
 }

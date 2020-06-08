@@ -1,5 +1,6 @@
 package univ.max.kursova.service.area.interfaces;
 
+import univ.max.kursova.dto.AreaEditDTO;
 import univ.max.kursova.model.*;
 
 import java.time.LocalDateTime;
@@ -7,11 +8,10 @@ import java.util.List;
 
 public interface IAreaService {
     //  CRUD
-    Area save(Long id, TeamOfAreaBoss teamOfAreaBoss, List<Brigade> brigadeList, List<Product> productList,
-              Workshop workshop, String definition, LocalDateTime dateCreated, LocalDateTime dateModified);        // Create
-    Area get(Long id) throws Exception;             // Read
-    Area edit(Long id, TeamOfAreaBoss teamOfAreaBoss, List<Brigade> brigadeList, List<Product> productList,
-              Workshop workshop, String definition) throws Exception;        // Update
-    void delete(Long id) throws Exception;          // Delete
-    List<Area> getAll();
+    Area get(Long id);      // Read
+    List<Area> getAll();    // Read
+    Area create(AreaEditDTO areaEditDTO);   // Create
+    Area update(AreaEditDTO areaEditDTO);   // Update
+    void delete(Long id);   // Delete
+    Area save(Area area);
 }

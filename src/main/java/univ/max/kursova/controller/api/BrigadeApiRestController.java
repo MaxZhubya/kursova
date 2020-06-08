@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import univ.max.kursova.dto.BrigadeDTO;
+import univ.max.kursova.dto.BrigadeEditDTO;
 import univ.max.kursova.model.Brigade;
 import univ.max.kursova.service.brigade.impls.BrigadeServiceImpl;
 import univ.max.kursova.view.Views;
@@ -20,7 +21,6 @@ public class BrigadeApiRestController {
     @Autowired
     BrigadeServiceImpl brigadeService;
 
-    //@JsonView(Views.BrigadeView.class)
     @GetMapping("/list")
     public ResponseEntity<List<BrigadeDTO>> getAll() {
         List<BrigadeDTO> brigadeList = brigadeService.getAll().stream()
@@ -31,7 +31,6 @@ public class BrigadeApiRestController {
             return new ResponseEntity<List<BrigadeDTO>>(brigadeList, HttpStatus.OK);
     }
 
-    //@JsonView(Views.BrigadeView.class)
     @GetMapping("/list/{id}")
     public ResponseEntity<BrigadeDTO> getById(@PathVariable("id") Long id) {
         try {
@@ -42,18 +41,16 @@ public class BrigadeApiRestController {
         }
     }
 
-    //@JsonView(Views.BrigadeView.class)
     @PostMapping("/add")
-    public ResponseEntity<Void> create(@RequestBody BrigadeDTO brigadeDTO) {
+    public ResponseEntity<Void> create(@RequestBody BrigadeEditDTO brigadeEditDTO) {
         try {
-            brigadeService.create(Brigade.makeEntity(brigadeDTO));
+            brigadeService.create(brigadeEditDTO);
             return new ResponseEntity(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity("Error of creating new Brigade", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-//    @JsonView(Views.BrigadeView.class)
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
         try {

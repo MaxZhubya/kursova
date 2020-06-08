@@ -35,7 +35,7 @@ public class TeamOfAreaBossWebController {
 
     @RequestMapping("/edit/{id}")
     String edit(Model model, @PathVariable("id") Long id, List<TechnicalPersonal> technicalPersonalList, Area area) throws Exception {
-        teamOfAreaBossService.edit(id, technicalPersonalList, area);
+        // teamOfAreaBossService.edit(id, technicalPersonalList, area);
         model.addAttribute("teamOfAreaBossList", teamOfAreaBossService.getAll());
         return "teamOfAreaBossList";
     }
@@ -43,7 +43,7 @@ public class TeamOfAreaBossWebController {
     @RequestMapping("/save/{id}")
     String save(Model model, @PathVariable("id") Long id, List<TechnicalPersonal> technicalPersonalList, Area area,
                 LocalDateTime dateCreated, LocalDateTime dateModified) {
-        teamOfAreaBossService.save(id, technicalPersonalList, area, dateCreated, dateModified);
+        // teamOfAreaBossService.save(id, technicalPersonalList, area, dateCreated, dateModified);
         model.addAttribute("teamOfAreaBossList", teamOfAreaBossService.getAll());
         return "teamOfAreaBossList";
     }

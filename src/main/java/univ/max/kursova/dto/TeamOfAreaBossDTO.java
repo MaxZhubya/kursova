@@ -1,12 +1,8 @@
 package univ.max.kursova.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonView;
-import univ.max.kursova.model.Area;
 import univ.max.kursova.model.TeamOfAreaBoss;
-import univ.max.kursova.view.Views;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,7 +13,6 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 public class TeamOfAreaBossDTO {
-
 
     private Long idTeam;
 
@@ -34,8 +29,6 @@ public class TeamOfAreaBossDTO {
     @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime dateModified;
-
-
 
     public Long getIdTeam() {
         return idTeam;

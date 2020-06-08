@@ -1,6 +1,9 @@
 package univ.max.kursova.service.product.interfaces;
 
+import univ.max.kursova.dto.BrigadeEditDTO;
+import univ.max.kursova.dto.ProductEditDTO;
 import univ.max.kursova.model.Area;
+import univ.max.kursova.model.Brigade;
 import univ.max.kursova.model.Laboratory;
 import univ.max.kursova.model.Product;
 import univ.max.kursova.model.enums.ProductCategory;
@@ -11,11 +14,12 @@ import java.util.List;
 
 public interface IProductService {
     //  CRUD
-    Product save(Long id, Area currentArea, Laboratory currentLaboratory, ProductCategory category, ProductType type,
-                 LocalDateTime dateCreated, LocalDateTime dateModified);        // Create
-    Product get(Long id) throws Exception;             // Read
-    Product edit(Long id, Area currentArea, Laboratory currentLaboratory,
-                 ProductCategory category, ProductType type) throws Exception;        // Update
-    void delete(Long id) throws Exception;          // Delete
-    List<Product> getAll();
+    Product get(Long id);   // Read
+    List<Product> getAll(); // Read
+    List<Product> getByIds(List<Long> ids); // Read
+    Product create(ProductEditDTO productEditDTO);   // Create
+    Product update(ProductEditDTO productEditDTO);   // Update
+    void delete(Long id);   // Delete
+    Product save(Product product);
+    List<Product> save(List<Product> productList);
 }

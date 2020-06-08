@@ -1,13 +1,9 @@
 package univ.max.kursova.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonView;
-import univ.max.kursova.model.TeamOfAreaBoss;
 import univ.max.kursova.model.TechnicalPersonal;
 import univ.max.kursova.model.enums.TechPersonalType;
-import univ.max.kursova.view.Views;
 
 import java.time.LocalDateTime;
 
@@ -15,7 +11,6 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 public class TechnicalPersonalDTO {
-
 
     private Long idTechPersonal;
 
