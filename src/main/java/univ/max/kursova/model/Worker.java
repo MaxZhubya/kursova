@@ -1,31 +1,43 @@
 package univ.max.kursova.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 import univ.max.kursova.dto.WorkerDTO;
 import univ.max.kursova.model.enums.WorkerType;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Document(collection = "workers")
+@Entity
+@Table(name = "workers")
 public class Worker {
 
-    @Transient
-    public static final String SEQUENCE_NAME = "workers_sequence";
+    private static final long serialVersionUID = -9087956734367787L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long idWorker;
 
-    @DBRef
+    @ManyToOne
+    @JoinColumn(name = "brigade_id", referencedColumnName = "id")
     private Brigade brigade;
 
+    @NotEmpty
+    @Column(name = "name")
     private String workerName;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
     private WorkerType workerType;
 
+    @Column(name = "created_at")
     private LocalDateTime dateCreated;
+
+    @Column(name = "modified_at")
     private LocalDateTime dateModified;
 
     public Worker() {

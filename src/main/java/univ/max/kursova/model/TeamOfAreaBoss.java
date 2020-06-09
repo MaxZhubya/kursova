@@ -1,34 +1,37 @@
 package univ.max.kursova.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 import univ.max.kursova.dto.TeamOfAreaBossDTO;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Document(collection = "teamsOfAreaBosses")
+@Entity
+@Table(name = "teams_of_area_bosses")
 public class TeamOfAreaBoss {
 
-    @Transient
-    public static final String SEQUENCE_NAME = "team_of_area_boss_sequence";
+    private static final long serialVersionUID = -3463465374754748L;
 
     @Id
-    private Long idTeam;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private long idTeam;
 
-    @DBRef
     @NotNull
+    @OneToMany(mappedBy = "teamOfAreaBoss")
     private List<TechnicalPersonal> technicalPersonalList = new ArrayList<>();
 
-    @DBRef
+    @OneToOne(mappedBy = "teamOfAreaBoss")
     private Area area;
 
+    @Column(name = "created_at")
     private LocalDateTime dateCreated;
+
+    @Column(name = "modified_at")
     private LocalDateTime dateModified;
 
     public TeamOfAreaBoss() {

@@ -1,45 +1,59 @@
 package univ.max.kursova.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 import univ.max.kursova.dto.TechnicalPersonalDTO;
 import univ.max.kursova.model.enums.TechPersonalType;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Document(collection = "technical_personals")
+@Entity
+@Table(name = "technical_personals")
 public class TechnicalPersonal {
 
-    @Transient
-    public static final String SEQUENCE_NAME = "technical_personals_sequence";
+    private static final long serialVersionUID = -8745670987094748L;
 
     @Id
-    private Long idTechPersonal;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private long idTechPersonal;
 
-    @DBRef
+    @ManyToOne()
+    @JoinColumn(name = "team_of_area_boss_id", referencedColumnName = "id")
     private TeamOfAreaBoss teamOfAreaBoss;
 
+    @NotEmpty
+    @Column(name = "name")
     private String personalName;
+
+    @NotNull
+    @Enumerated (EnumType.STRING)
+    @Column(name = "type")
     private TechPersonalType personalType;
 
+    @Column(name = "definition")
+    private String definition;
+
+    @Column(name = "created_at")
     private LocalDateTime dateCreated;
+
+    @Column(name = "modified_at")
     private LocalDateTime dateModified;
-    private String description;
 
     public TechnicalPersonal() {
     }
 
     public TechnicalPersonal(Long id_tech_personal, String personalName, TechPersonalType personalType,
-                             LocalDateTime dateCreated, LocalDateTime dateModified, String description) {
+                             LocalDateTime dateCreated, LocalDateTime dateModified, String definition) {
         this.idTechPersonal = id_tech_personal;
         this.personalName = personalName;
         this.personalType = personalType;
         this.dateCreated = dateCreated;
         this.dateModified = dateModified;
-        this.description = description;
+        this.definition = definition;
     }
 
     public Long getIdTechPersonal() {
@@ -96,12 +110,12 @@ public class TechnicalPersonal {
         return this;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDefinition() {
+        return definition;
     }
 
-    public TechnicalPersonal setDescription(String description) {
-        this.description = description;
+    public TechnicalPersonal setDefinition(String definition) {
+        this.definition = definition;
         return this;
     }
 
@@ -122,7 +136,7 @@ public class TechnicalPersonal {
         return new TechnicalPersonal()
                 .setPersonalName(technicalPersonalDTO.getPersonalName())
                 .setPersonalType(technicalPersonalDTO.getPersonalType())
-                .setDescription(technicalPersonalDTO.getDescription())
+                .setDefinition(technicalPersonalDTO.getDescription())
                 .setDateCreated(technicalPersonalDTO.getDateCreated())
                 .setDateModified(technicalPersonalDTO.getDateModified());
     }

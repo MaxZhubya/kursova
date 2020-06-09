@@ -179,17 +179,17 @@ public class AreaServiceImpl implements IAreaService {
         List<Product> productList = area.getProductList();
         if (actionType.equals(ActionType.CREATE))
             productList.stream().forEach(product -> {
-                if (Objects.nonNull(product.getCurrentArea())) {
-                    repository.findById(product.getCurrentArea().getIdArea())
+                if (Objects.nonNull(product.getArea())) {
+                    repository.findById(product.getArea().getIdArea())
                             .ifPresent(currentArea -> {
                                 currentArea.getProductList().remove(product);
                                 repository.save(currentArea);
                             });
                 }
-                product.setCurrentArea(area);
+                product.setArea(area);
             });
         if (actionType.equals(ActionType.DELETE))
-            productList.stream().forEach(value -> value.setCurrentArea(null));
+            productList.stream().forEach(value -> value.setArea(null));
         productService.save(productList);
 
         Workshop workshop = area.getWorkshop();

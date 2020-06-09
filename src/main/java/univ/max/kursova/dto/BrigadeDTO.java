@@ -2,13 +2,7 @@ package univ.max.kursova.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonView;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import univ.max.kursova.model.Area;
 import univ.max.kursova.model.Brigade;
-import univ.max.kursova.model.Worker;
-import univ.max.kursova.view.Views;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

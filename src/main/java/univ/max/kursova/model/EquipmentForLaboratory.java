@@ -1,31 +1,41 @@
 package univ.max.kursova.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 import univ.max.kursova.dto.EquipmentForLaboratoryDTO;
 import univ.max.kursova.model.enums.EquipmentType;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Document(collection = "equipmentForLaboratories")
+@Entity
+@Table(name = "laboratory_equipments")
 public class EquipmentForLaboratory {
 
-    @Transient
-    public static final String SEQUENCE_NAME = "equipment_for_laboratory_sequence";
+    private static final long serialVersionUID = -1324116876368098L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long idEquipmentForLab;
 
-    @DBRef
+    @ManyToOne
+    @JoinColumn(name = "laboratory_id", referencedColumnName = "id")
     private Laboratory laboratory;
 
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type")
     private EquipmentType equipmentType;
+
+    @Column(name = "definition")
     private String definition;
 
+    @Column(name = "created_at")
     private LocalDateTime dateCreated;
+
+    @Column(name = "modified_at")
     private LocalDateTime dateModified;
 
     public EquipmentForLaboratory() {

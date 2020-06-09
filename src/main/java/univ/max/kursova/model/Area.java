@@ -1,42 +1,50 @@
 package univ.max.kursova.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 import univ.max.kursova.dto.AreaDTO;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Document(collection = "areas")
-public class Area {
+@Entity
+@Table(name = "areas")
+public class Area implements Serializable {
 
-    @Transient
-    public static final String SEQUENCE_NAME = "areas_sequence";
+    private static final long serialVersionUID = -8748906876368098L;
 
     @Id
-    private Long idArea;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private long idArea;
 
-    @DBRef
-
+    @OneToOne()
+    @JoinColumn(name = "team_of_area_boss_id", referencedColumnName = "id")
     private TeamOfAreaBoss teamOfAreaBoss;
 
-    @DBRef
+    @NotNull
+    @OneToMany(mappedBy = "area")
     private List<Brigade> brigadeList = new ArrayList<>();
 
-    @DBRef
+    @NotNull
+    @OneToMany(mappedBy = "area")
     private List<Product> productList = new ArrayList<>();
 
-    @DBRef
+    @ManyToOne()
+    @JoinColumn(name = "workshop_id", referencedColumnName = "id")
     private Workshop workshop;
 
+    @Column(name = "definition")
     private String definition;
 
+    @Column(name = "created_at")
     private LocalDateTime dateCreated;
+
+    @Column(name = "modified_at")
     private LocalDateTime dateModified;
 
     public Area() {

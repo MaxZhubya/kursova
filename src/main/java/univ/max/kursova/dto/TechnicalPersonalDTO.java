@@ -105,7 +105,7 @@ public class TechnicalPersonalDTO {
                 .setTeamOfAreaBoss(TeamOfAreaBossDTO.makeSimpleDTO(technicalPersonal.getTeamOfAreaBoss()))
                 .setPersonalName(technicalPersonal.getPersonalName())
                 .setPersonalType(technicalPersonal.getPersonalType())
-                .setDescription(technicalPersonal.getDescription())
+                .setDescription(technicalPersonal.getDefinition())
                 .setDateCreated(technicalPersonal.getDateCreated())
                 .setDateModified(technicalPersonal.getDateModified());
     }
@@ -115,7 +115,7 @@ public class TechnicalPersonalDTO {
                 .setIdTechPersonal(technicalPersonal.getIdTechPersonal())
                 .setPersonalName(technicalPersonal.getPersonalName())
                 .setPersonalType(technicalPersonal.getPersonalType())
-                .setDescription(technicalPersonal.getDescription())
+                .setDescription(technicalPersonal.getDefinition())
                 .setDateCreated(technicalPersonal.getDateCreated())
                 .setDateModified(technicalPersonal.getDateModified()) : null;
     }

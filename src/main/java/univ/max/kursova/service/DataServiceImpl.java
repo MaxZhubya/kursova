@@ -5,17 +5,15 @@ import org.springframework.stereotype.Service;
 import univ.max.kursova.model.*;
 import univ.max.kursova.model.enums.*;
 import univ.max.kursova.repository.*;
-import univ.max.kursova.service.sequence.SequenceServiceImpl;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
 @Service
+@Transactional
 public class DataServiceImpl {
-
-    @Autowired
-    private SequenceServiceImpl sequenceService;
 
     @Autowired
     private TechnicalPersonalRepository technicalPersonalRepository;
@@ -48,52 +46,45 @@ public class DataServiceImpl {
         return technicalPersonalRepository.saveAll(
                 Arrays.asList(
                         new TechnicalPersonal()
-                                .setIdTechPersonal(getId(TechnicalPersonal.SEQUENCE_NAME))
                                 .setPersonalName("TechPersonal_1")
                                 .setPersonalType(TechPersonalType.TEAM_OF_AREA_BOSS)
-                                .setDescription("Description 1")
+                                .setDefinition("Description 1")
                                 .setDateCreated(LocalDateTime.now())
                                 .setDateModified(LocalDateTime.now()),
                         new TechnicalPersonal()
-                                .setIdTechPersonal(getId(TechnicalPersonal.SEQUENCE_NAME))
                                 .setPersonalName("TechPersonal_2")
                                 .setPersonalType(TechPersonalType.MASTER)
-                                .setDescription("Description 2")
+                                .setDefinition("Description 2")
                                 .setDateCreated(LocalDateTime.now())
                                 .setDateModified(LocalDateTime.now()),
                         new TechnicalPersonal()
-                                .setIdTechPersonal(getId(TechnicalPersonal.SEQUENCE_NAME))
                                 .setPersonalName("TechPersonal_3")
                                 .setPersonalType(TechPersonalType.TECHNIC)
-                                .setDescription("Description 3")
+                                .setDefinition("Description 3")
                                 .setDateCreated(LocalDateTime.now())
                                 .setDateModified(LocalDateTime.now()),
                         new TechnicalPersonal()
-                                .setIdTechPersonal(getId(TechnicalPersonal.SEQUENCE_NAME))
                                 .setPersonalName("TechPersonal_4")
                                 .setPersonalType(TechPersonalType.ENGINEER)
-                                .setDescription("Description 4")
+                                .setDefinition("Description 4")
                                 .setDateCreated(LocalDateTime.now())
                                 .setDateModified(LocalDateTime.now()),
                         new TechnicalPersonal()
-                                .setIdTechPersonal(getId(TechnicalPersonal.SEQUENCE_NAME))
                                 .setPersonalName("TechPersonal_5")
                                 .setPersonalType(TechPersonalType.TEAM_OF_AREA_BOSS)
-                                .setDescription("Description 5")
+                                .setDefinition("Description 5")
                                 .setDateCreated(LocalDateTime.now())
                                 .setDateModified(LocalDateTime.now()),
                         new TechnicalPersonal()
-                                .setIdTechPersonal(getId(TechnicalPersonal.SEQUENCE_NAME))
                                 .setPersonalName("TechPersonal_6")
                                 .setPersonalType(TechPersonalType.TECHNLOG)
-                                .setDescription("Description 6")
+                                .setDefinition("Description 6")
                                 .setDateCreated(LocalDateTime.now())
                                 .setDateModified(LocalDateTime.now()),
                         new TechnicalPersonal()
-                                .setIdTechPersonal(getId(TechnicalPersonal.SEQUENCE_NAME))
                                 .setPersonalName("TechPersonal_7")
                                 .setPersonalType(TechPersonalType.TECHNIC)
-                                .setDescription("Description 7")
+                                .setDefinition("Description 7")
                                 .setDateCreated(LocalDateTime.now())
                                 .setDateModified(LocalDateTime.now())
                 )
@@ -104,31 +95,26 @@ public class DataServiceImpl {
         return workerRepository.saveAll(
                 Arrays.asList(
                     new Worker()
-                            .setIdWorker(getId(Worker.SEQUENCE_NAME))
                             .setWorkerName("Worker_1")
                             .setWorkerType(WorkerType.BRIGADIER)
                             .setDateCreated(LocalDateTime.now())
                             .setDateModified(LocalDateTime.now()),
                     new Worker()
-                            .setIdWorker(getId(Worker.SEQUENCE_NAME))
                             .setWorkerName("Worker_2")
                             .setWorkerType(WorkerType.SVARSCHIK)
                             .setDateCreated(LocalDateTime.now())
                             .setDateModified(LocalDateTime.now()),
                     new Worker()
-                            .setIdWorker(getId(Worker.SEQUENCE_NAME))
                             .setWorkerName("Worker_3")
                             .setWorkerType(WorkerType.SBORSCHIK)
                             .setDateCreated(LocalDateTime.now())
                             .setDateModified(LocalDateTime.now()),
                     new Worker()
-                            .setIdWorker(getId(Worker.SEQUENCE_NAME))
                             .setWorkerName("Worker_4")
                             .setWorkerType(WorkerType.SLUSAR)
                             .setDateCreated(LocalDateTime.now())
                             .setDateModified(LocalDateTime.now()),
                     new Worker()
-                            .setIdWorker(getId(Worker.SEQUENCE_NAME))
                             .setWorkerName("Worker_5")
                             .setWorkerType(WorkerType.TOKAR)
                             .setDateCreated(LocalDateTime.now())
@@ -141,15 +127,12 @@ public class DataServiceImpl {
         return brigadeRepository.saveAll(
                 Arrays.asList(
                     new Brigade()
-                            .setIdBrigade(getId(Brigade.SEQUENCE_NAME))
                             .setDateCreated(LocalDateTime.now())
                             .setDateModified(LocalDateTime.now()),
                     new Brigade()
-                            .setIdBrigade(getId(Brigade.SEQUENCE_NAME))
                             .setDateCreated(LocalDateTime.now())
                             .setDateModified(LocalDateTime.now()),
                     new Brigade()
-                            .setIdBrigade(getId(Brigade.SEQUENCE_NAME))
                             .setDateCreated(LocalDateTime.now())
                             .setDateModified(LocalDateTime.now())
                 )
@@ -181,15 +164,12 @@ public class DataServiceImpl {
         return teamOfAreaBossRepository.saveAll(
                 Arrays.asList(
                         new TeamOfAreaBoss()
-                                .setIdTeam(getId(TeamOfAreaBoss.SEQUENCE_NAME))
                                 .setDateCreated(LocalDateTime.now())
                                 .setDateModified(LocalDateTime.now()),
                         new TeamOfAreaBoss()
-                                .setIdTeam(getId(TeamOfAreaBoss.SEQUENCE_NAME))
                                 .setDateCreated(LocalDateTime.now())
                                 .setDateModified(LocalDateTime.now()),
                         new TeamOfAreaBoss()
-                                .setIdTeam(getId(TeamOfAreaBoss.SEQUENCE_NAME))
                                 .setDateCreated(LocalDateTime.now())
                                 .setDateModified(LocalDateTime.now())
                 )
@@ -225,12 +205,10 @@ public class DataServiceImpl {
         return areaRepository.saveAll(
                 Arrays.asList(
                         new Area()
-                                .setIdArea(getId(Area.SEQUENCE_NAME))
                                 .setDefinition("Some definition")
                                 .setDateCreated(LocalDateTime.now())
                                 .setDateModified(LocalDateTime.now()),
                         new Area()
-                                .setIdArea(getId(Area.SEQUENCE_NAME))
                                 .setDefinition("Some definition")
                                 .setDateCreated(LocalDateTime.now())
                                 .setDateModified(LocalDateTime.now())
@@ -270,7 +248,6 @@ public class DataServiceImpl {
         return workshopRepository.saveAll(
                 Arrays.asList(
                         new Workshop()
-                                .setIdWorkshop(getId(Workshop.SEQUENCE_NAME))
                                 .setDefinition("Some definition")
                                 .setDateCreated(LocalDateTime.now())
                                 .setDateModified(LocalDateTime.now())
@@ -296,7 +273,6 @@ public class DataServiceImpl {
         return laboratoryRepository.saveAll(
                 Arrays.asList(
                         new Laboratory()
-                                .setIdLaboratory(getId(Laboratory.SEQUENCE_NAME))
                                 .setDefinition("Some definition")
                                 .setDateCreated(LocalDateTime.now())
                                 .setDateModified(LocalDateTime.now())
@@ -321,19 +297,16 @@ public class DataServiceImpl {
         return equipmentForLabRepository.saveAll(
                 Arrays.asList(
                         new EquipmentForLaboratory()
-                                .setIdEquipmentForLab(getId(EquipmentForLaboratory.SEQUENCE_NAME))
                                 .setEquipmentType(EquipmentType.TESTING_STAND)
                                 .setDefinition("Some definition")
                                 .setDateCreated(LocalDateTime.now())
                                 .setDateModified(LocalDateTime.now()),
                         new EquipmentForLaboratory()
-                                .setIdEquipmentForLab(getId(EquipmentForLaboratory.SEQUENCE_NAME))
                                 .setEquipmentType(EquipmentType.DEFECTIVE_CHECK)
                                 .setDefinition("Some definition")
                                 .setDateCreated(LocalDateTime.now())
                                 .setDateModified(LocalDateTime.now()),
                         new EquipmentForLaboratory()
-                                .setIdEquipmentForLab(getId(EquipmentForLaboratory.SEQUENCE_NAME))
                                 .setEquipmentType(EquipmentType.ASSEMBLY_DISASSEMBLY)
                                 .setDefinition("Some definition")
                                 .setDateCreated(LocalDateTime.now())
@@ -358,19 +331,16 @@ public class DataServiceImpl {
         return productRepository.saveAll(
                 Arrays.asList(
                         new Product()
-                                .setIdProduct(getId(Product.SEQUENCE_NAME))
                                 .setCategory(ProductCategory.AVTOBUS)
                                 .setType(ProductType.SAMOSVAL)
                                 .setDateCreated(LocalDateTime.now())
                                 .setDateModified(LocalDateTime.now()),
                         new Product()
-                                .setIdProduct(getId(Product.SEQUENCE_NAME))
                                 .setCategory(ProductCategory.GRUSOVIY)
                                 .setType(ProductType.HACHBEK)
                                 .setDateCreated(LocalDateTime.now())
                                 .setDateModified(LocalDateTime.now()),
                         new Product()
-                                .setIdProduct(getId(Product.SEQUENCE_NAME))
                                 .setCategory(ProductCategory.LEHKOVIY)
                                 .setType(ProductType.SEDAN)
                                 .setDateCreated(LocalDateTime.now())
@@ -383,9 +353,9 @@ public class DataServiceImpl {
         List<Area> areaList = areaRepository.findAll();
         List<Product> productList = productRepository.findAll();
 
-        productList.get(0).setCurrentArea(areaList.get(0));
-        productList.get(1).setCurrentArea(areaList.get(0));
-        productList.get(2).setCurrentArea(areaList.get(0));
+        productList.get(0).setArea(areaList.get(0));
+        productList.get(1).setArea(areaList.get(0));
+        productList.get(2).setArea(areaList.get(0));
 
         areaRepository.saveAll(areaList);
         productRepository.saveAll(productList);
@@ -403,7 +373,4 @@ public class DataServiceImpl {
         productRepository.saveAll(productList);
     }
 
-    private Long getId(String sequenceName) {
-        return sequenceService.generateSequence(sequenceName);
-    }
 }

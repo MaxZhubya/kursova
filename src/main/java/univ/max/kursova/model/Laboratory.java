@@ -1,37 +1,45 @@
 package univ.max.kursova.model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
 import univ.max.kursova.dto.LaboratoryDTO;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Document(collection = "laboratories")
+@Entity
+@Table(name = "laboratories")
 public class Laboratory {
 
-    @Transient
-    public static final String SEQUENCE_NAME = "laboratories_sequence";
+    private static final long serialVersionUID = -4567545411345799L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Long idLaboratory;
 
-    @DBRef
+    @NotNull
+    @OneToMany(mappedBy = "laboratory")
     private List<EquipmentForLaboratory> equipmentForLaboratoryList = new ArrayList<>();
 
-    @DBRef
+    @NotNull
+    @OneToMany(mappedBy = "currentLaboratory")
     private List<Product> productList = new ArrayList<>();
 
-    @DBRef(lazy = true)
+    @NotNull
+    @ManyToMany(mappedBy = "laboratoryList")
     private List<Workshop> workshopList = new ArrayList<>();
 
+    @Column(name = "definition")
     private String definition;
 
+    @Column(name = "created_at")
     private LocalDateTime dateCreated;
+
+    @Column(name = "modified_at")
     private LocalDateTime dateModified;
 
     public Laboratory() {
