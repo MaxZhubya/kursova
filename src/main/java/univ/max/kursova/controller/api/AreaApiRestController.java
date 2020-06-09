@@ -6,14 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import univ.max.kursova.dto.AreaDTO;
 import univ.max.kursova.dto.AreaEditDTO;
-import univ.max.kursova.service.area.interfaces.IAreaService;
+import univ.max.kursova.service.IAreaService;
 
 import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/Area")
+@RequestMapping("/api/area")
 public class AreaApiRestController {
 
     @Autowired
@@ -35,13 +35,13 @@ public class AreaApiRestController {
     @PostMapping("/add")
     public ResponseEntity<AreaDTO> create(@RequestBody @Valid AreaEditDTO areaEditDTO) {
         AreaDTO areaDTO = AreaDTO.makeDTO(areaService.create(areaEditDTO));
-        return new ResponseEntity(areaDTO, HttpStatus.OK);
+        return new ResponseEntity<>(areaDTO, HttpStatus.OK);
     }
 
     @PutMapping("/edit")
     public ResponseEntity<AreaDTO> update(@RequestBody @Valid AreaEditDTO areaEditDTO) {
         AreaDTO areaDTO = AreaDTO.makeDTO(areaService.update(areaEditDTO));
-        return new ResponseEntity(areaDTO, HttpStatus.OK);
+        return new ResponseEntity<>(areaDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

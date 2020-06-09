@@ -14,11 +14,10 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 public class LaboratoryDTO {
 
-
     private Long idLaboratory;
 
     @JsonInclude(NON_EMPTY)
-    private List<EquipmentForLaboratoryDTO> equipmentForLaboratoryList = new ArrayList<>();
+    private List<EquipmentDTO> equipmentList = new ArrayList<>();
 
     @JsonInclude(NON_EMPTY)
     private List<ProductDTO> productList = new ArrayList<>();
@@ -37,8 +36,6 @@ public class LaboratoryDTO {
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime dateModified;
 
-
-
     public Long getIdLaboratory() {
         return idLaboratory;
     }
@@ -48,12 +45,12 @@ public class LaboratoryDTO {
         return this;
     }
 
-    public List<EquipmentForLaboratoryDTO> getEquipmentForLaboratoryList() {
-        return equipmentForLaboratoryList;
+    public List<EquipmentDTO> getEquipmentList() {
+        return equipmentList;
     }
 
-    public LaboratoryDTO setEquipmentForLaboratoryList(List<EquipmentForLaboratoryDTO> equipmentForLaboratoryList) {
-        this.equipmentForLaboratoryList = equipmentForLaboratoryList;
+    public LaboratoryDTO setEquipmentList(List<EquipmentDTO> equipmentList) {
+        this.equipmentList = equipmentList;
         return this;
     }
 
@@ -106,8 +103,8 @@ public class LaboratoryDTO {
         return new LaboratoryDTO()
                 .setIdLaboratory(laboratory.getIdLaboratory())
 
-                .setEquipmentForLaboratoryList(laboratory.getEquipmentForLaboratoryList().stream()
-                    .map(EquipmentForLaboratoryDTO::makeSimpleDTO).collect(Collectors.toList()))
+                .setEquipmentList(laboratory.getEquipmentList().stream()
+                    .map(EquipmentDTO::makeSimpleDTO).collect(Collectors.toList()))
 
                 .setProductList(laboratory.getProductList().stream()
                     .map(ProductDTO::makeSimpleDTO).collect(Collectors.toList()))

@@ -25,9 +25,9 @@
                 <tr>
                     <td>${Laboratory.idLaboratory}</td>
                     <td>
-                    <#if Laboratory.equipmentForLaboratoryList??>
+                    <#if Laboratory.equipmentList??>
                         <tr>
-                            <#list Laboratory.equipmentForLaboratoryList as EquipmentForLaboratory>
+                            <#list Laboratory.equipmentList as EquipmentForLaboratory>
                                 <td>${EquipmentForLaboratory.idEquipmentForLab}</td>
                             </#list>
                         </tr>

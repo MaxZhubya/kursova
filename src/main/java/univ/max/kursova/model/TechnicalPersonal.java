@@ -1,6 +1,5 @@
 package univ.max.kursova.model;
 
-import org.springframework.data.annotation.Id;
 import univ.max.kursova.dto.TechnicalPersonalDTO;
 import univ.max.kursova.model.enums.TechPersonalType;
 

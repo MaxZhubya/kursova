@@ -12,9 +12,7 @@ import java.util.stream.Collectors;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
-
 public class WorkshopDTO {
-
 
     private Long idWorkshop;
 
@@ -34,8 +32,6 @@ public class WorkshopDTO {
     @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime dateModified;
-
-
 
     public Long getIdWorkshop() {
         return idWorkshop;

@@ -2,11 +2,6 @@ server:
   port: 8888
 
 spring:
-  data:
-    jpa:
-      repositories:
-        enabled: true
-
   datasource:
     platform: postgres
     url: jdbc:postgresql://localhost:5432/factory

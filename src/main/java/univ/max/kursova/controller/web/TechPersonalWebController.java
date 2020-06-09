@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import univ.max.kursova.model.TeamOfAreaBoss;
 import univ.max.kursova.model.enums.TechPersonalType;
-import univ.max.kursova.service.techPersonal.impl.TechPersonalServiceImpl;
+import univ.max.kursova.service.impl.TechPersonalServiceImpl;
 
 import java.time.LocalDateTime;
 

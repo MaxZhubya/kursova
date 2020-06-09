@@ -11,8 +11,8 @@ public class TeamOfAreaBossEditDTO {
     @JsonProperty("teamId")
     private Long idTeam;
 
-    @JsonProperty("technicalPersonalIds")
     @NotNull
+    @JsonProperty("technicalPersonalIds")
     private List<Long> technicalPersonalIdList = new ArrayList<>();
 
     @JsonProperty("areaId")

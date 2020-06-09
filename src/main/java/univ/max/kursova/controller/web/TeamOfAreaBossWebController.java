@@ -5,11 +5,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import univ.max.kursova.model.Area;
-import univ.max.kursova.model.TeamOfAreaBoss;
 import univ.max.kursova.model.TechnicalPersonal;
-import univ.max.kursova.service.teamOfAreaBoss.impls.TeamOfAreaBossServiceImpl;
+import univ.max.kursova.service.impl.TeamOfAreaBossServiceImpl;
 
 import java.time.LocalDateTime;
 import java.util.List;

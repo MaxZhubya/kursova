@@ -1,6 +1,5 @@
 package univ.max.kursova.model;
 
-import org.springframework.data.annotation.Id;
 import univ.max.kursova.dto.ProductDTO;
 import univ.max.kursova.model.enums.ProductCategory;
 import univ.max.kursova.model.enums.ProductType;

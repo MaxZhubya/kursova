@@ -1,6 +1,5 @@
 package univ.max.kursova.model;
 
-import org.springframework.data.annotation.Id;
 import univ.max.kursova.dto.LaboratoryDTO;
 
 import javax.persistence.*;
@@ -23,7 +22,7 @@ public class Laboratory {
 
     @NotNull
     @OneToMany(mappedBy = "laboratory")
-    private List<EquipmentForLaboratory> equipmentForLaboratoryList = new ArrayList<>();
+    private List<Equipment> equipmentList = new ArrayList<>();
 
     @NotNull
     @OneToMany(mappedBy = "currentLaboratory")
@@ -45,11 +44,11 @@ public class Laboratory {
     public Laboratory() {
     }
 
-    public Laboratory(Long idLaboratory, String definition, List<EquipmentForLaboratory> equipmentForLaboratoryList,
+    public Laboratory(Long idLaboratory, String definition, List<Equipment> equipmentList,
                       LocalDateTime dateCreated, LocalDateTime dateModified) {
         this.idLaboratory = idLaboratory;
         this.definition = definition;
-        //this.equipmentForLaboratoryList = equipmentForLaboratoryList;
+        //this.equipmentList = equipmentList;
         this.dateCreated = dateCreated;
         this.dateModified = dateModified;
     }
@@ -90,12 +89,12 @@ public class Laboratory {
         return this;
     }
 
-    public List<EquipmentForLaboratory> getEquipmentForLaboratoryList() {
-        return equipmentForLaboratoryList;
+    public List<Equipment> getEquipmentList() {
+        return equipmentList;
     }
 
-    public Laboratory setEquipmentForLaboratoryList(List<EquipmentForLaboratory> equipmentForLaboratoryList) {
-        this.equipmentForLaboratoryList = equipmentForLaboratoryList;
+    public Laboratory setEquipmentList(List<Equipment> equipmentList) {
+        this.equipmentList = equipmentList;
         return this;
     }
 

@@ -6,13 +6,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import univ.max.kursova.dto.TechnicalPersonalDTO;
 import univ.max.kursova.dto.TechnicalPersonalEditDTO;
-import univ.max.kursova.service.techPersonal.interfaces.ITechPersonalService;
+import univ.max.kursova.service.ITechPersonalService;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/TechnicalPersonal")
+@RequestMapping("/api/technicalPersonal")
 public class TechPersonalApiRestController {
 
     @Autowired
@@ -22,7 +23,7 @@ public class TechPersonalApiRestController {
     public ResponseEntity<List<TechnicalPersonalDTO>> getAll() {
         List<TechnicalPersonalDTO> technicalList = techPersonalService.getAll().stream()
                 .map(TechnicalPersonalDTO::makeDTO).collect(Collectors.toList());
-        return new ResponseEntity<List<TechnicalPersonalDTO>>(technicalList, HttpStatus.OK);
+        return new ResponseEntity<>(technicalList, HttpStatus.OK);
     }
 
     @GetMapping("/list/{id}")
@@ -32,15 +33,15 @@ public class TechPersonalApiRestController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<TechnicalPersonalDTO> create(@RequestBody TechnicalPersonalEditDTO technicalPersonalEditDTO) {
+    public ResponseEntity<TechnicalPersonalDTO> create(@RequestBody @Valid TechnicalPersonalEditDTO technicalPersonalEditDTO) {
         TechnicalPersonalDTO technicalDTO = TechnicalPersonalDTO.makeDTO(techPersonalService.create(technicalPersonalEditDTO));
-        return new ResponseEntity(technicalDTO, HttpStatus.OK);
+        return new ResponseEntity<>(technicalDTO, HttpStatus.OK);
     }
 
-    @PostMapping("/edit")
-    public ResponseEntity<TechnicalPersonalDTO> update(@RequestBody TechnicalPersonalEditDTO technicalPersonalEditDTO) {
+    @PutMapping("/edit")
+    public ResponseEntity<TechnicalPersonalDTO> update(@RequestBody @Valid TechnicalPersonalEditDTO technicalPersonalEditDTO) {
         TechnicalPersonalDTO technicalDTO = TechnicalPersonalDTO.makeDTO(techPersonalService.update(technicalPersonalEditDTO));
-        return new ResponseEntity(technicalDTO, HttpStatus.OK);
+        return new ResponseEntity<>(technicalDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

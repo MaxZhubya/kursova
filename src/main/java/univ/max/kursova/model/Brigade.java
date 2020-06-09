@@ -1,6 +1,5 @@
 package univ.max.kursova.model;
 
-import org.springframework.data.annotation.Id;
 import univ.max.kursova.dto.BrigadeDTO;
 
 import javax.persistence.*;

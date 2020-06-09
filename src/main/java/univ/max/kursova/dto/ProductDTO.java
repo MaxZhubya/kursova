@@ -13,7 +13,6 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 public class ProductDTO {
 
-
     private Long idProduct;
 
     @JsonInclude(NON_EMPTY)
@@ -35,8 +34,6 @@ public class ProductDTO {
     @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime dateModified;
-
-
 
     public Long getIdProduct() {
         return idProduct;

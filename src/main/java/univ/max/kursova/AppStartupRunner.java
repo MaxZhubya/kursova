@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
-import univ.max.kursova.service.DataServiceImpl;
+import univ.max.kursova.service.impl.DataServiceImpl;
 
 @Component
 public class AppStartupRunner implements ApplicationRunner {
@@ -35,8 +35,8 @@ public class AppStartupRunner implements ApplicationRunner {
 //        dataService.createLaboratories();             //      Laboratory
 //        dataService.setLaboratoryToWorkshop();        //      Laboratory - Workshop
 
-//        dataService.createEquipmentForLabs();           //      EquipmentForLaboratory
-//        dataService.setEquipmentToLaboratory();         //      EquipmentForLaboratory - Laboratory
+//        dataService.createEquipmentForLabs();           //      Equipment
+//        dataService.setEquipmentToLaboratory();         //      Equipment - Laboratory
 
 //        dataService.createProducts();
 //        dataService.setProductToArea();

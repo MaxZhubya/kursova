@@ -14,7 +14,6 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 public class BrigadeDTO {
 
-
     private Long idBrigade;
 
     @JsonInclude(NON_EMPTY)
@@ -30,8 +29,6 @@ public class BrigadeDTO {
     @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDateTime dateModified;
-
-
 
     public Long getIdBrigade() {
         return idBrigade;

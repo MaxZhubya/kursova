@@ -12,7 +12,6 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 public class WorkerDTO {
 
-
     private Long idWorker;
 
     @JsonInclude(NON_EMPTY)
