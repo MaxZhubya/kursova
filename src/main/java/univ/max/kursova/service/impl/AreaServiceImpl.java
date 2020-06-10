@@ -3,6 +3,7 @@ package univ.max.kursova.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import univ.max.kursova.dto.AreaDTO;
 import univ.max.kursova.dto.AreaEditDTO;
 import univ.max.kursova.exception.DataNotFoundException;
 import univ.max.kursova.exception.DataValidationException;
@@ -18,6 +19,7 @@ import univ.max.kursova.service.IWorkshopService;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -39,57 +41,56 @@ public class AreaServiceImpl implements IAreaService {
     private AreaRepository repository;
 
     @Override
-    public Area get(Long id) {
-        return repository.findById(id).orElseThrow(() -> new DataNotFoundException("Area with is: "
-                + id.toString() + " is not existed"));
+    @Transactional(readOnly = true)
+    public AreaDTO get(Long id) {
+        return AreaDTO.makeDTO(getEntity(id));
     }
 
     @Override
-    public List<Area> getAll() {
-        return repository.findAll();
+    @Transactional(readOnly = true)
+    public List<AreaDTO> getAll() {
+        return repository.findAll().stream()
+                .map(AreaDTO::makeDTO).collect(Collectors.toList());
     }
 
     @Override
-    public Area create(AreaEditDTO areaEditDTO) {
+    public AreaDTO create(AreaEditDTO areaEditDTO) {
         Area area = new Area()
                 .setDateCreated(LocalDateTime.now())
                 .setDateModified(LocalDateTime.now());
+        area = repository.save(area);
 
         // Set data from AreaEditDTO
         setAreaData(area, areaEditDTO);
-        area = repository.save(area);
-        // Update all Area related data
-        updateRelatedData(area, ActionType.CREATE);
 
-        return repository.save(area);
+        return AreaDTO.makeDTO(repository.save(area));
     }
 
     @Override
-    public Area update(AreaEditDTO areaEditDTO) {
+    public AreaDTO update(AreaEditDTO areaEditDTO) {
         if (Objects.isNull(areaEditDTO.getIdArea()))
             throw new DataValidationException("Area id can not be null!");
 
         // Get existed Area
-        Area area = get(areaEditDTO.getIdArea())
+        Area area = getEntity(areaEditDTO.getIdArea())
                   .setDateModified(LocalDateTime.now());
 
         // Remove current Area from all to handle case if some data was deleted
-        updateRelatedData(area, ActionType.DELETE);
+        clearRelatedData(area);
+
         // Set data from AreaEditDTO
         setAreaData(area, areaEditDTO);
-        // Update all Area related data
-        updateRelatedData(area, ActionType.CREATE);
 
-        return repository.save(area);
+        return AreaDTO.makeDTO(repository.save(area));
     }
 
     @Override
     public void delete(Long id) {
-        Area area = repository.findById(id).orElseThrow(() -> new DataNotFoundException("Area with is: "
-                + id.toString() + " is not existed"));
+        Area area = getEntity(id);
 
-        // Update all Area related data
-        updateRelatedData(area, ActionType.DELETE);
+        // Remove current Area from all
+        clearRelatedData(area);
+
         repository.deleteById(id);
     }
 
@@ -98,96 +99,64 @@ public class AreaServiceImpl implements IAreaService {
         return repository.save(area);
     }
 
-    private void setAreaData(Area area, AreaEditDTO areaEditDTO) {
-        // Set TeamOfAreaBoss
-        area.setTeamOfAreaBoss(null);
-        if (Objects.nonNull(areaEditDTO.getIdTeamOfAreaBoss())) {
-            area.setTeamOfAreaBoss(teamOfAreaBossService.get(areaEditDTO.getIdTeamOfAreaBoss()));
-        }
+    @Override
+    public Area getEntity(Long id) {
+        return repository.findById(id).orElseThrow(() -> new DataNotFoundException("Area with is: "
+                + id.toString() + " is not existed"));
+    }
 
-        // Set Brigades
-        area.getBrigadeList().clear();
-        if (!areaEditDTO.getBrigadeIdList().isEmpty()) {
-            List<Brigade> brigadeList = brigadeService.getByIds(areaEditDTO.getBrigadeIdList());
-            if (brigadeList.size() != areaEditDTO.getBrigadeIdList().size())
-                throw new DataValidationException("The Brigade ids are wrong!");
-            area.setBrigadeList(brigadeList);
-        }
-
-        // Set Products
-        area.getProductList().clear();
-        if (Objects.nonNull(areaEditDTO.getProductIdList()) && !areaEditDTO.getProductIdList().isEmpty()) {
-            List<Product> productList = productService.getByIds(areaEditDTO.getProductIdList());
-            if (productList.size() != areaEditDTO.getProductIdList().size())
-                throw new DataValidationException("The Product ids are wrong!");
-            area.setProductList(productList);
-        }
-
+    private void setAreaData(final Area area, AreaEditDTO areaEditDTO) {
         // Set Workshop
-        area.setWorkshop(null);
         if (Objects.nonNull(areaEditDTO.getIdWorkshop())) {
             area.setWorkshop(workshopService.get(areaEditDTO.getIdWorkshop()));
         }
 
+        // Set Definition
         area.setDefinition(areaEditDTO.getDefinition());
+
+        // Set TeamOfAreaBoss
+        if (Objects.nonNull(areaEditDTO.getIdTeamOfAreaBoss())) {
+            TeamOfAreaBoss teamOfAreaBoss = teamOfAreaBossService.get(areaEditDTO.getIdTeamOfAreaBoss())
+                    .setArea(area);
+            area.setTeamOfAreaBoss(teamOfAreaBoss);
+        }
+
+        // Set Brigades
+        if (!areaEditDTO.getBrigadeIdList().isEmpty()) {
+            List<Brigade> brigadeList = brigadeService.getByIds(areaEditDTO.getBrigadeIdList());
+            if (brigadeList.size() != areaEditDTO.getBrigadeIdList().size())
+                throw new DataValidationException("The Brigade ids are wrong!");
+            brigadeList.stream().forEach(brigade -> brigade.setArea(area));
+            area.setBrigadeList(brigadeList);
+        }
+
+        // Set Products
+        if (!areaEditDTO.getProductIdList().isEmpty()) {
+            List<Product> productList = productService.getByIds(areaEditDTO.getProductIdList());
+            if (productList.size() != areaEditDTO.getProductIdList().size())
+                throw new DataValidationException("The Product ids are wrong!");
+            productList.stream().forEach(product -> product.setArea(area));
+            area.setProductList(productList);
+        }
     }
 
-    private void updateRelatedData(Area area, ActionType actionType) {
+    private void clearRelatedData(Area area) {
         TeamOfAreaBoss teamOfAreaBoss = area.getTeamOfAreaBoss();
         if (Objects.nonNull(teamOfAreaBoss)) {
-            if (actionType.equals(ActionType.CREATE)) {
-                if (Objects.nonNull(teamOfAreaBoss.getArea())) {
-                    repository.findById(teamOfAreaBoss.getArea().getIdArea())
-                            .ifPresent(currentArea -> {
-                                currentArea.setTeamOfAreaBoss(null);
-                                repository.save(currentArea);
-                            });
-                }
-                teamOfAreaBoss.setArea(area);
-            }
-            if (actionType.equals(ActionType.DELETE))
-                teamOfAreaBoss.setArea(null);
             teamOfAreaBossService.save(teamOfAreaBoss);
         }
 
         List<Brigade> brigadeList = area.getBrigadeList();
-        if (actionType.equals(ActionType.CREATE))
-            brigadeList.stream().forEach(brigade -> {
-                if (Objects.nonNull(brigade.getArea())) {
-                    repository.findById(brigade.getArea().getIdArea())
-                            .ifPresent(currentArea -> {
-                                currentArea.getBrigadeList().remove(brigade);
-                                repository.save(currentArea);
-                            });
-                }
-                brigade.setArea(area);
-            });
-        if (actionType.equals(ActionType.DELETE))
-            brigadeList.stream().forEach(brigade -> brigade.setArea(null));
+        brigadeList.stream().forEach(brigade -> brigade.setArea(null));
         brigadeService.save(brigadeList);
 
         List<Product> productList = area.getProductList();
-        if (actionType.equals(ActionType.CREATE))
-            productList.stream().forEach(product -> {
-                if (Objects.nonNull(product.getArea())) {
-                    repository.findById(product.getArea().getIdArea())
-                            .ifPresent(currentArea -> {
-                                currentArea.getProductList().remove(product);
-                                repository.save(currentArea);
-                            });
-                }
-                product.setArea(area);
-            });
-        if (actionType.equals(ActionType.DELETE))
-            productList.stream().forEach(value -> value.setArea(null));
+        productList.stream().forEach(value -> value.setArea(null));
         productService.save(productList);
 
         Workshop workshop = area.getWorkshop();
         if (Objects.nonNull(workshop)) {
-            if (actionType.equals(ActionType.CREATE))
-                workshop.getAreaList().add(area);
-            if (actionType.equals(ActionType.DELETE))
-                workshop.getAreaList().remove(area);
+            workshop.getAreaList().remove(area);
             workshopService.save(workshop);
         }
     }

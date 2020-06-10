@@ -146,18 +146,11 @@ public class DataServiceImpl {
         workers.get(0).setBrigade(brigades.get(0));
         workers.get(1).setBrigade(brigades.get(0));
         workers.get(2).setBrigade(brigades.get(0));
-        brigades.get(0).setWorkerList(
-                Arrays.asList(workers.get(0), workers.get(1), workers.get(2))
-        );
 
         workers.get(3).setBrigade(brigades.get(1));
         workers.get(4).setBrigade(brigades.get(1));
-        brigades.get(1).setWorkerList(
-                Arrays.asList(workers.get(3), workers.get(4))
-        );
 
         workerRepository.saveAll(workers);
-        brigadeRepository.saveAll(brigades);
     }
 
     public List<TeamOfAreaBoss> createTeamsOfAreaBosses() {
@@ -184,21 +177,12 @@ public class DataServiceImpl {
         technicalPersonals.get(1).setTeamOfAreaBoss(teamOfAreaBosses.get(0));
         technicalPersonals.get(2).setTeamOfAreaBoss(teamOfAreaBosses.get(0));
         technicalPersonals.get(3).setTeamOfAreaBoss(teamOfAreaBosses.get(0));
-        teamOfAreaBosses.get(0).setTechnicalPersonalList(
-                Arrays.asList(technicalPersonals.get(0),technicalPersonals.get(1),
-                        technicalPersonals.get(2),technicalPersonals.get(3))
-        );
 
         technicalPersonals.get(4).setTeamOfAreaBoss(teamOfAreaBosses.get(1));
         technicalPersonals.get(5).setTeamOfAreaBoss(teamOfAreaBosses.get(1));
         technicalPersonals.get(6).setTeamOfAreaBoss(teamOfAreaBosses.get(1));
-        teamOfAreaBosses.get(1).setTechnicalPersonalList(
-                Arrays.asList(technicalPersonals.get(4),technicalPersonals.get(5),
-                        technicalPersonals.get(6))
-        );
 
         technicalPersonalRepository.saveAll(technicalPersonals);
-        teamOfAreaBossRepository.saveAll(teamOfAreaBosses);
     }
 
     public List<Area> createAreas() {
@@ -221,13 +205,10 @@ public class DataServiceImpl {
         List<Area> areas = areaRepository.findAll();
 
         teamOfAreaBosses.get(0).setArea(areas.get(0));
-        areas.get(0).setTeamOfAreaBoss(teamOfAreaBosses.get(0));
 
         teamOfAreaBosses.get(1).setArea(areas.get(1));
-        areas.get(1).setTeamOfAreaBoss(teamOfAreaBosses.get(1));
 
         teamOfAreaBossRepository.saveAll(teamOfAreaBosses);
-        areaRepository.saveAll(areas);
     }
 
     public void setBrigadeToArea() {
@@ -236,12 +217,8 @@ public class DataServiceImpl {
 
         brigades.get(0).setArea(areas.get(0));
         brigades.get(1).setArea(areas.get(0));
-        areas.get(0).setBrigadeList(
-                Arrays.asList(brigades.get(0), brigades.get(1))
-        );
 
         brigadeRepository.saveAll(brigades);
-        areaRepository.saveAll(areas);
     }
 
     public List<Workshop> createWorkshops() {
@@ -261,11 +238,7 @@ public class DataServiceImpl {
 
         areas.get(0).setWorkshop(workshops.get(0));
         areas.get(1).setWorkshop(workshops.get(0));
-        workshops.get(0).setAreaList(
-                Arrays.asList(areas.get(0), areas.get(1))
-        );
 
-        workshopRepository.saveAll(workshops);
         areaRepository.saveAll(areas);
     }
 
@@ -285,12 +258,8 @@ public class DataServiceImpl {
         List<Laboratory> laboratories = laboratoryRepository.findAll();
 
         workshops.get(0).getLaboratoryList().add(laboratories.get(0));
-        laboratories.get(0).setWorkshopList(
-                Arrays.asList(workshops.get(0))
-        );
 
         workshopRepository.saveAll(workshops);
-        laboratoryRepository.saveAll(laboratories);
     }
 
     public List<Equipment> createEquipmentForLabs() {
@@ -324,7 +293,6 @@ public class DataServiceImpl {
         equipmentForLaboratories.get(2).setLaboratory(laboratories.get(0));
 
         equipmentRepository.saveAll(equipmentForLaboratories);
-        laboratoryRepository.saveAll(laboratories);
     }
 
     public List<Product> createProducts() {
@@ -357,7 +325,6 @@ public class DataServiceImpl {
         productList.get(1).setArea(areaList.get(0));
         productList.get(2).setArea(areaList.get(0));
 
-        areaRepository.saveAll(areaList);
         productRepository.saveAll(productList);
     }
 
@@ -369,7 +336,6 @@ public class DataServiceImpl {
         productList.get(1).setCurrentLaboratory(laboratoryList.get(0));
         productList.get(2).setCurrentLaboratory(laboratoryList.get(0));
 
-        laboratoryRepository.saveAll(laboratoryList);
         productRepository.saveAll(productList);
     }
 

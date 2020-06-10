@@ -21,8 +21,7 @@ public class Area implements Serializable {
     @Column(name = "id")
     private long idArea;
 
-    @OneToOne()
-    @JoinColumn(name = "team_of_area_boss_id", referencedColumnName = "id")
+    @OneToOne(mappedBy = "area")
     private TeamOfAreaBoss teamOfAreaBoss;
 
     @NotNull

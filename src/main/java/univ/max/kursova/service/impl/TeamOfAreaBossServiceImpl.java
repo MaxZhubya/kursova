@@ -104,7 +104,7 @@ public class TeamOfAreaBossServiceImpl implements ITeamOfAreaBossService {
         // Set Area
         teamOfAreaBoss.setArea(null);
         if (Objects.nonNull(teamOfAreaBossEditDTO.getIdArea())) {
-            teamOfAreaBoss.setArea(areaService.get(teamOfAreaBossEditDTO.getIdArea()));
+            teamOfAreaBoss.setArea(areaService.getEntity(teamOfAreaBossEditDTO.getIdArea()));
         }
     }
 

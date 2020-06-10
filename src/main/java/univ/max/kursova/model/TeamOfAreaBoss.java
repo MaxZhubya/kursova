@@ -24,7 +24,8 @@ public class TeamOfAreaBoss {
     @OneToMany(mappedBy = "teamOfAreaBoss")
     private List<TechnicalPersonal> technicalPersonalList = new ArrayList<>();
 
-    @OneToOne(mappedBy = "teamOfAreaBoss")
+    @OneToOne
+    @JoinColumn(name = "area_id", referencedColumnName = "id")
     private Area area;
 
     @Column(name = "created_at")

@@ -13,33 +13,33 @@ public class AppStartupRunner implements ApplicationRunner {
     private DataServiceImpl dataService;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
 
-//        dataService.createTechnicalPersonals();       //      TechnicalPersonal
+        dataService.createTechnicalPersonals();       //      TechnicalPersonal
 
-//        dataService.createWorkers();                  //      Worker
+        dataService.createWorkers();                  //      Worker
 
-//        dataService.createBrigades();                 //      Brigade
-//        dataService.setBrigadeToWorkers();            //      Brigade - Worker
+        dataService.createBrigades();                 //      Brigade
+        dataService.setBrigadeToWorkers();            //      Brigade - Worker
 
-//        dataService.createTeamsOfAreaBosses();        //      TeamOfAreaBoss
-//        dataService.setTechPersonalToTeamOfAreaBoss(); //     TechnicalPersonal - TeamOfAreaBoss
+        dataService.createTeamsOfAreaBosses();        //      TeamOfAreaBoss
+        dataService.setTechPersonalToTeamOfAreaBoss(); //     TechnicalPersonal - TeamOfAreaBoss
 
-//        dataService.createAreas();                    //      Area
-//        dataService.setTeamOfAreaBossToArea();        //      Area - TeamOfAreaBoss
-//        dataService.setBrigadeToArea();               //      Area - Brigade
+        dataService.createAreas();                    //      Area
+        dataService.setTeamOfAreaBossToArea();        //      Area - TeamOfAreaBoss
+        dataService.setBrigadeToArea();               //      Area - Brigade
 
-//        dataService.createWorkshops();                //      Workshop
-//        dataService.setWorkshopToArea();              //      Workshop - Area
+        dataService.createWorkshops();                //      Workshop
+        dataService.setWorkshopToArea();              //      Workshop - Area
 
-//        dataService.createLaboratories();             //      Laboratory
-//        dataService.setLaboratoryToWorkshop();        //      Laboratory - Workshop
+        dataService.createLaboratories();             //      Laboratory
+        dataService.setLaboratoryToWorkshop();        //      Laboratory - Workshop
 
-//        dataService.createEquipmentForLabs();           //      Equipment
-//        dataService.setEquipmentToLaboratory();         //      Equipment - Laboratory
+        dataService.createEquipmentForLabs();           //      Equipment
+        dataService.setEquipmentToLaboratory();         //      Equipment - Laboratory
 
-//        dataService.createProducts();
-//        dataService.setProductToArea();
-//        dataService.setLaboratoryToProduct();
+        dataService.createProducts();
+        dataService.setProductToArea();
+        dataService.setLaboratoryToProduct();
     }
 }

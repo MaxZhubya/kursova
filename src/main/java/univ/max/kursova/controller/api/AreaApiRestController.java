@@ -10,7 +10,6 @@ import univ.max.kursova.service.IAreaService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/area")
@@ -21,27 +20,22 @@ public class AreaApiRestController {
 
     @GetMapping("/list")
     public ResponseEntity<List<AreaDTO>> getAll() {
-        List<AreaDTO> areaList = areaService.getAll().stream()
-                .map(AreaDTO::makeDTO).collect(Collectors.toList());
-        return new ResponseEntity<List<AreaDTO>>(areaList, HttpStatus.OK);
+        return new ResponseEntity<>(areaService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/list/{id}")
     public ResponseEntity<AreaDTO> getById(@PathVariable("id") Long id) {
-        AreaDTO areaDTO = AreaDTO.makeDTO(areaService.get(id));
-        return new ResponseEntity<>(areaDTO, HttpStatus.OK);
+        return new ResponseEntity<>(areaService.get(id), HttpStatus.OK);
     }
 
     @PostMapping("/add")
     public ResponseEntity<AreaDTO> create(@RequestBody @Valid AreaEditDTO areaEditDTO) {
-        AreaDTO areaDTO = AreaDTO.makeDTO(areaService.create(areaEditDTO));
-        return new ResponseEntity<>(areaDTO, HttpStatus.OK);
+        return new ResponseEntity<>(areaService.create(areaEditDTO), HttpStatus.OK);
     }
 
     @PutMapping("/edit")
     public ResponseEntity<AreaDTO> update(@RequestBody @Valid AreaEditDTO areaEditDTO) {
-        AreaDTO areaDTO = AreaDTO.makeDTO(areaService.update(areaEditDTO));
-        return new ResponseEntity<>(areaDTO, HttpStatus.OK);
+        return new ResponseEntity<>(areaService.update(areaEditDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
