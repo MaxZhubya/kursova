@@ -21,27 +21,22 @@ public class TechPersonalApiRestController {
 
     @GetMapping("/list")
     public ResponseEntity<List<TechnicalPersonalDTO>> getAll() {
-        List<TechnicalPersonalDTO> technicalList = techPersonalService.getAll().stream()
-                .map(TechnicalPersonalDTO::makeDTO).collect(Collectors.toList());
-        return new ResponseEntity<>(technicalList, HttpStatus.OK);
+        return new ResponseEntity<>(techPersonalService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/list/{id}")
     public ResponseEntity<TechnicalPersonalDTO> getById(@PathVariable("id") Long id) {
-        TechnicalPersonalDTO technicalDTO = TechnicalPersonalDTO.makeDTO(techPersonalService.get(id));
-        return new ResponseEntity<>(technicalDTO, HttpStatus.OK);
+        return new ResponseEntity<>(techPersonalService.get(id), HttpStatus.OK);
     }
 
     @PostMapping("/add")
     public ResponseEntity<TechnicalPersonalDTO> create(@RequestBody @Valid TechnicalPersonalEditDTO technicalPersonalEditDTO) {
-        TechnicalPersonalDTO technicalDTO = TechnicalPersonalDTO.makeDTO(techPersonalService.create(technicalPersonalEditDTO));
-        return new ResponseEntity<>(technicalDTO, HttpStatus.OK);
+        return new ResponseEntity<>(techPersonalService.create(technicalPersonalEditDTO), HttpStatus.OK);
     }
 
     @PutMapping("/edit")
     public ResponseEntity<TechnicalPersonalDTO> update(@RequestBody @Valid TechnicalPersonalEditDTO technicalPersonalEditDTO) {
-        TechnicalPersonalDTO technicalDTO = TechnicalPersonalDTO.makeDTO(techPersonalService.update(technicalPersonalEditDTO));
-        return new ResponseEntity<>(technicalDTO, HttpStatus.OK);
+        return new ResponseEntity<>(techPersonalService.update(technicalPersonalEditDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

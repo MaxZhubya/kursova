@@ -10,7 +10,6 @@ import univ.max.kursova.service.ITeamOfAreaBossService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/teamOfAreaBoss")
@@ -21,27 +20,22 @@ public class TeamOfAreaBossApiRestController {
 
     @GetMapping("/list")
     public ResponseEntity<List<TeamOfAreaBossDTO>> getAll() {
-        List<TeamOfAreaBossDTO> teamList = teamOfAreaBossService.getAll().stream()
-                .map(TeamOfAreaBossDTO::makeDTO).collect(Collectors.toList());
-        return new ResponseEntity<>(teamList, HttpStatus.OK);
+        return new ResponseEntity<>(teamOfAreaBossService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/list/{id}")
     public ResponseEntity<TeamOfAreaBossDTO> getById(@PathVariable("id") Long id) {
-        TeamOfAreaBossDTO teamDTO = TeamOfAreaBossDTO.makeDTO(teamOfAreaBossService.get(id));
-        return new ResponseEntity<>(teamDTO, HttpStatus.OK);
+        return new ResponseEntity<>(teamOfAreaBossService.get(id), HttpStatus.OK);
     }
 
     @PostMapping("/add")
     public ResponseEntity<TeamOfAreaBossDTO> create(@RequestBody @Valid TeamOfAreaBossEditDTO teamEditDTO) {
-        TeamOfAreaBossDTO teamOfAreaBossDTO = TeamOfAreaBossDTO.makeDTO(teamOfAreaBossService.create(teamEditDTO));
-        return new ResponseEntity<>(teamOfAreaBossDTO, HttpStatus.OK);
+        return new ResponseEntity<>(teamOfAreaBossService.create(teamEditDTO), HttpStatus.OK);
     }
 
     @PutMapping("/edit")
     public ResponseEntity<TeamOfAreaBossDTO> update(@RequestBody @Valid TeamOfAreaBossEditDTO teamEditDTO) {
-        TeamOfAreaBossDTO teamOfAreaBossDTO = TeamOfAreaBossDTO.makeDTO(teamOfAreaBossService.update(teamEditDTO));
-        return new ResponseEntity<>(teamOfAreaBossDTO, HttpStatus.OK);
+        return new ResponseEntity<>(teamOfAreaBossService.update(teamEditDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

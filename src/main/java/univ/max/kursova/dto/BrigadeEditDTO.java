@@ -11,12 +11,12 @@ public class BrigadeEditDTO {
     @JsonProperty("brigadeId")
     private Long idBrigade;
 
+    @JsonProperty("areaId")
+    private Long idArea;
+
     @NotNull
     @JsonProperty("workerIds")
     private List<Long> workerIdList = new ArrayList<>();
-
-    @JsonProperty("areaId")
-    private Long idArea;
 
     public Long getIdBrigade() {
         return idBrigade;

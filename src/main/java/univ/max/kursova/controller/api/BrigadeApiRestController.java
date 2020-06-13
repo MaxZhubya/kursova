@@ -21,27 +21,22 @@ public class BrigadeApiRestController {
 
     @GetMapping("/list")
     public ResponseEntity<List<BrigadeDTO>> getAll() {
-        List<BrigadeDTO> brigadeList = brigadeService.getAll().stream()
-                .map(BrigadeDTO::makeDTO).collect(Collectors.toList());
-        return new ResponseEntity<>(brigadeList, HttpStatus.OK);
+        return new ResponseEntity<>(brigadeService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/list/{id}")
     public ResponseEntity<BrigadeDTO> getById(@PathVariable("id") Long id) {
-        BrigadeDTO brigadeDTO = BrigadeDTO.makeDTO(brigadeService.get(id));
-        return new ResponseEntity<>(brigadeDTO, HttpStatus.OK);
+        return new ResponseEntity<>(brigadeService.get(id), HttpStatus.OK);
     }
 
     @PostMapping("/add")
     public ResponseEntity<BrigadeDTO> create(@RequestBody @Valid BrigadeEditDTO brigadeEditDTO) {
-        BrigadeDTO brigadeDTO = BrigadeDTO.makeDTO(brigadeService.create(brigadeEditDTO));
-        return new ResponseEntity<>(brigadeDTO, HttpStatus.OK);
+        return new ResponseEntity<>(brigadeService.create(brigadeEditDTO), HttpStatus.OK);
     }
 
     @PutMapping("/edit")
     public ResponseEntity<BrigadeDTO> update(@RequestBody @Valid BrigadeEditDTO brigadeEditDTO) {
-        BrigadeDTO brigadeDTO = BrigadeDTO.makeDTO(brigadeService.update(brigadeEditDTO));
-        return new ResponseEntity<>(brigadeDTO, HttpStatus.OK);
+        return new ResponseEntity<>(brigadeService.update(brigadeEditDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

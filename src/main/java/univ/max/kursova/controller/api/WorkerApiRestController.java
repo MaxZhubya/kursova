@@ -10,7 +10,6 @@ import univ.max.kursova.service.IWorkerService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/worker")
@@ -21,27 +20,22 @@ public class WorkerApiRestController {
 
     @GetMapping("/list")
     public ResponseEntity<List<WorkerDTO>> getAll() {
-        List<WorkerDTO> workerList = workerService.getAll().stream()
-                .map(WorkerDTO::makeDTO).collect(Collectors.toList());
-        return new ResponseEntity<>(workerList, HttpStatus.OK);
+        return new ResponseEntity<>(workerService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/list/{id}")
     public ResponseEntity<WorkerDTO> getById(@PathVariable("id") Long id) {
-        WorkerDTO workerDTO = WorkerDTO.makeDTO(workerService.get(id));
-        return new ResponseEntity<>(workerDTO, HttpStatus.OK);
+        return new ResponseEntity<>(workerService.get(id), HttpStatus.OK);
     }
 
     @PostMapping("/add")
     public ResponseEntity<WorkerDTO> create(@RequestBody @Valid WorkerEditDTO workerEditDTO) {
-        WorkerDTO workerDTO = WorkerDTO.makeDTO(workerService.create(workerEditDTO));
-        return new ResponseEntity<>(workerDTO, HttpStatus.OK);
+        return new ResponseEntity<>(workerService.create(workerEditDTO), HttpStatus.OK);
     }
 
     @PutMapping("/edit")
     public ResponseEntity<WorkerDTO> update(@RequestBody @Valid WorkerEditDTO workerEditDTO) {
-        WorkerDTO workerDTO = WorkerDTO.makeDTO(workerService.update(workerEditDTO));
-        return new ResponseEntity<>(workerDTO, HttpStatus.OK);
+        return new ResponseEntity<>(workerService.update(workerEditDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

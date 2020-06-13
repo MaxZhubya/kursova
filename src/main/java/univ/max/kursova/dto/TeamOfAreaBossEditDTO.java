@@ -11,12 +11,12 @@ public class TeamOfAreaBossEditDTO {
     @JsonProperty("teamId")
     private Long idTeam;
 
+    @JsonProperty("areaId")
+    private Long idArea;
+
     @NotNull
     @JsonProperty("technicalPersonalIds")
     private List<Long> technicalPersonalIdList = new ArrayList<>();
-
-    @JsonProperty("areaId")
-    private Long idArea;
 
     public Long getIdTeam() {
         return idTeam;

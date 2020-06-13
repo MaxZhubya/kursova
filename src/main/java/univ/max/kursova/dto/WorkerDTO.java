@@ -2,6 +2,8 @@ package univ.max.kursova.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import univ.max.kursova.model.Worker;
 import univ.max.kursova.model.enums.WorkerType;
 
@@ -10,28 +12,33 @@ import java.time.LocalDateTime;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
+@JsonPropertyOrder({"workerId", "name", "type", "created", "modified", "brigade"})
 public class WorkerDTO {
 
+    @JsonProperty("workerId")
     private Long idWorker;
 
     @JsonInclude(NON_EMPTY)
+    @JsonProperty("brigade")
     private BrigadeDTO brigade;
 
     @JsonInclude(NON_NULL)
+    @JsonProperty("name")
     private String workerName;
 
     @JsonInclude(NON_EMPTY)
+    @JsonProperty("type")
     private WorkerType workerType;
 
     @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonProperty("created")
     private LocalDateTime dateCreated;
 
     @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonProperty("modified")
     private LocalDateTime dateModified;
-
-
 
     public Long getIdWorker() {
         return idWorker;

@@ -4,26 +4,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import univ.max.kursova.model.enums.ProductCategory;
 import univ.max.kursova.model.enums.ProductType;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class ProductEditDTO {
 
     @JsonProperty("productId")
     private Long idProduct;
 
+    @NotNull
+    @JsonProperty("category")
+    private ProductCategory category;
+
+    @NotNull
+    @JsonProperty("type")
+    private ProductType type;
+
     @JsonProperty("areaId")
     private Long idArea;
 
     @JsonProperty("laboratoryId")
     private Long idLaboratory;
-
-    @NotEmpty
-    @JsonProperty("category")
-    private ProductCategory category;
-
-    @NotEmpty
-    @JsonProperty("type")
-    private ProductType type;
 
     public Long getIdProduct() {
         return idProduct;

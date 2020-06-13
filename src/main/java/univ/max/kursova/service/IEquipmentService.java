@@ -14,4 +14,5 @@ public interface IEquipmentService {
     void delete(Long id);   // Delete
     Equipment save(Equipment equipment);
     List<Equipment> save(List<Equipment> equipmentList);
+    List<Equipment> getEntitiesByIds(List<Long> ids);
 }

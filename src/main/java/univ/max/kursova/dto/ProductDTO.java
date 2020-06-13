@@ -2,6 +2,8 @@ package univ.max.kursova.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import univ.max.kursova.model.Product;
 import univ.max.kursova.model.enums.ProductCategory;
 import univ.max.kursova.model.enums.ProductType;
@@ -11,28 +13,36 @@ import java.time.LocalDateTime;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
+@JsonPropertyOrder({"productId", "category", "type", "created", "modified", "area", "laboratory"})
 public class ProductDTO {
 
+    @JsonProperty("productId")
     private Long idProduct;
 
     @JsonInclude(NON_EMPTY)
+    @JsonProperty("area")
     private AreaDTO currentArea;
 
     @JsonInclude(NON_EMPTY)
+    @JsonProperty("laboratory")
     private LaboratoryDTO currentLaboratory;
 
     @JsonInclude(NON_EMPTY)
+    @JsonProperty("category")
     private ProductCategory category;
 
     @JsonInclude(NON_EMPTY)
+    @JsonProperty("type")
     private ProductType type;
 
     @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonProperty("created")
     private LocalDateTime dateCreated;
 
     @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonProperty("modified")
     private LocalDateTime dateModified;
 
     public Long getIdProduct() {
@@ -102,7 +112,7 @@ public class ProductDTO {
         return new ProductDTO()
                 .setIdProduct(product.getIdProduct())
                 .setCurrentArea(AreaDTO.makeSimpleDTO(product.getArea()))
-                .setCurrentLaboratory(LaboratoryDTO.makeSimpleDTO(product.getCurrentLaboratory()))
+                .setCurrentLaboratory(LaboratoryDTO.makeSimpleDTO(product.getLaboratory()))
                 .setCategory(product.getCategory())
                 .setType(product.getType())
                 .setDateCreated(product.getDateCreated())

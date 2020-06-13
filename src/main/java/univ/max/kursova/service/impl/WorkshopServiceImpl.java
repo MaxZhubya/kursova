@@ -51,4 +51,14 @@ public class WorkshopServiceImpl implements IWorkshopService {
         return repository.save(workshop);
     }
 
+    @Override
+    public List<Workshop> save(List<Workshop> workshopList) {
+        return repository.saveAll(workshopList);
+    }
+
+    @Override
+    public List<Workshop> getEntitiesByIds(List<Long> ids) {
+        return repository.findAllById(ids);
+    }
+
 }

@@ -25,7 +25,7 @@ public class Laboratory {
     private List<Equipment> equipmentList = new ArrayList<>();
 
     @NotNull
-    @OneToMany(mappedBy = "currentLaboratory")
+    @OneToMany(mappedBy = "laboratory")
     private List<Product> productList = new ArrayList<>();
 
     @NotNull

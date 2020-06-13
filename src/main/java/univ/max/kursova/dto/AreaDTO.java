@@ -2,6 +2,8 @@ package univ.max.kursova.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import univ.max.kursova.model.*;
 
 import java.time.LocalDateTime;
@@ -12,31 +14,40 @@ import java.util.stream.Collectors;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
+@JsonPropertyOrder({"areaId", "created", "modified", "definition", "teamOfAreaBoss", "brigades", "products", "workshop"})
 public class AreaDTO {
 
+    @JsonProperty("areaId")
     private Long idArea;
 
     @JsonInclude(NON_EMPTY)
+    @JsonProperty("teamOfAreaBoss")
     private TeamOfAreaBossDTO teamOfAreaBoss;
 
     @JsonInclude(NON_EMPTY)
+    @JsonProperty("brigades")
     private List<BrigadeDTO> brigadeList = new ArrayList<>();
 
     @JsonInclude(NON_EMPTY)
+    @JsonProperty("products")
     private List<ProductDTO> productList = new ArrayList<>();
 
     @JsonInclude(NON_EMPTY)
+    @JsonProperty("workshop")
     private WorkshopDTO workshop;
 
     @JsonInclude(NON_NULL)
+    @JsonProperty("definition")
     private String definition;
 
     @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonProperty("created")
     private LocalDateTime dateCreated;
 
     @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonProperty("modified")
     private LocalDateTime dateModified;
 
     public Long getIdArea() {

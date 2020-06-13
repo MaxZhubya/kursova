@@ -8,7 +8,6 @@ import univ.max.kursova.dto.AreaEditDTO;
 import univ.max.kursova.exception.DataNotFoundException;
 import univ.max.kursova.exception.DataValidationException;
 import univ.max.kursova.model.*;
-import univ.max.kursova.model.enums.ActionType;
 import univ.max.kursova.repository.AreaRepository;
 import univ.max.kursova.service.IAreaService;
 import univ.max.kursova.service.IBrigadeService;
@@ -61,7 +60,7 @@ public class AreaServiceImpl implements IAreaService {
         area = repository.save(area);
 
         // Set data from AreaEditDTO
-        setAreaData(area, areaEditDTO);
+        setInputData(area, areaEditDTO);
 
         return AreaDTO.makeDTO(repository.save(area));
     }
@@ -69,7 +68,7 @@ public class AreaServiceImpl implements IAreaService {
     @Override
     public AreaDTO update(AreaEditDTO areaEditDTO) {
         if (Objects.isNull(areaEditDTO.getIdArea()))
-            throw new DataValidationException("Area id can not be null!");
+            throw new DataValidationException("ID can not be null!");
 
         // Get existed Area
         Area area = getEntity(areaEditDTO.getIdArea())
@@ -79,7 +78,7 @@ public class AreaServiceImpl implements IAreaService {
         clearRelatedData(area);
 
         // Set data from AreaEditDTO
-        setAreaData(area, areaEditDTO);
+        setInputData(area, areaEditDTO);
 
         return AreaDTO.makeDTO(repository.save(area));
     }
@@ -91,7 +90,7 @@ public class AreaServiceImpl implements IAreaService {
         // Remove current Area from all
         clearRelatedData(area);
 
-        repository.deleteById(id);
+        repository.delete(area);
     }
 
     @Override
@@ -101,11 +100,11 @@ public class AreaServiceImpl implements IAreaService {
 
     @Override
     public Area getEntity(Long id) {
-        return repository.findById(id).orElseThrow(() -> new DataNotFoundException("Area with is: "
+        return repository.findById(id).orElseThrow(() -> new DataNotFoundException("Area with id: "
                 + id.toString() + " is not existed"));
     }
 
-    private void setAreaData(final Area area, AreaEditDTO areaEditDTO) {
+    private void setInputData(final Area area, AreaEditDTO areaEditDTO) {
         // Set Workshop
         if (Objects.nonNull(areaEditDTO.getIdWorkshop())) {
             area.setWorkshop(workshopService.get(areaEditDTO.getIdWorkshop()));
@@ -116,26 +115,26 @@ public class AreaServiceImpl implements IAreaService {
 
         // Set TeamOfAreaBoss
         if (Objects.nonNull(areaEditDTO.getIdTeamOfAreaBoss())) {
-            TeamOfAreaBoss teamOfAreaBoss = teamOfAreaBossService.get(areaEditDTO.getIdTeamOfAreaBoss())
+            TeamOfAreaBoss teamOfAreaBoss = teamOfAreaBossService.getEntity(areaEditDTO.getIdTeamOfAreaBoss())
                     .setArea(area);
             area.setTeamOfAreaBoss(teamOfAreaBoss);
         }
 
         // Set Brigades
         if (!areaEditDTO.getBrigadeIdList().isEmpty()) {
-            List<Brigade> brigadeList = brigadeService.getByIds(areaEditDTO.getBrigadeIdList());
+            List<Brigade> brigadeList = brigadeService.getEntitiesByIds(areaEditDTO.getBrigadeIdList());
             if (brigadeList.size() != areaEditDTO.getBrigadeIdList().size())
                 throw new DataValidationException("The Brigade ids are wrong!");
-            brigadeList.stream().forEach(brigade -> brigade.setArea(area));
+            brigadeList.forEach(brigade -> brigade.setArea(area));
             area.setBrigadeList(brigadeList);
         }
 
         // Set Products
         if (!areaEditDTO.getProductIdList().isEmpty()) {
-            List<Product> productList = productService.getByIds(areaEditDTO.getProductIdList());
+            List<Product> productList = productService.getEntitiesByIds(areaEditDTO.getProductIdList());
             if (productList.size() != areaEditDTO.getProductIdList().size())
                 throw new DataValidationException("The Product ids are wrong!");
-            productList.stream().forEach(product -> product.setArea(area));
+            productList.forEach(product -> product.setArea(area));
             area.setProductList(productList);
         }
     }
@@ -143,15 +142,16 @@ public class AreaServiceImpl implements IAreaService {
     private void clearRelatedData(Area area) {
         TeamOfAreaBoss teamOfAreaBoss = area.getTeamOfAreaBoss();
         if (Objects.nonNull(teamOfAreaBoss)) {
+            teamOfAreaBoss.setArea(null);
             teamOfAreaBossService.save(teamOfAreaBoss);
         }
 
         List<Brigade> brigadeList = area.getBrigadeList();
-        brigadeList.stream().forEach(brigade -> brigade.setArea(null));
+        brigadeList.forEach(brigade -> brigade.setArea(null));
         brigadeService.save(brigadeList);
 
         List<Product> productList = area.getProductList();
-        productList.stream().forEach(value -> value.setArea(null));
+        productList.forEach(value -> value.setArea(null));
         productService.save(productList);
 
         Workshop workshop = area.getWorkshop();

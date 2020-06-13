@@ -1,7 +1,5 @@
 package univ.max.kursova.model;
 
-import univ.max.kursova.dto.BrigadeDTO;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -103,9 +101,4 @@ public class Brigade {
         return Objects.hash(getIdBrigade());
     }
 
-    public static Brigade makeEntity(BrigadeDTO brigadeDTO) {
-        return new Brigade()
-                .setDateCreated(brigadeDTO.getDateCreated())
-                .setDateModified(brigadeDTO.getDateModified());
-    }
 }

@@ -1,5 +1,6 @@
 package univ.max.kursova.service;
 
+import univ.max.kursova.dto.TeamOfAreaBossDTO;
 import univ.max.kursova.dto.TeamOfAreaBossEditDTO;
 import univ.max.kursova.model.Area;
 import univ.max.kursova.model.TeamOfAreaBoss;
@@ -10,10 +11,11 @@ import java.util.List;
 
 public interface ITeamOfAreaBossService {
     //  CRUD
-    TeamOfAreaBoss get(Long id);    // Read
-    List<TeamOfAreaBoss> getAll();    // Read
-    TeamOfAreaBoss create(TeamOfAreaBossEditDTO teamOfAreaBossEditDTO);    // Create
-    TeamOfAreaBoss update(TeamOfAreaBossEditDTO teamOfAreaBossEditDTO);    // Update
+    TeamOfAreaBossDTO get(Long id);    // Read
+    List<TeamOfAreaBossDTO> getAll();    // Read
+    TeamOfAreaBossDTO create(TeamOfAreaBossEditDTO teamOfAreaBossEditDTO);    // Create
+    TeamOfAreaBossDTO update(TeamOfAreaBossEditDTO teamOfAreaBossEditDTO);    // Update
     void delete(Long id);   // Delete
     TeamOfAreaBoss save(TeamOfAreaBoss teamOfAreaBoss);
+    TeamOfAreaBoss getEntity(Long id);
 }

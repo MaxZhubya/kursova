@@ -10,7 +10,6 @@ import univ.max.kursova.service.IProductService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/product")
@@ -21,27 +20,22 @@ public class ProductApiRestController {
 
     @GetMapping("/list")
     public ResponseEntity<List<ProductDTO>> getAll() {
-        List<ProductDTO> productList = productService.getAll().stream()
-                .map(ProductDTO::makeDTO).collect(Collectors.toList());
-        return new ResponseEntity<>(productList, HttpStatus.OK);
+        return new ResponseEntity<>(productService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/list/{id}")
     public ResponseEntity<ProductDTO> getById(@PathVariable("id") Long id) {
-        ProductDTO productDTO = ProductDTO.makeDTO(productService.get(id));
-        return new ResponseEntity<>(productDTO, HttpStatus.OK);
+        return new ResponseEntity<>(productService.get(id), HttpStatus.OK);
     }
 
     @PostMapping("/add")
     public ResponseEntity<ProductDTO> create(@RequestBody @Valid ProductEditDTO productEditDTO) {
-        ProductDTO productDTO = ProductDTO.makeDTO(productService.create(productEditDTO));
-        return new ResponseEntity<>(productDTO, HttpStatus.OK);
+        return new ResponseEntity<>(productService.create(productEditDTO), HttpStatus.OK);
     }
 
     @PutMapping("/edit")
     public ResponseEntity<ProductDTO> update(@RequestBody @Valid ProductEditDTO productEditDTO) {
-        ProductDTO productDTO = ProductDTO.makeDTO(productService.update(productEditDTO));
-        return new ResponseEntity<>(productDTO, HttpStatus.OK);
+        return new ResponseEntity<>(productService.update(productEditDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

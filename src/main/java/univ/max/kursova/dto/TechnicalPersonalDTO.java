@@ -2,6 +2,8 @@ package univ.max.kursova.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import univ.max.kursova.model.TechnicalPersonal;
 import univ.max.kursova.model.enums.TechPersonalType;
 
@@ -10,31 +12,37 @@ import java.time.LocalDateTime;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
+@JsonPropertyOrder({"techPersonalId", "personalName", "personalType", "created", "modified", "description", "teamOfAreaBoss"})
 public class TechnicalPersonalDTO {
 
+    @JsonProperty("techPersonalId")
     private Long idTechPersonal;
 
     @JsonInclude(NON_EMPTY)
+    @JsonProperty("teamOfAreaBoss")
     private TeamOfAreaBossDTO teamOfAreaBoss;
 
     @JsonInclude(NON_NULL)
+    @JsonProperty("personalName")
     private String personalName;
 
     @JsonInclude(NON_EMPTY)
+    @JsonProperty("personalType")
     private TechPersonalType personalType;
 
     @JsonInclude(NON_NULL)
+    @JsonProperty("description")
     private String description;
 
     @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonProperty("created")
     private LocalDateTime dateCreated;
 
     @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonProperty("modified")
     private LocalDateTime dateModified;
-
-
 
     public Long getIdTechPersonal() {
         return idTechPersonal;

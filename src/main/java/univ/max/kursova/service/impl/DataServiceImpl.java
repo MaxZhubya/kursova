@@ -77,7 +77,7 @@ public class DataServiceImpl {
                                 .setDateModified(LocalDateTime.now()),
                         new TechnicalPersonal()
                                 .setPersonalName("TechPersonal_6")
-                                .setPersonalType(TechPersonalType.TECHNLOG)
+                                .setPersonalType(TechPersonalType.TECHNOLOG)
                                 .setDefinition("Description 6")
                                 .setDateCreated(LocalDateTime.now())
                                 .setDateModified(LocalDateTime.now()),
@@ -332,9 +332,9 @@ public class DataServiceImpl {
         List<Laboratory> laboratoryList = laboratoryRepository.findAll();
         List<Product> productList = productRepository.findAll();
 
-        productList.get(0).setCurrentLaboratory(laboratoryList.get(0));
-        productList.get(1).setCurrentLaboratory(laboratoryList.get(0));
-        productList.get(2).setCurrentLaboratory(laboratoryList.get(0));
+        productList.get(0).setLaboratory(laboratoryList.get(0));
+        productList.get(1).setLaboratory(laboratoryList.get(0));
+        productList.get(2).setLaboratory(laboratoryList.get(0));
 
         productRepository.saveAll(productList);
     }

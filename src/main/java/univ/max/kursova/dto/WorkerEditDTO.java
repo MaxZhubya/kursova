@@ -4,22 +4,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import univ.max.kursova.model.enums.WorkerType;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class WorkerEditDTO {
 
     @JsonProperty("workerId")
     private Long idWorker;
 
-    @JsonProperty("brigadeId")
-    private BrigadeDTO idBrigade;
-
     @NotEmpty
     @JsonProperty("name")
     private String workerName;
 
-    @NotEmpty
+    @NotNull
     @JsonProperty("type")
     private WorkerType workerType;
+
+    @JsonProperty("brigadeId")
+    private Long idBrigade;
 
     public Long getIdWorker() {
         return idWorker;
@@ -29,11 +30,11 @@ public class WorkerEditDTO {
         this.idWorker = idWorker;
     }
 
-    public BrigadeDTO getIdBrigade() {
+    public Long getIdBrigade() {
         return idBrigade;
     }
 
-    public void setIdBrigade(BrigadeDTO idBrigade) {
+    public void setIdBrigade(Long idBrigade) {
         this.idBrigade = idBrigade;
     }
 

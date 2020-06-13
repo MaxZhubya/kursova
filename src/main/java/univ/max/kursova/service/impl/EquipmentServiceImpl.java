@@ -56,4 +56,9 @@ public class EquipmentServiceImpl implements IEquipmentService {
         return repository.saveAll(equipmentList);
     }
 
+    @Override
+    public List<Equipment> getEntitiesByIds(List<Long> ids) {
+        return repository.findAllById(ids);
+    }
+
 }

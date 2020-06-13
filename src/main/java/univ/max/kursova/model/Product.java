@@ -26,7 +26,7 @@ public class Product {
 
     @ManyToOne()
     @JoinColumn(name = "laboratory_id", referencedColumnName = "id")
-    private Laboratory currentLaboratory;
+    private Laboratory laboratory;
 
     @NotNull
     @Enumerated (EnumType.STRING)
@@ -48,12 +48,12 @@ public class Product {
     }
 
     public Product(Long idProduct, ProductCategory category, ProductType type, Area area,
-                   Laboratory currentLaboratory, LocalDateTime dateCreated, LocalDateTime dateModified) {
+                   Laboratory laboratory, LocalDateTime dateCreated, LocalDateTime dateModified) {
         this.idProduct = idProduct;
         this.category = category;
         this.type = type;
         this.area = area;
-        this.currentLaboratory = currentLaboratory;
+        this.laboratory = laboratory;
         this.dateCreated = dateCreated;
         this.dateModified = dateModified;
     }
@@ -94,12 +94,12 @@ public class Product {
         return this;
     }
 
-    public Laboratory getCurrentLaboratory() {
-        return currentLaboratory;
+    public Laboratory getLaboratory() {
+        return laboratory;
     }
 
-    public Product setCurrentLaboratory(Laboratory currentLaboratory) {
-        this.currentLaboratory = currentLaboratory;
+    public Product setLaboratory(Laboratory laboratory) {
+        this.laboratory = laboratory;
         return this;
     }
 

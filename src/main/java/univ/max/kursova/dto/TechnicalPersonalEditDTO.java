@@ -4,25 +4,26 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import univ.max.kursova.model.enums.TechPersonalType;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 public class TechnicalPersonalEditDTO {
 
     @JsonProperty("techPersonalId")
     private Long idTechPersonal;
 
-    @JsonProperty("teamOfAreaBossId")
-    private Long idTeamOfAreaBoss;
-
     @NotEmpty
     @JsonProperty("name")
     private String personalName;
 
-    @NotEmpty
+    @NotNull
     @JsonProperty("type")
     private TechPersonalType personalType;
 
     @JsonProperty("description")
     private String description;
+
+    @JsonProperty("teamOfAreaBossId")
+    private Long idTeamOfAreaBoss;
 
     public Long getIdTechPersonal() {
         return idTechPersonal;

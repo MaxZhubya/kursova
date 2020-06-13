@@ -10,7 +10,6 @@ import univ.max.kursova.service.ILaboratoryService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/laboratory")
@@ -21,27 +20,22 @@ public class LaboratoryApiRestController {
 
     @GetMapping("/list")
     public ResponseEntity<List<LaboratoryDTO>> getAll() {
-        List<LaboratoryDTO> laboratoryList = laboratoryService.getAll().stream()
-                .map(LaboratoryDTO::makeDTO).collect(Collectors.toList());
-        return new ResponseEntity<>(laboratoryList, HttpStatus.OK);
+        return new ResponseEntity<>(laboratoryService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/list/{id}")
     public ResponseEntity<LaboratoryDTO> getById(@PathVariable("id") Long id) {
-        LaboratoryDTO laboratoryDTO = LaboratoryDTO.makeDTO(laboratoryService.get(id));
-        return new ResponseEntity<>(laboratoryDTO, HttpStatus.OK);
+        return new ResponseEntity<>(laboratoryService.get(id), HttpStatus.OK);
     }
 
     @PostMapping("/add")
     public ResponseEntity<LaboratoryDTO> create(@RequestBody @Valid LaboratoryEditDTO laboratoryEditDTO) {
-        LaboratoryDTO laboratoryDTO = LaboratoryDTO.makeDTO(laboratoryService.create(laboratoryEditDTO));
-        return new ResponseEntity<>(laboratoryDTO, HttpStatus.OK);
+        return new ResponseEntity<>(laboratoryService.create(laboratoryEditDTO), HttpStatus.OK);
     }
 
     @PutMapping("/edit")
     public ResponseEntity<LaboratoryDTO> update(@RequestBody @Valid LaboratoryEditDTO laboratoryEditDTO) {
-        LaboratoryDTO laboratoryDTO = LaboratoryDTO.makeDTO(laboratoryService.update(laboratoryEditDTO));
-        return new ResponseEntity<>(laboratoryDTO, HttpStatus.OK);
+        return new ResponseEntity<>(laboratoryService.update(laboratoryEditDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

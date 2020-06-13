@@ -119,11 +119,4 @@ public class Worker {
         return Objects.hash(getIdWorker());
     }
 
-    public static Worker makeEntity(WorkerDTO workerDTO) {
-        return new Worker()
-                .setWorkerName(workerDTO.getWorkerName())
-                .setWorkerType(workerDTO.getWorkerType())
-                .setDateCreated(workerDTO.getDateCreated())
-                .setDateModified(workerDTO.getDateModified());
-    }
 }

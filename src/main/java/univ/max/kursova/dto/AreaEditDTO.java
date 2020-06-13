@@ -11,7 +11,10 @@ public class AreaEditDTO {
     @JsonProperty("areaId")
     private Long idArea;
 
-    @JsonProperty("teamOfAreaBossId")
+    @JsonProperty("areaDefinition")
+    private String definition;
+
+    @JsonProperty("teamOfAreaBoss")
     private Long idTeamOfAreaBoss;
 
     @JsonProperty("brigadeIds")
@@ -24,9 +27,6 @@ public class AreaEditDTO {
 
     @JsonProperty("workshopId")
     private Long idWorkshop;
-
-    @JsonProperty("areaDefinition")
-    private String definition;
 
     public Long getIdArea() {
         return idArea;
