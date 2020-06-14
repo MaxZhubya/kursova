@@ -1,6 +1,5 @@
 package univ.max.kursova.model;
 
-import univ.max.kursova.dto.EquipmentDTO;
 import univ.max.kursova.model.enums.EquipmentType;
 
 import javax.persistence.*;
@@ -17,7 +16,7 @@ public class Equipment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
-    private Long idEquipmentForLab;
+    private Long idEquipment;
 
     @ManyToOne
     @JoinColumn(name = "laboratory_id", referencedColumnName = "id")
@@ -40,20 +39,20 @@ public class Equipment {
     public Equipment() {
     }
 
-    public Equipment(Long idEquipmentForLab, String definition,
+    public Equipment(Long idEquipment, String definition,
                      LocalDateTime dateCreated, LocalDateTime dateModified) {
-        this.idEquipmentForLab = idEquipmentForLab;
+        this.idEquipment = idEquipment;
         this.definition = definition;
         this.dateCreated = dateCreated;
         this.dateModified = dateModified;
     }
 
-    public Long getIdEquipmentForLab() {
-        return idEquipmentForLab;
+    public Long getIdEquipment() {
+        return idEquipment;
     }
 
-    public Equipment setIdEquipmentForLab(Long idEquipmentForLab) {
-        this.idEquipmentForLab = idEquipmentForLab;
+    public Equipment setIdEquipment(Long idEquipment) {
+        this.idEquipment = idEquipment;
         return this;
     }
 
@@ -107,19 +106,12 @@ public class Equipment {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Equipment that = (Equipment) o;
-        return getIdEquipmentForLab() == that.getIdEquipmentForLab();
+        return getIdEquipment() == that.getIdEquipment();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIdEquipmentForLab());
+        return Objects.hash(getIdEquipment());
     }
 
-    public static Equipment makeEntity(EquipmentDTO equipmentDTO) {
-        return new Equipment()
-                .setEquipmentType(equipmentDTO.getEquipmentType())
-                .setDefinition(equipmentDTO.getDefinition())
-                .setDateCreated(equipmentDTO.getDateCreated())
-                .setDateModified(equipmentDTO.getDateModified());
-    }
 }

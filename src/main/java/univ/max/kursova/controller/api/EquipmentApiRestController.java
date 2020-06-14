@@ -10,7 +10,6 @@ import univ.max.kursova.service.IEquipmentService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/equipment")
@@ -21,29 +20,22 @@ public class EquipmentApiRestController {
 
     @GetMapping("/list")
     public ResponseEntity<List<EquipmentDTO>> getAll() {
-        List<EquipmentDTO> equipmentList = equipmentService.getAll().stream()
-                .map(EquipmentDTO::makeDTO).collect(Collectors.toList());
-        return new ResponseEntity<>(equipmentList, HttpStatus.OK);
+        return new ResponseEntity<>(equipmentService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/list/{id}")
     public ResponseEntity<EquipmentDTO> getById(@PathVariable("id") Long id) {
-        EquipmentDTO equipmentDTO = EquipmentDTO.makeDTO(equipmentService.get(id));
-        return new ResponseEntity<>(equipmentDTO, HttpStatus.OK);
+        return new ResponseEntity<>(equipmentService.get(id), HttpStatus.OK);
     }
 
     @PostMapping("/add")
     public ResponseEntity<EquipmentDTO> create(@RequestBody @Valid EquipmentEditDTO equipmentEditDTO) {
-        EquipmentDTO equipmentDTO = EquipmentDTO
-                .makeDTO(equipmentService.create(equipmentEditDTO));
-        return new ResponseEntity<>(equipmentDTO, HttpStatus.OK);
+        return new ResponseEntity<>(equipmentService.create(equipmentEditDTO), HttpStatus.OK);
     }
 
     @PutMapping("/edit")
     public ResponseEntity<EquipmentDTO> update(@RequestBody @Valid EquipmentEditDTO equipmentEditDTO) {
-        EquipmentDTO equipmentDTO = EquipmentDTO
-                .makeDTO(equipmentService.update(equipmentEditDTO));
-        return new ResponseEntity<>(equipmentDTO, HttpStatus.OK);
+        return new ResponseEntity<>(equipmentService.update(equipmentEditDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

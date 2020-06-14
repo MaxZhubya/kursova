@@ -2,6 +2,8 @@ package univ.max.kursova.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import univ.max.kursova.model.Workshop;
 
 import java.time.LocalDateTime;
@@ -12,25 +14,32 @@ import java.util.stream.Collectors;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_EMPTY;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
+@JsonPropertyOrder({"workshopId", "definition", "created", "modified", "areas", "laboratories"})
 public class WorkshopDTO {
 
+    @JsonProperty("workshopId")
     private Long idWorkshop;
 
     @JsonInclude(NON_EMPTY)
+    @JsonProperty("areas")
     private List<AreaDTO> areaList = new ArrayList<>();
 
     @JsonInclude(NON_EMPTY)
+    @JsonProperty("laboratories")
     private List<LaboratoryDTO> laboratoryList = new ArrayList<>();
 
     @JsonInclude(NON_NULL)
+    @JsonProperty("definition")
     private String definition;
 
     @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonProperty("created")
     private LocalDateTime dateCreated;
 
     @JsonInclude(NON_NULL)
     @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonProperty("modified")
     private LocalDateTime dateModified;
 
     public Long getIdWorkshop() {

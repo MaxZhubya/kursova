@@ -3,7 +3,6 @@ package univ.max.kursova.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import univ.max.kursova.model.enums.EquipmentType;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class EquipmentEditDTO {
@@ -11,15 +10,15 @@ public class EquipmentEditDTO {
     @JsonProperty("equipmentId")
     private Long idEquipment;
 
-    @JsonProperty("laboratoryId")
-    private Long idLaboratory;
-
-    @NotEmpty
+    @NotNull
     @JsonProperty("equipmentType")
     private EquipmentType equipmentType;
 
     @JsonProperty("definition")
     private String definition;
+
+    @JsonProperty("laboratoryId")
+    private Long idLaboratory;
 
     public Long getIdEquipment() {
         return idEquipment;

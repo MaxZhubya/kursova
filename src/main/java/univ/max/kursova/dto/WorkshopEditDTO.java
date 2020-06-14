@@ -11,6 +11,9 @@ public class WorkshopEditDTO {
     @JsonProperty("workshopId")
     private Long idWorkshop;
 
+    @JsonProperty("definition")
+    private String definition;
+
     @NotNull
     @JsonProperty("areaIds")
     private List<Long> areaIdList = new ArrayList<>();
@@ -18,9 +21,6 @@ public class WorkshopEditDTO {
     @NotNull
     @JsonProperty("laboratoryIds")
     private List<Long> laboratoryIdList = new ArrayList<>();
-
-    @JsonProperty("definition")
-    private String definition;
 
     public Long getIdWorkshop() {
         return idWorkshop;

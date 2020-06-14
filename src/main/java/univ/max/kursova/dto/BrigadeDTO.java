@@ -24,7 +24,7 @@ public class BrigadeDTO {
     @JsonProperty("workers")
     private List<WorkerDTO> workerList = new ArrayList<>();
 
-    @JsonInclude(NON_EMPTY)
+    @JsonInclude(NON_NULL)
     @JsonProperty("area")
     private AreaDTO area;
 

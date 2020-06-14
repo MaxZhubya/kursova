@@ -62,7 +62,8 @@ public class BrigadeServiceImpl implements IBrigadeService {
         if (Objects.isNull(brigadeEditDTO.getIdBrigade()))
             throw new DataValidationException("ID can not be null!");
 
-        Brigade brigade = getEntity(brigadeEditDTO.getIdBrigade());
+        Brigade brigade = getEntity(brigadeEditDTO.getIdBrigade())
+                .setDateModified(LocalDateTime.now());;
 
         // Clare all related data
         clearRelatedData(brigade);

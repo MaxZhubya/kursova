@@ -67,7 +67,8 @@ public class ProductServiceImpl implements IProductService {
         if (Objects.isNull(productEditDTO.getIdProduct()))
             throw new DataValidationException("ID can not be null!");
 
-        Product product = getEntity(productEditDTO.getIdProduct());
+        Product product = getEntity(productEditDTO.getIdProduct())
+                .setDateModified(LocalDateTime.now());
 
         // Clare all related data
         clearRelatedData(product);

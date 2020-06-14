@@ -21,27 +21,22 @@ public class WorkshopApiRestController {
 
     @GetMapping("/list")
     public ResponseEntity<List<WorkshopDTO>> getAll() {
-        List<WorkshopDTO> workshopList = workshopService.getAll().stream()
-                .map(WorkshopDTO::makeDTO).collect(Collectors.toList());
-        return new ResponseEntity<>(workshopList, HttpStatus.OK);
+        return new ResponseEntity<>(workshopService.getAll(), HttpStatus.OK);
     }
 
     @GetMapping("/list/{id}")
     public ResponseEntity<WorkshopDTO> getById(@PathVariable("id") Long id) {
-        WorkshopDTO workshopDTO = WorkshopDTO.makeDTO(workshopService.get(id));
-        return new ResponseEntity<>(workshopDTO, HttpStatus.OK);
+        return new ResponseEntity<>(workshopService.get(id), HttpStatus.OK);
     }
 
     @PostMapping("/add")
     public ResponseEntity<WorkshopDTO> create(@RequestBody @Valid WorkshopEditDTO workshopEditDTO) {
-        WorkshopDTO workshopDTO = WorkshopDTO.makeDTO(workshopService.create(workshopEditDTO));
-        return new ResponseEntity<>(workshopDTO, HttpStatus.OK);
+        return new ResponseEntity<>(workshopService.create(workshopEditDTO), HttpStatus.OK);
     }
 
     @PutMapping("/edit")
     public ResponseEntity<WorkshopDTO> update(@RequestBody @Valid WorkshopEditDTO workshopEditDTO) {
-        WorkshopDTO workshopDTO = WorkshopDTO.makeDTO(workshopService.update(workshopEditDTO));
-        return new ResponseEntity<>(workshopDTO, HttpStatus.OK);
+        return new ResponseEntity<>(workshopService.update(workshopEditDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")

@@ -104,10 +104,15 @@ public class AreaServiceImpl implements IAreaService {
                 + id.toString() + " is not existed"));
     }
 
+    @Override
+    public List<Area> getEntitiesByIds(List<Long> ids) {
+        return repository.findAllById(ids);
+    }
+
     private void setInputData(final Area area, AreaEditDTO areaEditDTO) {
         // Set Workshop
         if (Objects.nonNull(areaEditDTO.getIdWorkshop())) {
-            area.setWorkshop(workshopService.get(areaEditDTO.getIdWorkshop()));
+            area.setWorkshop(workshopService.getEntity(areaEditDTO.getIdWorkshop()));
         }
 
         // Set Definition

@@ -16,4 +16,5 @@ public interface ILaboratoryService {
     Laboratory save(Laboratory laboratory);
     List<Laboratory> save(List<Laboratory> laboratoryList);
     Laboratory getEntity(Long id);
+    List<Laboratory> getEntitiesByIds(List<Long> ids);
 }

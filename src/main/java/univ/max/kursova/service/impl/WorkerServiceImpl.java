@@ -62,7 +62,8 @@ public class WorkerServiceImpl implements IWorkerService {
         if (Objects.isNull(workerEditDTO.getIdWorker()))
             throw new DataValidationException("ID can not be null!");
 
-        Worker worker = getEntity(workerEditDTO.getIdWorker());
+        Worker worker = getEntity(workerEditDTO.getIdWorker())
+                .setDateModified(LocalDateTime.now());
 
         // Clare all related data
         clearRelatedData(worker);

@@ -16,4 +16,5 @@ public interface IAreaService {
     void delete(Long id);   // Delete
     Area save(Area area);
     Area getEntity(Long id);
+    List<Area> getEntitiesByIds(List<Long> ids);
 }

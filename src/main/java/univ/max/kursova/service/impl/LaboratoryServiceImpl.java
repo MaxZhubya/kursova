@@ -68,7 +68,8 @@ public class LaboratoryServiceImpl implements ILaboratoryService {
         if (Objects.isNull(laboratoryEditDTO.getIdLaboratory()))
             throw new DataValidationException("ID can not be null!");
 
-        Laboratory laboratory = getEntity(laboratoryEditDTO.getIdLaboratory());
+        Laboratory laboratory = getEntity(laboratoryEditDTO.getIdLaboratory())
+                .setDateModified(LocalDateTime.now());
 
         // Clare all related data
         clearRelatedData(laboratory);
@@ -103,6 +104,11 @@ public class LaboratoryServiceImpl implements ILaboratoryService {
     public Laboratory getEntity(Long id) {
         return repository.findById(id).orElseThrow(() -> new DataNotFoundException("Laboratory with id: "
                 + id.toString() + " is not existed"));
+    }
+
+    @Override
+    public List<Laboratory> getEntitiesByIds(List<Long> ids) {
+        return repository.findAllById(ids);
     }
 
     private void setInputData(Laboratory laboratory, LaboratoryEditDTO laboratoryEditDTO) {
