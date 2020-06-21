@@ -27,4 +27,8 @@ public class ApplicationConfiguration implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/static/");
     }
 
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addRedirectViewController("/", "/index.html");
+    }
 }
