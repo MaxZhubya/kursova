@@ -42,7 +42,7 @@ public class TeamOfAreaBossServiceImpl implements ITeamOfAreaBossService {
     @Override
     @Transactional(readOnly = true)
     public List<TeamOfAreaBossDTO> getAll() {
-        return repository.findAll().stream().map(TeamOfAreaBossDTO::makeDTO).collect(Collectors.toList());
+        return repository.findByOrderByIdTeamAsc().stream().map(TeamOfAreaBossDTO::makeDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -113,7 +113,11 @@ public class TeamOfAreaBossServiceImpl implements ITeamOfAreaBossService {
         teamOfAreaBoss.setArea(null);
         if (Objects.nonNull(teamOfAreaBossEditDTO.getIdArea())) {
             Area area = areaService.getEntity(teamOfAreaBossEditDTO.getIdArea());
-            TeamOfAreaBoss previousTeam = area.getTeamOfAreaBoss().setArea(null);
+            TeamOfAreaBoss previousTeam = area.getTeamOfAreaBoss();
+            if (Objects.nonNull(previousTeam)) {
+                previousTeam.setArea(null);
+                repository.save(previousTeam);
+            }
             area.setTeamOfAreaBoss(teamOfAreaBoss);
             teamOfAreaBoss.setArea(area);
         }
@@ -126,6 +130,11 @@ public class TeamOfAreaBossServiceImpl implements ITeamOfAreaBossService {
         techPersonalService.save(technicalPersonalList);
 
         // Update TeamOfAreaBoss for Area
+        if (Objects.nonNull(teamOfAreaBoss.getArea())) {
+            Area area = areaService.getEntity(teamOfAreaBoss.getArea().getIdArea());
+            area.setTeamOfAreaBoss(null);
+            areaService.save(area);
+        }
         teamOfAreaBoss.setArea(null);
     }
 

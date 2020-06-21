@@ -38,7 +38,7 @@ public class TechPersonalServiceImpl implements ITechPersonalService {
     @Override
     @Transactional(readOnly = true)
     public List<TechnicalPersonalDTO> getAll() {
-        return repository.findAll().stream().map(TechnicalPersonalDTO::makeDTO).collect(Collectors.toList());
+        return repository.findByOrderByIdTechPersonalAsc().stream().map(TechnicalPersonalDTO::makeDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -108,7 +108,9 @@ public class TechPersonalServiceImpl implements ITechPersonalService {
         personal.setPersonalName(personalEditDTO.getPersonalName())
                 .setDateModified(LocalDateTime.now())
                 .setDefinition(personalEditDTO.getDescription())
-                .setTeamOfAreaBoss(teamOfAreaBossService.getEntity(personalEditDTO.getIdTeamOfAreaBoss()));
+                .setPersonalType(personalEditDTO.getPersonalType());
+        if (Objects.nonNull(personalEditDTO.getIdTeamOfAreaBoss()))
+            personal.setTeamOfAreaBoss(teamOfAreaBossService.getEntity(personalEditDTO.getIdTeamOfAreaBoss()));
     }
 
     private void clearRelatedData(TechnicalPersonal technicalPersonal) {

@@ -48,7 +48,7 @@ public class AreaServiceImpl implements IAreaService {
     @Override
     @Transactional(readOnly = true)
     public List<AreaDTO> getAll() {
-        return repository.findAll().stream()
+        return repository.findByOrderByIdAreaAsc().stream()
                 .map(AreaDTO::makeDTO).collect(Collectors.toList());
     }
 
@@ -150,20 +150,24 @@ public class AreaServiceImpl implements IAreaService {
             teamOfAreaBoss.setArea(null);
             teamOfAreaBossService.save(teamOfAreaBoss);
         }
+        area.setTeamOfAreaBoss(null);
 
         List<Brigade> brigadeList = area.getBrigadeList();
         brigadeList.forEach(brigade -> brigade.setArea(null));
         brigadeService.save(brigadeList);
+        area.getBrigadeList().clear();
 
         List<Product> productList = area.getProductList();
         productList.forEach(value -> value.setArea(null));
         productService.save(productList);
+        area.getProductList().clear();
 
         Workshop workshop = area.getWorkshop();
         if (Objects.nonNull(workshop)) {
             workshop.getAreaList().remove(area);
             workshopService.save(workshop);
         }
+        area.setWorkshop(null);
     }
 
 }

@@ -40,7 +40,7 @@ public class BrigadeServiceImpl implements IBrigadeService {
 
     @Override
     public List<BrigadeDTO> getAll() {
-        return repository.findAll().stream().map(BrigadeDTO::makeDTO).collect(Collectors.toList());
+        return repository.findByOrderByIdBrigadeAsc().stream().map(BrigadeDTO::makeDTO).collect(Collectors.toList());
     }
 
     @Override

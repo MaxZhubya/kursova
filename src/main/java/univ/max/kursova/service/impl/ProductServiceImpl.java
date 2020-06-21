@@ -43,7 +43,7 @@ public class ProductServiceImpl implements IProductService {
     @Override
     @Transactional(readOnly = true)
     public List<ProductDTO> getAll() {
-        return repository.findAll().stream().map(ProductDTO::makeDTO).collect(Collectors.toList());
+        return repository.findByOrderByIdProductAsc().stream().map(ProductDTO::makeDTO).collect(Collectors.toList());
     }
 
     @Override

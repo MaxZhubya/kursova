@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface TechnicalPersonalRepository extends JpaRepository<TechnicalPersonal, Long> {
 
+    List<TechnicalPersonal> findByOrderByIdTechPersonalAsc();
     List<TechnicalPersonal> getByIdTechPersonalIn(List<Long> ids);
 
 }

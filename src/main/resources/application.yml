@@ -2,8 +2,6 @@ server:
   port: 8888
 
 spring:
-  freemarker:
-    suffix: .ftl
 
   datasource:
     platform: postgres
@@ -16,6 +14,6 @@ spring:
     generate-ddl: true
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
 
     properties.hibernate.jdbc.lob.non_contextual_creation: true

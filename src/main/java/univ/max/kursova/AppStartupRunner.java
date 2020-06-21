@@ -15,7 +15,7 @@ public class AppStartupRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
 
-        dataService.createTechnicalPersonals();       //      TechnicalPersonal
+        /*dataService.createTechnicalPersonals();       //      TechnicalPersonal
 
         dataService.createWorkers();                  //      Worker
 
@@ -40,6 +40,6 @@ public class AppStartupRunner implements ApplicationRunner {
 
         dataService.createProducts();
         dataService.setProductToArea();
-        dataService.setLaboratoryToProduct();
+        dataService.setLaboratoryToProduct();*/
     }
 }

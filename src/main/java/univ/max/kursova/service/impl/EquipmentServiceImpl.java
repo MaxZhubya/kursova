@@ -38,7 +38,7 @@ public class EquipmentServiceImpl implements IEquipmentService {
     @Override
     @Transactional(readOnly = true)
     public List<EquipmentDTO> getAll() {
-        return repository.findAll().stream().map(EquipmentDTO::makeDTO).collect(Collectors.toList());
+        return repository.findByOrderByIdEquipmentAsc().stream().map(EquipmentDTO::makeDTO).collect(Collectors.toList());
     }
 
     @Override
@@ -62,7 +62,7 @@ public class EquipmentServiceImpl implements IEquipmentService {
             throw new DataValidationException("ID can not be null!");
 
         Equipment equipment = getEntity(equipmentEditDTO.getIdEquipment())
-                .setDateModified(LocalDateTime.now());;
+                .setDateModified(LocalDateTime.now());
 
         // Remove current entity from all
         clearRelatedData(equipment);
@@ -105,7 +105,8 @@ public class EquipmentServiceImpl implements IEquipmentService {
     }
 
     private void setInputData(Equipment equipment, EquipmentEditDTO equipmentEditDTO) {
-        equipment.setDefinition(equipmentEditDTO.getDefinition());
+        equipment.setDefinition(equipmentEditDTO.getDefinition())
+                 .setEquipmentType(equipmentEditDTO.getEquipmentType());
 
         if (Objects.nonNull(equipmentEditDTO.getIdLaboratory())) {
             Laboratory laboratory = laboratoryService.getEntity(equipmentEditDTO.getIdLaboratory());

@@ -9,6 +9,7 @@ import java.util.List;
 @Repository
 public interface BrigadeRepository extends JpaRepository<Brigade, Long> {
 
+    List<Brigade> findByOrderByIdBrigadeAsc();
     List<Brigade> getByIdBrigadeIn(List<Long> ids);
 
 }

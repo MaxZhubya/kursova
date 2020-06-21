@@ -45,7 +45,7 @@ public class LaboratoryServiceImpl implements ILaboratoryService {
 
     @Override
     public List<LaboratoryDTO> getAll() {
-        return repository.findAll().stream().map(LaboratoryDTO::makeDTO).collect(Collectors.toList());
+        return repository.findByOrderByIdLaboratoryAsc().stream().map(LaboratoryDTO::makeDTO).collect(Collectors.toList());
     }
 
     @Override

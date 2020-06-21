@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface WorkerRepository extends JpaRepository<Worker, Long> {
 
-    //List<Worker> findAllByIdWorkerIn(List<Long> ids);
+    List<Worker> findByOrderByIdWorkerAsc();
 
 }

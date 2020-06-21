@@ -42,7 +42,7 @@ public class WorkshopServiceImpl implements IWorkshopService {
     @Override
     @Transactional(readOnly = true)
     public List<WorkshopDTO> getAll() {
-        return repository.findAll().stream().map(WorkshopDTO::makeDTO).collect(Collectors.toList());
+        return repository.findByOrderByIdWorkshopAsc().stream().map(WorkshopDTO::makeDTO).collect(Collectors.toList());
     }
 
     @Override

@@ -38,7 +38,7 @@ public class WorkerServiceImpl implements IWorkerService {
     @Override
     @Transactional(readOnly = true)
     public List<WorkerDTO> getAll() {
-        return repository.findAll().stream().map(WorkerDTO::makeDTO).collect(Collectors.toList());
+        return repository.findByOrderByIdWorkerAsc().stream().map(WorkerDTO::makeDTO).collect(Collectors.toList());
     }
 
     @Override
