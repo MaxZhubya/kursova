@@ -2,6 +2,7 @@ package univ.max.kursova.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import univ.max.kursova.exception.ApplicationException;
 import univ.max.kursova.model.*;
 import univ.max.kursova.model.enums.*;
 import univ.max.kursova.repository.*;
@@ -42,7 +43,32 @@ public class DataServiceImpl {
     @Autowired
     private ProductRepository productRepository;
 
-    public List<TechnicalPersonal> createTechnicalPersonals() {
+    public void initDataBase() {
+        try {
+            createTechnicalPersonals();       //      TechnicalPersonal
+            createWorkers();                  //      Worker
+            createBrigades();                 //      Brigade
+            setBrigadeToWorkers();            //      Brigade - Worker
+            createTeamsOfAreaBosses();        //      TeamOfAreaBoss
+            setTechPersonalToTeamOfAreaBoss(); //     TechnicalPersonal - TeamOfAreaBoss
+            createAreas();                    //      Area
+            setTeamOfAreaBossToArea();        //      Area - TeamOfAreaBoss
+            setBrigadeToArea();               //      Area - Brigade
+            createWorkshops();                //      Workshop
+            setWorkshopToArea();              //      Workshop - Area
+            createLaboratories();             //      Laboratory
+            setLaboratoryToWorkshop();        //      Laboratory - Workshop
+            createEquipmentForLabs();           //      Equipment
+            setEquipmentToLaboratory();         //      Equipment - Laboratory
+            createProducts();
+            setProductToArea();
+            setLaboratoryToProduct();
+        } catch (Exception e) {
+            throw new ApplicationException("Initiating DB Exception: " + e.getMessage());
+        }
+    }
+
+    private List<TechnicalPersonal> createTechnicalPersonals() {
         return technicalPersonalRepository.saveAll(
                 Arrays.asList(
                         new TechnicalPersonal()
@@ -91,7 +117,7 @@ public class DataServiceImpl {
         );
     }
 
-    public List<Worker> createWorkers() {
+    private List<Worker> createWorkers() {
         return workerRepository.saveAll(
                 Arrays.asList(
                     new Worker()
@@ -123,7 +149,7 @@ public class DataServiceImpl {
         );
     }
 
-    public List<Brigade> createBrigades() {
+    private List<Brigade> createBrigades() {
         return brigadeRepository.saveAll(
                 Arrays.asList(
                     new Brigade()
@@ -139,7 +165,7 @@ public class DataServiceImpl {
         );
     }
 
-    public void setBrigadeToWorkers() {
+    private void setBrigadeToWorkers() {
         List<Brigade> brigades = brigadeRepository.findAll();
         List<Worker> workers = workerRepository.findAll();
 
@@ -153,7 +179,7 @@ public class DataServiceImpl {
         workerRepository.saveAll(workers);
     }
 
-    public List<TeamOfAreaBoss> createTeamsOfAreaBosses() {
+    private List<TeamOfAreaBoss> createTeamsOfAreaBosses() {
         return teamOfAreaBossRepository.saveAll(
                 Arrays.asList(
                         new TeamOfAreaBoss()
@@ -169,7 +195,7 @@ public class DataServiceImpl {
         );
     }
 
-    public void setTechPersonalToTeamOfAreaBoss() {
+    private void setTechPersonalToTeamOfAreaBoss() {
         List<TechnicalPersonal> technicalPersonals = technicalPersonalRepository.findAll();
         List<TeamOfAreaBoss> teamOfAreaBosses = teamOfAreaBossRepository.findAll();
 
@@ -185,7 +211,7 @@ public class DataServiceImpl {
         technicalPersonalRepository.saveAll(technicalPersonals);
     }
 
-    public List<Area> createAreas() {
+    private List<Area> createAreas() {
         return areaRepository.saveAll(
                 Arrays.asList(
                         new Area()
@@ -200,7 +226,7 @@ public class DataServiceImpl {
         );
     }
 
-    public void setTeamOfAreaBossToArea() {
+    private void setTeamOfAreaBossToArea() {
         List<TeamOfAreaBoss> teamOfAreaBosses = teamOfAreaBossRepository.findAll();
         List<Area> areas = areaRepository.findAll();
 
@@ -211,7 +237,7 @@ public class DataServiceImpl {
         teamOfAreaBossRepository.saveAll(teamOfAreaBosses);
     }
 
-    public void setBrigadeToArea() {
+    private void setBrigadeToArea() {
         List<Brigade> brigades = brigadeRepository.findAll();
         List<Area> areas = areaRepository.findAll();
 
@@ -221,7 +247,7 @@ public class DataServiceImpl {
         brigadeRepository.saveAll(brigades);
     }
 
-    public List<Workshop> createWorkshops() {
+    private List<Workshop> createWorkshops() {
         return workshopRepository.saveAll(
                 Arrays.asList(
                         new Workshop()
@@ -232,7 +258,7 @@ public class DataServiceImpl {
         );
     }
 
-    public void setWorkshopToArea() {
+    private void setWorkshopToArea() {
         List<Workshop> workshops = workshopRepository.findAll();
         List<Area> areas = areaRepository.findAll();
 
@@ -242,7 +268,7 @@ public class DataServiceImpl {
         areaRepository.saveAll(areas);
     }
 
-    public List<Laboratory> createLaboratories() {
+    private List<Laboratory> createLaboratories() {
         return laboratoryRepository.saveAll(
                 Arrays.asList(
                         new Laboratory()
@@ -253,7 +279,7 @@ public class DataServiceImpl {
         );
     }
 
-    public void setLaboratoryToWorkshop() {
+    private void setLaboratoryToWorkshop() {
         List<Workshop> workshops = workshopRepository.findAll();
         List<Laboratory> laboratories = laboratoryRepository.findAll();
 
@@ -262,7 +288,7 @@ public class DataServiceImpl {
         workshopRepository.saveAll(workshops);
     }
 
-    public List<Equipment> createEquipmentForLabs() {
+    private List<Equipment> createEquipmentForLabs() {
         return equipmentRepository.saveAll(
                 Arrays.asList(
                         new Equipment()
@@ -284,7 +310,7 @@ public class DataServiceImpl {
         );
     }
 
-    public void setEquipmentToLaboratory() {
+    private void setEquipmentToLaboratory() {
         List<Equipment> equipmentForLaboratories = equipmentRepository.findAll();
         List<Laboratory> laboratories = laboratoryRepository.findAll();
 
@@ -295,7 +321,7 @@ public class DataServiceImpl {
         equipmentRepository.saveAll(equipmentForLaboratories);
     }
 
-    public List<Product> createProducts() {
+    private List<Product> createProducts() {
         return productRepository.saveAll(
                 Arrays.asList(
                         new Product()
@@ -317,7 +343,7 @@ public class DataServiceImpl {
         );
     }
 
-    public void setProductToArea() {
+    private void setProductToArea() {
         List<Area> areaList = areaRepository.findAll();
         List<Product> productList = productRepository.findAll();
 
@@ -328,7 +354,7 @@ public class DataServiceImpl {
         productRepository.saveAll(productList);
     }
 
-    public void setLaboratoryToProduct() {
+    private void setLaboratoryToProduct() {
         List<Laboratory> laboratoryList = laboratoryRepository.findAll();
         List<Product> productList = productRepository.findAll();
 
