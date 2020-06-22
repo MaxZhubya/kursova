@@ -1,58 +1,91 @@
 package univ.max.kursova.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "brigades")
 public class Brigade {
-    private long id_brigade;
-    private Worker brigadier;
-    private List<Worker> workerList;
 
+    private static final long serialVersionUID = -8765784653535432L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long idBrigade;
+
+    @NotNull
+    @OneToMany(mappedBy = "brigade")
+    private List<Worker> workerList = new ArrayList<>();
+
+    @ManyToOne()
+    @JoinColumn(name = "area_id", referencedColumnName = "id")
+    private Area area;
+
+    @Column(name = "created_at")
     private LocalDateTime dateCreated;
+
+    @Column(name = "modified_at")
     private LocalDateTime dateModified;
 
     public Brigade() {
     }
 
-    public long getId_brigade() {
-        return id_brigade;
+    public Brigade(Long idBrigade, List<Worker> workerList,
+                   LocalDateTime dateCreated, LocalDateTime dateModified) {
+        this.idBrigade = idBrigade;
+        this.workerList = workerList;
+        this.dateCreated = dateCreated;
+        this.dateModified = dateModified;
     }
 
-    public void setId_brigade(long id_brigade) {
-        this.id_brigade = id_brigade;
+    public Long getIdBrigade() {
+        return idBrigade;
     }
 
-    public Worker getBrigadier() {
-        return brigadier;
-    }
-
-    public void setBrigadier(Worker brigadier) {
-        this.brigadier = brigadier;
+    public Brigade setIdBrigade(Long idBrigade) {
+        this.idBrigade = idBrigade;
+        return this;
     }
 
     public List<Worker> getWorkerList() {
         return workerList;
     }
 
-    public void setWorkerList(List<Worker> workerList) {
+    public Brigade setWorkerList(List<Worker> workerList) {
         this.workerList = workerList;
+        return this;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public Brigade setArea(Area area) {
+        this.area = area;
+        return this;
     }
 
     public LocalDateTime getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(LocalDateTime dateCreated) {
+    public Brigade setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
+        return this;
     }
 
     public LocalDateTime getDateModified() {
         return dateModified;
     }
 
-    public void setDateModified(LocalDateTime dateModified) {
+    public Brigade setDateModified(LocalDateTime dateModified) {
         this.dateModified = dateModified;
+        return this;
     }
 
     @Override
@@ -60,11 +93,12 @@ public class Brigade {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Brigade brigade = (Brigade) o;
-        return getId_brigade() == brigade.getId_brigade();
+        return getIdBrigade() == brigade.getIdBrigade();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_brigade());
+        return Objects.hash(getIdBrigade());
     }
+
 }

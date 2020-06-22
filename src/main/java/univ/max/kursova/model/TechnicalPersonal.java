@@ -1,78 +1,121 @@
 package univ.max.kursova.model;
 
-import univ.max.kursova.model.enums.PersonalType;
+import univ.max.kursova.dto.TechnicalPersonalDTO;
+import univ.max.kursova.model.enums.TechPersonalType;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
+@Table(name = "technical_personals")
 public class TechnicalPersonal {
-    private long id_tech_personal;
-    private String personalName;
-    private PersonalType personalType;
 
+    private static final long serialVersionUID = -8745670987094748L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private long idTechPersonal;
+
+    @ManyToOne()
+    @JoinColumn(name = "team_of_area_boss_id", referencedColumnName = "id")
+    private TeamOfAreaBoss teamOfAreaBoss;
+
+    @NotEmpty
+    @Column(name = "name")
+    private String personalName;
+
+    @NotNull
+    @Enumerated (EnumType.STRING)
+    @Column(name = "type")
+    private TechPersonalType personalType;
+
+    @Column(name = "definition")
+    private String definition;
+
+    @Column(name = "created_at")
     private LocalDateTime dateCreated;
+
+    @Column(name = "modified_at")
     private LocalDateTime dateModified;
-    private String description;
 
     public TechnicalPersonal() {
     }
 
-    public TechnicalPersonal(long id_tech_personal, String personalName, PersonalType personalType,
-                             LocalDateTime dateCreated, LocalDateTime dateModified, String description) {
-        this.id_tech_personal = id_tech_personal;
+    public TechnicalPersonal(Long id_tech_personal, String personalName, TechPersonalType personalType,
+                             LocalDateTime dateCreated, LocalDateTime dateModified, String definition) {
+        this.idTechPersonal = id_tech_personal;
         this.personalName = personalName;
         this.personalType = personalType;
         this.dateCreated = dateCreated;
         this.dateModified = dateModified;
-        this.description = description;
+        this.definition = definition;
     }
 
-    public long getId_tech_personal() {
-        return id_tech_personal;
+    public Long getIdTechPersonal() {
+        return idTechPersonal;
     }
 
-    public void setId_tech_personal(long id_tech_personal) {
-        this.id_tech_personal = id_tech_personal;
+    public TechnicalPersonal setIdTechPersonal(Long idTechPersonal) {
+        this.idTechPersonal = idTechPersonal;
+        return this;
+    }
+
+    public TeamOfAreaBoss getTeamOfAreaBoss() {
+        return teamOfAreaBoss;
+    }
+
+    public TechnicalPersonal setTeamOfAreaBoss(TeamOfAreaBoss teamOfAreaBoss) {
+        this.teamOfAreaBoss = teamOfAreaBoss;
+        return this;
     }
 
     public String getPersonalName() {
         return personalName;
     }
 
-    public void setPersonalName(String personalName) {
+    public TechnicalPersonal setPersonalName(String personalName) {
         this.personalName = personalName;
+        return this;
     }
 
-    public PersonalType getPersonalType() {
+    public TechPersonalType getPersonalType() {
         return personalType;
     }
 
-    public void setPersonalType(PersonalType personalType) {
+    public TechnicalPersonal setPersonalType(TechPersonalType personalType) {
         this.personalType = personalType;
+        return this;
     }
 
     public LocalDateTime getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(LocalDateTime dateCreated) {
+    public TechnicalPersonal setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
+        return this;
     }
 
     public LocalDateTime getDateModified() {
         return dateModified;
     }
 
-    public void setDateModified(LocalDateTime dateModified) {
+    public TechnicalPersonal setDateModified(LocalDateTime dateModified) {
         this.dateModified = dateModified;
+        return this;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDefinition() {
+        return definition;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public TechnicalPersonal setDefinition(String definition) {
+        this.definition = definition;
+        return this;
     }
 
     @Override
@@ -80,11 +123,20 @@ public class TechnicalPersonal {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TechnicalPersonal that = (TechnicalPersonal) o;
-        return getId_tech_personal() == that.getId_tech_personal();
+        return getIdTechPersonal() == that.getIdTechPersonal();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_tech_personal());
+        return Objects.hash(getIdTechPersonal());
+    }
+
+    public static TechnicalPersonal makeEntity(TechnicalPersonalDTO technicalPersonalDTO) {
+        return new TechnicalPersonal()
+                .setPersonalName(technicalPersonalDTO.getPersonalName())
+                .setPersonalType(technicalPersonalDTO.getPersonalType())
+                .setDefinition(technicalPersonalDTO.getDescription())
+                .setDateCreated(technicalPersonalDTO.getDateCreated())
+                .setDateModified(technicalPersonalDTO.getDateModified());
     }
 }

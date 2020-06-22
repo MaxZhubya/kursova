@@ -1,58 +1,93 @@
 package univ.max.kursova.model;
 
+import univ.max.kursova.dto.TeamOfAreaBossDTO;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "teams_of_area_bosses")
 public class TeamOfAreaBoss {
-    private long id_team;
-    private TechnicalPersonal boss;
-    private List<TechnicalPersonal> technicalPersonalList;
 
+    private static final long serialVersionUID = -3463465374754748L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private long idTeam;
+
+    @NotNull
+    @OneToMany(mappedBy = "teamOfAreaBoss")
+    private List<TechnicalPersonal> technicalPersonalList = new ArrayList<>();
+
+    @OneToOne
+    @JoinColumn(name = "area_id", referencedColumnName = "id")
+    private Area area;
+
+    @Column(name = "created_at")
     private LocalDateTime dateCreated;
+
+    @Column(name = "modified_at")
     private LocalDateTime dateModified;
 
     public TeamOfAreaBoss() {
     }
 
-    public long getId_team() {
-        return id_team;
+    public TeamOfAreaBoss(Long idTeam, List<TechnicalPersonal> technicalPersonalList,
+                          LocalDateTime dateCreated, LocalDateTime dateModified) {
+        this.idTeam = idTeam;
+        this.technicalPersonalList = technicalPersonalList;
+        this.dateCreated = dateCreated;
+        this.dateModified = dateModified;
     }
 
-    public void setId_team(long id_team) {
-        this.id_team = id_team;
+    public Long getIdTeam() {
+        return idTeam;
     }
 
-    public TechnicalPersonal getBoss() {
-        return boss;
-    }
-
-    public void setBoss(TechnicalPersonal boss) {
-        this.boss = boss;
+    public TeamOfAreaBoss setIdTeam(Long idTeam) {
+        this.idTeam = idTeam;
+        return this;
     }
 
     public List<TechnicalPersonal> getTechnicalPersonalList() {
         return technicalPersonalList;
     }
 
-    public void setTechnicalPersonalList(List<TechnicalPersonal> technicalPersonalList) {
+    public TeamOfAreaBoss setTechnicalPersonalList(List<TechnicalPersonal> technicalPersonalList) {
         this.technicalPersonalList = technicalPersonalList;
+        return this;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public TeamOfAreaBoss setArea(Area area) {
+        this.area = area;
+        return this;
     }
 
     public LocalDateTime getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(LocalDateTime dateCreated) {
+    public TeamOfAreaBoss setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
+        return this;
     }
 
     public LocalDateTime getDateModified() {
         return dateModified;
     }
 
-    public void setDateModified(LocalDateTime dateModified) {
+    public TeamOfAreaBoss setDateModified(LocalDateTime dateModified) {
         this.dateModified = dateModified;
+        return this;
     }
 
     @Override
@@ -60,11 +95,17 @@ public class TeamOfAreaBoss {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TeamOfAreaBoss that = (TeamOfAreaBoss) o;
-        return getId_team() == that.getId_team();
+        return getIdTeam() == that.getIdTeam();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_team());
+        return Objects.hash(getIdTeam());
+    }
+
+    public static TeamOfAreaBoss makeEntity(TeamOfAreaBossDTO teamOfAreaBossDTO) {
+        return new TeamOfAreaBoss()
+                .setDateCreated(teamOfAreaBossDTO.getDateCreated())
+                .setDateModified(teamOfAreaBossDTO.getDateModified());
     }
 }

@@ -1,78 +1,124 @@
 package univ.max.kursova.model;
 
+import univ.max.kursova.dto.ProductDTO;
 import univ.max.kursova.model.enums.ProductCategory;
 import univ.max.kursova.model.enums.ProductType;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
+@Table(name = "products")
 public class Product {
-    private long id_product;
-    private ProductCategory category;
-    private ProductType type;
-    private Area currentArea;
-    private Laboratory currentLaboratory;
 
+    private static final long serialVersionUID = -8656709875787631L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Long idProduct;
+
+    @ManyToOne()
+    @JoinColumn(name = "area_id", referencedColumnName = "id")
+    private Area area;
+
+    @ManyToOne()
+    @JoinColumn(name = "laboratory_id", referencedColumnName = "id")
+    private Laboratory laboratory;
+
+    @NotNull
+    @Enumerated (EnumType.STRING)
+    @Column(name = "category")
+    private ProductCategory category;
+
+    @NotNull
+    @Enumerated (EnumType.STRING)
+    @Column(name = "type")
+    private ProductType type;
+
+    @Column(name = "created_at")
     private LocalDateTime dateCreated;
+
+    @Column(name = "modified_at")
     private LocalDateTime dateModified;
 
     public Product() {
     }
 
-    public long getId_product() {
-        return id_product;
+    public Product(Long idProduct, ProductCategory category, ProductType type, Area area,
+                   Laboratory laboratory, LocalDateTime dateCreated, LocalDateTime dateModified) {
+        this.idProduct = idProduct;
+        this.category = category;
+        this.type = type;
+        this.area = area;
+        this.laboratory = laboratory;
+        this.dateCreated = dateCreated;
+        this.dateModified = dateModified;
     }
 
-    public void setId_product(long id_product) {
-        this.id_product = id_product;
+    public Long getIdProduct() {
+        return idProduct;
+    }
+
+    public Product setIdProduct(Long idProduct) {
+        this.idProduct = idProduct;
+        return this;
     }
 
     public ProductCategory getCategory() {
         return category;
     }
 
-    public void setCategory(ProductCategory category) {
+    public Product setCategory(ProductCategory category) {
         this.category = category;
+        return this;
     }
 
     public ProductType getType() {
         return type;
     }
 
-    public void setType(ProductType type) {
+    public Product setType(ProductType type) {
         this.type = type;
+        return this;
     }
 
-    public Area getCurrentArea() {
-        return currentArea;
+    public Area getArea() {
+        return area;
     }
 
-    public void setCurrentArea(Area currentArea) {
-        this.currentArea = currentArea;
+    public Product setArea(Area area) {
+        this.area = area;
+        return this;
     }
 
-    public Laboratory getCurrentLaboratory() {
-        return currentLaboratory;
+    public Laboratory getLaboratory() {
+        return laboratory;
     }
 
-    public void setCurrentLaboratory(Laboratory currentLaboratory) {
-        this.currentLaboratory = currentLaboratory;
+    public Product setLaboratory(Laboratory laboratory) {
+        this.laboratory = laboratory;
+        return this;
     }
 
     public LocalDateTime getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(LocalDateTime dateCreated) {
+    public Product setDateCreated(LocalDateTime dateCreated) {
         this.dateCreated = dateCreated;
+        return this;
     }
 
     public LocalDateTime getDateModified() {
         return dateModified;
     }
 
-    public void setDateModified(LocalDateTime dateModified) {
+    public Product setDateModified(LocalDateTime dateModified) {
         this.dateModified = dateModified;
+        return this;
     }
 
     @Override
@@ -80,11 +126,19 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return getId_product() == product.getId_product();
+        return getIdProduct() == product.getIdProduct();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId_product());
+        return Objects.hash(getIdProduct());
+    }
+
+    public static Product makeEntity(ProductDTO productDTO) {
+        return new Product()
+                .setCategory(productDTO.getCategory())
+                .setType(productDTO.getType())
+                .setDateCreated(productDTO.getDateCreated())
+                .setDateModified(productDTO.getDateModified());
     }
 }
